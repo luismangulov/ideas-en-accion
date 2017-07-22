@@ -1,0 +1,5 @@
+RewriteEngine On
+#RewriteRule ^foto_personal/(.*)$ index.php?term=$1
+#RewriteRule !^foto_personal/.*$ index.php?file=$1
+RewriteRule ^(.*)$ index.php?path=$1 [NC,L,QSA]
+#RewriteRule !^foto_personal(/|$) index.php?file=$1 [L]
