@@ -41,7 +41,6 @@ $proyecto = $model->id;
         'postCount' => $model->post_count //评论数
     ]);
     ?>
-        
     <?php if (\Yii::$app->user->can('monitor')) { ?>
         <!-- Post Form Begin -->
         <?=
