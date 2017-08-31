@@ -14,7 +14,7 @@ if($votacionpublica || $etapa->etapa!=3)
 {
     $disabled=true;
 }
-exit;
+
 ?>
 <script src="<?= \Yii::$app->request->BaseUrl ?>/js/libs/1.11.1/jquery.min.js"></script>
 <div class="box_head title_content_box">

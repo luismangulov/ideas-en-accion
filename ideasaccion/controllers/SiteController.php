@@ -113,11 +113,19 @@ class SiteController extends Controller {
 
             $usuario = Usuario::findOne(\Yii::$app->user->id);
 
+            if (\Yii::$app->user->can('administrador')) {
+                $_SESSION["rol"] = "ADMINISTRADOR";
+                return $this->redirect(['/panel/ideas-accion']);
+            }else if (\Yii::$app->user->can('monitor')) {
+                 $_SESSION["rol"] = "MONITOR";
+                return $this->redirect(['/panel/foros']);
+            }
+            /*
             if ($usuario->name_temporal == "Adminitrador") {
                 return $this->redirect(['/panel/ideas-accion']);
             } else if ($usuario->name_temporal == "Monitor") {
                 return $this->redirect(['/panel/foros']);
-            }
+            }*/
 
 
 

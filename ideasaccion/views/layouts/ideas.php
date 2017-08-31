@@ -219,7 +219,7 @@ if (!\Yii::$app->user->isGuest) {
                                             </div>
                                         </div>', ['proyecto/index'], []); ?>
                                                 </li>
-                                            <?php } elseif ($integrante && $equipo && $proyecto && $equipo->etapa == 0 && ($integrante->rol == 1 || $integrante->rol == 2)) { ?>
+                                            <?php } elseif (($integrante && $equipo && $proyecto && $equipo->etapa == 0 && ($integrante->rol == 1 || $integrante->rol == 2)) || $etapa2) { ?>
                                                 <li>
                                                     <?= Html::a('<div class="table_div">
                                             <div class="row_div">
@@ -233,6 +233,7 @@ if (!\Yii::$app->user->isGuest) {
                                         </div>', ['proyecto/actualizar'], []); ?>
                                                 </li>
                                             <?php } ?>
+                                                
                                             <!--Fin mi proyecto-->
                                             <!--Foro-->
                                             <?php if ($integrante && $equipo && $estudiante->grado != 6) { ?>

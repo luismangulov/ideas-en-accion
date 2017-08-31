@@ -2,8 +2,8 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=192.168.210.154;dbname=lportal6',
-    'username' => 'wayma',
-    'password' => 'b672ecdb',
+    'dsn' => 'mysql:host=localhost;dbname=lportal6',
+    'username' => 'root',
+    'password' => '',
     'charset' => 'utf8',
 ];

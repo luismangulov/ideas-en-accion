@@ -233,9 +233,13 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface {
 
                 $connectionx = Yii::$app->dbperueduca;
                 $commandx = $connectionx->createCommand("SELECT * FROM bdpadron.padron WHERE ges_dep IN ('A1','A2','A3','A4') AND (niv_mod='F0' or niv_mod='D0' or niv_mod='D1' or niv_mod='D2') and estado='1' AND cod_mod='" . $result2->return->codModularIE . "'");
+                
+                
                 //$connection->createCommand('SELECT * FROM user')->queryAll();
                 $rowxie = $commandx->queryAll();
 
+                    
+                
                 if (empty($rowxie)) {
                     return false;
                 }
@@ -326,6 +330,7 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface {
                 if ($_SESSION["rol"] == "") {
                     $_SESSION["rol"] = "monitor";
                 }
+                
 
                 //preguntar si el email es el mismo.. sino actualizar
                 $model = static::find()->where('userId=:userId', [':userId' => $userId])->one();

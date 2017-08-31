@@ -81,7 +81,7 @@ $acti3 = 0;
 
 <?php $form = ActiveForm::begin(['options' => ['id' => 'form_actualizar', 'enctype' => 'multipart/form-data']]); ?>
 <div class="box_head title_content_box">
-    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_project_big.png" alt="">MI PROYECTO <?= ($equipo->etapa == 1 || $equipo->etapa == 2) ? '' : '' ?>
+    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_project_big.png" alt="">MI PROYECTO <?= ($equipo->etapa==1 || $equipo->etapa==2)?'(Segunda entrega)':'' ?>
 </div>
 <input type="hidden" name="Proyecto[tab_active_pro]" id="tab_active_pro"/>
 <div class="box_content contenido_seccion_crear_equipo">
@@ -94,10 +94,10 @@ $acti3 = 0;
                 <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Recursos</a></li>
                 <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Cronograma</a></li>
                 <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false"  style="color: #333 !important">Mi video</a></li>
-                <?php /* if ($equipo->etapa == 1 && $estudiante->grado != 6) { ?>
+                <?php if ($equipo->etapa == 1 && $estudiante->grado != 6) { ?>
                   <!--<li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>-->
                   <li class=""><a href="#tab_15" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
-                  <?php } */ ?>
+                  <?php }  ?>
                 <?php if (($etapa->etapa == 2 || $etapa->etapa == 3) && $estudiante->grado != 6) { ?>
                     <!--<li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Mi evaluación</a></li>-->
                     <!--<li class=""><a href="#tab_8" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Foro</a></li>-->
@@ -646,7 +646,7 @@ $acti3 = 0;
                     <div class="col-xs-12 col-sm-4 col-md-4" >
                         <!--<button type="button" id="btnproyectoreflexion" class="btn btn-default">Guardar</button>-->
                     </div>
-                <?php } /* else if ($equipo->etapa == 1 && $integrante->rol == 1) { ?>
+                <?php }  else if ($equipo->etapa == 1 && $integrante->rol == 1) { ?>
                   <div class="col-xs-12 col-sm-4 col-md-4" >
                   <button type="submit" id="btnproyectoevaluacion" class="btn btn-default">Guardar</button>
                   </div>
@@ -656,7 +656,7 @@ $acti3 = 0;
                   </div>
 
 
-                  <?php } */ else if ($equipo->etapa == 1 && $integrante->rol == 2) { ?>
+                  <?php }  else if ($equipo->etapa == 1 && $integrante->rol == 2) { ?>
                     <div class="col-xs-12 col-sm-4 col-md-4" >
                         <!--<button type="button" id="btnproyectoevaluacion" class="btn btn-default">Guardar</button>-->
                     </div>

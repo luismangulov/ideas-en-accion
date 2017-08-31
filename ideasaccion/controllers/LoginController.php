@@ -9,11 +9,9 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
-class LoginController extends Controller
-{
-    
-    public function behaviors()
-    {
+class LoginController extends Controller {
+
+    public function behaviors() {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -34,8 +32,7 @@ class LoginController extends Controller
         ];
     }
 
-    public function actions()
-    {
+    public function actions() {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -47,50 +44,48 @@ class LoginController extends Controller
         ];
     }
 
-    public function actionIndex()
-    {
-        
-        $this->layout='blank';
+    public function actionIndex() {
+
+        $this->layout = 'blank';
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-        
-        $model=new LoginForm();
-       
-        if($model->load(Yii::$app->request->post()) && $model->login())
-        {
+
+        $model = new LoginForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            
             return $this->redirect(['panel/index']);
         }
         //return $this->redirect('http://10.1.1.64/jec/web');
         return $this->redirect(['site/index']);
     }
 
-    public function actionLogin()
-    {
-    	
+    public function actionLogin() {
+
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
+        
+        
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            
             return $this->redirect(['panel/index']);
         } else {
             return $this->render('login', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
 
-    public function actionLogout()
-    {
+    public function actionLogout() {
         Yii::$app->user->logout();
 
         return $this->goHome();
     }
 
-    public function actionContact()
-    {
+    public function actionContact() {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
@@ -98,13 +93,13 @@ class LoginController extends Controller
             return $this->refresh();
         } else {
             return $this->render('contact', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
 
-    public function actionAbout()
-    {
+    public function actionAbout() {
         return $this->render('about');
     }
+
 }

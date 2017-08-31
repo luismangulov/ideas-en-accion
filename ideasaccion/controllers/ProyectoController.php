@@ -154,8 +154,8 @@ class ProyectoController extends Controller {
     public function actionActualizar() {
 
         $this->layout = 'estandar';
-
-
+        $etapa1 = Etapa::find()->where('etapa=1 and estado=1')->one();
+        $etapa2 = Etapa::find()->where('etapa=2 and estado=1')->one();
         $usuario = Usuario::findOne(\Yii::$app->user->id);
 
         if ($usuario->name_temporal == "Monitor" || $usuario->name_temporal == "Adminitrador" || $usuario->status_registro == "1") {
@@ -171,12 +171,17 @@ class ProyectoController extends Controller {
         if ($actualizar) {
             $equipo = Equipo::findOne($integrante->equipo_id);
 
-            if ($equipo->etapa == 1 || $equipo->etapa == 2 || $equipo->etapa == 3) {
+            if ($equipo->etapa == 1 && $etapa1) {
+               
                 //$this->layout = 'blank';
                 return $this->redirect(array('entrega/primera'));
 
                 //return Yii::$app->redirect(array('/entrega/primera'));
                 //$this->redirect('entrega/primera');
+            }else if ($equipo->etapa == 1 && $etapa2) {
+                   
+                return $this->render('actualizar');
+
             }
 
             return $this->render('actualizar');
