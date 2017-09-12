@@ -1519,6 +1519,13 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                  return false;
                                  return true;
                                  }*/
+
+    $(document).ready(function() {
+// Handler for .ready() called.
+
+        $("#lnk_proyecto").attr("class", "active");
+    });
+</script>
 </script>
 
 <script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootstrap-notify.js"></script>

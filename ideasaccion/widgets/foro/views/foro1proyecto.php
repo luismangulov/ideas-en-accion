@@ -222,6 +222,7 @@ $posts = $model->getForo1Entrega($model->id,$seccion);
                     data: {id:"<?= $model->id ?>",seccion:$("#proyecto-seccion").val(),contenido:$("#foro_comentario-contenido").val()},
                     success: function(data){
                             //$("#foro_comentario-contenido").val("");
+                            
                             var texto="";
                             texto='<div class="row post-item">'+
                                 '<div class="col-sm-12 col-md-12">'+

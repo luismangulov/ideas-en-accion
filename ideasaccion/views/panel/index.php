@@ -905,8 +905,6 @@ $validarparafinalizar = Yii::$app->getUrlManager()->createUrl('equipo/validarpar
 
 <script type="text/javascript">
     $(document).ready(function() {
-// Handler for .ready() called.
-
         $("#lnk_miequipo").attr("class", "active");
     });
 

@@ -12,7 +12,6 @@ use app\models\Institucion;
 use app\models\Ubigeo;
 use app\models\Integrante;
 use app\models\Equipo;
-
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -149,6 +148,19 @@ class ForoComentarioController extends Controller {
 
     public function actionComentario() {
 
+        if (empty($_SERVER['HTTP_REFERER'])) {
+            echo "";
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+
+            //print_r($parts);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+                echo "";
+                exit;
+            }
+        }
+
         if (isset($_POST["id"]) && isset($_POST["seccion"])) {
 
             $data = "";
@@ -174,7 +186,7 @@ class ForoComentarioController extends Controller {
                     $data = $data . '</div>';
                     $data = $data . '<div class="pull-right">';
                     $data = $data . '<div class="col-sm-12 col-md-12">';
-                    $data = $data . ' ' . $post['nombres'] . ' ' . Yii::$app->formatter->asRelativeTime($post['creado_at']);
+                    $data = $data . ' ' . $post['nombres'] . ' ' . zdateRelative($post['creado_at']);
                     $data = $data . '</div>';
                     $data = $data . '</div>';
                     $data = $data . '</div>';
@@ -230,7 +242,7 @@ class ForoComentarioController extends Controller {
                     $data = $data . '</div>';
 
                     $data = $data . '<div class="pull-right">';
-                    $data = $data . 'Comentario de <span class="popover1" data-type="html" style="cursor: pointer"  data-title="Información" data-content="Región: ' . $post['department'] . ' <br> II.EE: ' . $post['denominacion'] . '" data-placement="top" >' . $post['nombres'] . ' ' . $post['apellido_paterno'] . '</span> ' . Yii::$app->formatter->asRelativeTime($post['creado_at']);
+                    $data = $data . 'Comentario de <span class="popover1" data-type="html" style="cursor: pointer"  data-title="Información" data-content="Región: ' . $post['department'] . ' <br> II.EE: ' . $post['denominacion'] . '" data-placement="top" >' . $post['nombres'] . ' ' . $post['apellido_paterno'] . '</span> ' . zdateRelative($post['creado_at']);
                     $data = $data . '</div>';
                     $data = $data . '</div>';
                     $data = $data . '</div>';
@@ -250,7 +262,9 @@ class ForoComentarioController extends Controller {
                 $data = $data . '</div>';
                 $data = $data . '<div class="clearfix"></div>';
                 $hijos = ForoComentario::find()
-                                ->where('foro_comentario_hijo_id=:foro_comentario_hijo_id', [':foro_comentario_hijo_id' => $post['id']])->all();
+                                ->where('foro_comentario_hijo_id=:foro_comentario_hijo_id order by id desc', [':foro_comentario_hijo_id' => $post['id']])->all();
+
+
                 foreach ($hijos as $hijo) {
                     $data = $data . '<div class="row post-item">';
 
@@ -269,7 +283,7 @@ class ForoComentarioController extends Controller {
                         $data = $data . '<div class="col-sm-12 col-md-12">';
                         $data = $data . '<div class="pull-right">';
                         $data = $data . '<div class="col-sm-12 col-md-12">';
-                        $data = $data . ' Comentario de Monitor  ' . Yii::$app->formatter->asRelativeTime($hijo->creado_at);
+                        $data = $data . ' Comentario de Monitor  ' . zdateRelative($hijo->creado_at);
                         $data = $data . '</div>';
                         $data = $data . '</div>';
                         $data = $data . '</div>';
@@ -329,7 +343,7 @@ class ForoComentarioController extends Controller {
                         $data = $data . '</div>';
 
                         $data = $data . '<div class="pull-right">';
-                        $data = $data . 'Comentario de <span class="popover1"  data-type="html" style="cursor: pointer"  data-title="Información" data-content="Región: ' . $ubigeo->department . ' <br> II.EE: ' . $institucion->denominacion . '" data-placement="top" >' . $hijo->usuario->estudiante->nombres . ' ' . $hijo->usuario->estudiante->apellido_paterno . '</span> ' . Yii::$app->formatter->asRelativeTime($hijo->creado_at);
+                        $data = $data . 'Comentario de <span class="popover1"  data-type="html" style="cursor: pointer"  data-title="Información" data-content="Región: ' . $ubigeo->department . ' <br> II.EE: ' . $institucion->denominacion . '" data-placement="top" >' . $hijo->usuario->estudiante->nombres . ' ' . $hijo->usuario->estudiante->apellido_paterno . '</span> ' . zdateRelative($hijo->creado_at);
                         $data = $data . '</div>';
                         $data = $data . '</div>';
                         $data = $data . '</div>';
@@ -378,7 +392,7 @@ class ForoComentarioController extends Controller {
                     $data = $data . '</div>';
                     $data = $data . '<div class="pull-right">';
                     $data = $data . '<div class="col-sm-12 col-md-12">';
-                    $data = $data . ' ' . $post['nombres'] . ' ' . Yii::$app->formatter->asRelativeTime($post['creado_at']);
+                    $data = $data . ' ' . $post['nombres'] . ' ' . zdateRelative($post['creado_at']);
                     $data = $data . '</div>';
                     $data = $data . '</div>';
                     $data = $data . '</div>';
@@ -485,7 +499,7 @@ class ForoComentarioController extends Controller {
                     $data = $data . '</div>';
 
                     $data = $data . '<div class="pull-right">';
-                    $data = $data . 'Comentario de <span class="popover1"  data-type="html" style="cursor: pointer"  data-title="Información" data-content="Región: ' . $ubigeo->department . ' <br> II.EE: ' . $institucion->denominacion . '" data-placement="top" >' . $post['nombres'] . ' ' . $post['apellido_paterno'] . '</span> ' . Yii::$app->formatter->asRelativeTime($post['creado_at']);
+                    $data = $data . 'Comentario de <span class="popover1"  data-type="html" style="cursor: pointer"  data-title="Información" data-content="Región: ' . $ubigeo->department . ' <br> II.EE: ' . $institucion->denominacion . '" data-placement="top" >' . $post['nombres'] . ' ' . $post['apellido_paterno'] . '</span> ' . zdateRelative($post['creado_at']);
 
                     //$data=$data.'Comentario de '.$post['nombres'].' '.$post['apellido_paterno'] .' '. Yii::$app->formatter->asRelativeTime($post['creado_at']);
                     $data = $data . '</div>';
@@ -526,7 +540,7 @@ class ForoComentarioController extends Controller {
                         $data = $data . '<div class="col-sm-12 col-md-12">';
                         $data = $data . '<div class="pull-right">';
                         $data = $data . '<div class="col-sm-12 col-md-12">';
-                        $data = $data . 'Comentario Monitor ' . Yii::$app->formatter->asRelativeTime($hijo->creado_at);
+                        $data = $data . 'Comentario Monitor ' . zdateRelative($hijo->creado_at);
                         //$data=$data.' '.$hijo->usuario->estudiante->nombres.' '.Yii::$app->formatter->asRelativeTime($hijo->creado_at);
                         $data = $data . '</div>';
                         $data = $data . '</div>';
@@ -634,7 +648,7 @@ class ForoComentarioController extends Controller {
                         $data = $data . '</div>';
 
                         $data = $data . '<div class="pull-right">';
-                        $data = $data . 'Comentario de <span class="popover1"  data-type="html" style="cursor: pointer"  data-title="Información" data-content="Región: ' . $ubigeo->department . ' <br> II.EE: ' . $institucion->denominacion . '" data-placement="top" >' . $hijo->usuario->estudiante->nombres . ' ' . $hijo->usuario->estudiante->apellido_paterno . '</span> ' . Yii::$app->formatter->asRelativeTime($hijo->creado_at);
+                        $data = $data . 'Comentario de <span class="popover1"  data-type="html" style="cursor: pointer"  data-title="Información" data-content="Región: ' . $ubigeo->department . ' <br> II.EE: ' . $institucion->denominacion . '" data-placement="top" >' . $hijo->usuario->estudiante->nombres . ' ' . $hijo->usuario->estudiante->apellido_paterno . '</span> ' . zdateRelative($hijo->creado_at);
                         //$data=$data.'Comentario de '.$hijo->usuario->estudiante->nombres.' '.$hijo->usuario->estudiante->apellido_paterno .' '. Yii::$app->formatter->asRelativeTime($hijo->creado_at);
                         $data = $data . '</div>';
                         $data = $data . '</div>';
@@ -658,6 +672,19 @@ class ForoComentarioController extends Controller {
     }
 
     public function actionInsertarComentario() {
+
+        if (empty($_SERVER['HTTP_REFERER'])) {
+            echo "";
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+
+            //print_r($parts);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+                echo "";
+                exit;
+            }
+        }
         if (isset($_POST["id"]) && isset($_POST["seccion"]) && isset($_POST["contenido"])) {
             $id = $_POST["id"];
             $seccion = $_POST["seccion"];
@@ -697,23 +724,13 @@ class ForoComentarioController extends Controller {
 
     public function actionInsertarComentarioHijo() {
 
-        if (empty($_SERVER['HTTP_REFERER'])) {
-            echo "";
-            exit;
-        } else {
-            $parts = parse_url($_SERVER['HTTP_REFERER']);
 
-            //print_r($parts);
-            if ($parts["host"] != Yii::$app->params["host"]) {
-                echo "";
-                exit;
-            }
-        }
         $usuario = Usuario::findOne(\Yii::$app->user->id);
         $estudiante = Estudiante::find()->where('id=:id', [':id' => $usuario->estudiante_id])->one();
         //$integrante = Integrante::find()->where('estudiante_id=:estudiante_id and rol=1', [':estudiante_id' => $estudiante->id])->one();
         //var_dump($_REQUEST);
         if (isset($_POST["id"]) && isset($_POST["contenido"]) && isset($_POST["padre"])) {
+            //var_dump($_REQUEST);
             $id = $_POST["id"];
             $contenido = $_POST["contenido"];
             $padre = $_POST["padre"];
@@ -721,27 +738,38 @@ class ForoComentarioController extends Controller {
             $forocomentario = ForoComentario::find()->where('id=:estudiante_id', [':estudiante_id' => $padre])->one();
 
             if ($forocomentario->foro_id != $foro->id) {
+
                 exit;
             }
-            if($usuario->status_registro == "1"){
+            if ($usuario->status_registro == "1") {
+
                 exit;
             }
-            if ($usuario->name_temporal == "Monitor" || $usuario->name_temporal == "Adminitrador" ) {
+            if ($usuario->name_temporal == "Monitor" || $usuario->name_temporal == "Adminitrador") {
                 
             } else {
 
                 if ($foro->id > 2) {
+
                     $integrante = Integrante::find()->where('estudiante_id=:estudiante_id', [':estudiante_id' => $usuario->estudiante_id])->one();
+
                     $equipo = Equipo::findOne($integrante->equipo_id);
 
                     $forox = Foro::find()->where('asunto_id=:id', [':id' => $equipo->asunto_id])->one();
-                    if ($forox->asunto_id != $foro->asunto_id) {
-                        exit;
+
+                    if (!empty($foro->asunto_id)) {
+
+
+                        if ($forox->asunto_id != $foro->asunto_id) {
+                            exit;
+                        }
                     }
                 }
             }
 
 
+
+            $seccion = $_POST["seccion"];
 
 
 
@@ -749,6 +777,7 @@ class ForoComentarioController extends Controller {
             $newComentario = new ForoComentario();
             $newComentario->foro_id = $foro->id;
             $newComentario->foro_comentario_hijo_id = $padre;
+            $newComentario->seccion = $seccion;
             $newComentario->contenido = $contenido;
             $newComentario->save();
 
@@ -789,4 +818,3 @@ class ForoComentarioController extends Controller {
     }
 
 }
-

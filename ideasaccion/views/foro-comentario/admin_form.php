@@ -27,6 +27,7 @@ use yii\widgets\ActiveForm;
 </div>
 <script>
     $( '#btncomentar' ).click(function( event ) {
+
         if (jQuery.trim($("#foro_comentario-contenido").val())=='') {
             $.notify({
                     // options

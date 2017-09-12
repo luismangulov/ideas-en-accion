@@ -106,3 +106,12 @@ use yii\widgets\Pjax;
         $( "#w1" ).submit();
     }
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#lnk_aporte").attr("class", "active");
+    });
+
+
+
+</script>

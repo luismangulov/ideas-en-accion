@@ -275,6 +275,7 @@ $insertarcomentarioshijos = Yii::$app->getUrlManager()->createUrl('foro-comentar
         });
 
         $('#btncomentarhijo').click(function(event) {
+     
             var error = "";
             var texto = $("#foro_comentario-contenido_hijo").val();
 

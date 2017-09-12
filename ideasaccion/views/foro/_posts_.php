@@ -301,6 +301,7 @@ $rating = Yii::$app->getUrlManager()->createUrl('panel/rating');
     }
 
     $('#btncomentarhijo').click(function (event) {
+      
         var error = "";
         $.ajax({
             url: '<?= $insertarcomentarioshijos ?>',
