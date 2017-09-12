@@ -27,7 +27,8 @@ if (!\Yii::$app->user->isGuest) {
     $votacionpublica = VotacionPublica::find()->all();
 //$invitacion=Invitacion::find()->where('equipo_id=:equipo_id and estado=1',[':equipo_id'=>$equipo->id])->one();
     $integrante = Integrante::find()->where('estudiante_id=:estudiante_id', [':estudiante_id' => $usuario->estudiante_id])->one();
-    $foro_sinleer_string = "";
+        $foro_sinleer_string="";
+    $foro_sinleer=0;
 
     if ($integrante) {
         $equipo = Equipo::find()->where('id=:id and estado=1', [':id' => $integrante->equipo_id])->one();
@@ -315,7 +316,7 @@ if (!\Yii::$app->user->isGuest) {
                                                     </li>
                                                 <?php } ?>
 
-                                                <?php if ($integrante && $equipo && $proyecto && ($etapa2 || $etapa3) && ($equipo->etapa == 1 || $equipo->etapa == 2 ) && $estudiante->grado != 6) { ?>
+                                                <?php if ($integrante && $equipo && $proyecto && ($etapa2 || $etapa3)  /* && ($equipo->etapa == 1 || $equipo->etapa == 2 ) */ && $estudiante->grado != 6) { ?>
                                                     <li><?= Html::a('<div class="table_div">
                                                   <div class="row_div">
                                                   <div class="cell_div div_ia_icon">

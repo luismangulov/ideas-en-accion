@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Foro;
+use app\models\Proyecto;
 use app\models\ForoComentario;
 use app\models\ForoComentarioSearch;
 use app\models\Usuario;
@@ -168,8 +169,27 @@ class ForoComentarioController extends Controller {
             $seccion = $_POST["seccion"];
             //var_dump($id);die;
             $model = Foro::findOne($id);
+
             $posts = $model->getForo1Entrega($id, $seccion);
             $data = $data . '<section class="posts">';
+            if (!empty($model->proyecto_id)) {
+                $usuarioX = Usuario::findOne(\Yii::$app->user->id);
+                $estudianteX = Estudiante::find()->where('id=:id', [':id' => $usuarioX->estudiante_id])->one();
+                $integranteX = Integrante::find()->where('estudiante_id=:estudiante_id ', [':estudiante_id' => $estudianteX->id])->one();
+
+                $proyectoX = Proyecto::findOne($model->proyecto_id);
+                if ($integranteX->equipo_id == $proyectoX->equipo_id) {
+                    $connectionx = Yii::$app->db;
+
+                    $commandx = $connectionx->createCommand("update foro_comentario set leido='1' where   foro_id='" . $model->id . "' and seccion='" . $seccion . "'");
+
+                    $rowx = $commandx->execute();
+                }
+            }
+
+
+
+
             foreach ($posts['posts'] as $post):
 
                 $data = $data . '<div class="row post-item">';
