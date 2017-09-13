@@ -85,7 +85,7 @@ class Proyecto extends \yii\db\ActiveRecord {
     public $planes_presupuestales_recursos_descripciones;
     public $planes_presupuestales_unidades;
     public $planes_presupuestales_dirigidos;
-
+public $descripcion_corta;
 
     /* cronograma */
     public $cronogramas_objetivos;
@@ -443,23 +443,21 @@ class Proyecto extends \yii\db\ActiveRecord {
              */
             $countAsuntos = Proyecto::find()
                             ->select('b.id,b.descripcion_corta')
-                            ->innerJoin('proyecto_copia a', 'c.id=proyecto.id')
+                            ->innerJoin('proyecto_copia a', 'a.id=proyecto.id')
                             ->innerJoin('asunto b', 'a.asunto_id=b.id')
                             ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->count();
 
             $asuntos = Proyecto::find()
                             ->select('b.id,b.descripcion_corta')
-                            ->innerJoin('proyecto_copia a', 'c.id=proyecto.id')
+                            ->innerJoin('proyecto_copia a', 'a.id=proyecto.id')
                             ->innerJoin('asunto b', 'a.asunto_id=b.id')
                             ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->all();
-
-
 
 
             if ($countAsuntos > 0) {
                 foreach ($asuntos as $asunto) {
                     if ($asunto->id == $asunto_id) {
-                        $data = $data . "<option value='" . $asunto->id . "'  selected>" . $asunto->descripcion_cabecera . "</option>";
+                        $data = $data . "<option value='" . $asunto->id . "'  selected>" . $asunto->descripcion_corta . "</option>";
                     } else {
                         $data = $data . "<option value='" . $asunto->id . "'  >" . $asunto->descripcion_cabecera . "</option>";
                     }

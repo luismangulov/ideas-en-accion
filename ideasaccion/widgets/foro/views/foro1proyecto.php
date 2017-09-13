@@ -218,52 +218,74 @@ $posts = $model->getForo1Entrega($model->id,$seccion);
                 $.ajax({
                     url: '<?= $insertarcomentarios ?>',
                     type: 'POST',
-                    
-                    data: {id:"<?= $model->id ?>",seccion:$("#proyecto-seccion").val(),contenido:$("#foro_comentario-contenido").val()},
-                    success: function(data){
-                            //$("#foro_comentario-contenido").val("");
-                            
-                            var texto="";
-                            texto='<div class="row post-item">'+
-                                '<div class="col-sm-12 col-md-12">'+
-                                    '<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">'+
-                                        ''+$("#foro_comentario-contenido").val()+''+
-                                        '<div class="post-meta">'+
-                                            '<div class="col-sm-12 col-md-12"></div>'+
-                                            '<div class="col-sm-12 col-md-12">'+
-                                                '<div class="br-wrapper br-theme-fontawesome-stars pull-right">'+
-                                                    '<select class="disabled" disabled>'+
-                                                        '<option value></option>'+
-                                                        '<option value="1" >1</option>'+
-                                                        '<option value="2" >2</option>'+
-                                                        '<option value="3" >3</option>'+
-                                                        '<option value="4" >4</option>'+
-                                                        '<option value="5" >5</option>'+
-                                                    '</select>'+
-                                                '</div>'+
-                                            '</div>'+
-                                            '<div class="clearfix"></div>'+
-                                            '<div class="col-sm-12 col-md-12">'+
-                                                '<div class="pull-right">'+
-                                                    'Comentario de '+data+
-                                                '</div>'+
-                                            '</div>'+
-                                        '</div>'+
-                                        '<div class="clearfix"></div>'+
-                                    '</div>'+
-                                '</div>'+
-                            '</div>';
-                            
-                            $('#comentar').append(texto);
-                            $('.disabled').barrating({
-                                theme: 'fontawesome-stars',
-                                hoverState: false,
-                                readonly: true
-                            });
-                            $("#foro_comentario-contenido").val("");
+                    data: {id: "<?= $model->id ?>", seccion: $("#proyecto-seccion").val(), contenido: $("#foro_comentario-contenido").val()},
+                    success: function(data) {
+                        //$("#foro_comentario-contenido").val("");
+
+
+                        $.ajax({
+                            url: '<?= $comentarios ?>',
+                            type: 'POST',
+                            data: {id: "<?= $model->id ?>", seccion: $("#proyecto-seccion").val()},
+                            dataType: "html",
+                            success: function(data) {
+
+                                $('#comentar').empty();
+                                $('#comentarios').empty();
+                                $('#foro_comentario-contenido').val("");
+                                $('#comentarios').append(data);
+                                $('.disabled').barrating({
+                                    theme: 'fontawesome-stars',
+                                    hoverState: false,
+                                    readonly: true
+                                });
+                                $('.popover1').webuiPopover();
+                            }
+                        });
+
+
+                        /*
+                         var texto="";
+                         texto='<div class="row post-item">'+
+                         '<div class="col-sm-12 col-md-12">'+
+                         '<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">'+
+                         ''+$("#foro_comentario-contenido").val()+''+
+                         '<div class="post-meta">'+
+                         '<div class="col-sm-12 col-md-12"></div>'+
+                         '<div class="col-sm-12 col-md-12">'+
+                         '<div class="br-wrapper br-theme-fontawesome-stars pull-right">'+
+                         '<select class="disabled" disabled>'+
+                         '<option value></option>'+
+                         '<option value="1" >1</option>'+
+                         '<option value="2" >2</option>'+
+                         '<option value="3" >3</option>'+
+                         '<option value="4" >4</option>'+
+                         '<option value="5" >5</option>'+
+                         '</select>'+
+                         '</div>'+
+                         '</div>'+
+                         '<div class="clearfix"></div>'+
+                         '<div class="col-sm-12 col-md-12">'+
+                         '<div class="pull-right">'+
+                         'Comentario de '+data+
+                         '</div>'+
+                         '</div>'+
+                         '</div>'+
+                         '<div class="clearfix"></div>'+
+                         '</div>'+
+                         '</div>'+
+                         '</div>';
+                         
+                         $('#comentar').append(texto);
+                         $('.disabled').barrating({
+                         theme: 'fontawesome-stars',
+                         hoverState: false,
+                         readonly: true
+                         });
+                         $("#foro_comentario-contenido").val("");*/
                     }
                 });
-                
+
                 return true;
             }
             
@@ -273,77 +295,103 @@ $posts = $model->getForo1Entrega($model->id,$seccion);
         
         
         $( '#btncomentarhijo' ).click(function( event ) {
-            var error="";
+            var error = "";
             /*if (jQuery.trim($("#foro_comentario-contenido_hijo").val())=='') {
-                error=error+"No ha comentado <br>"                
-            }
-            console.log("cesar");
-            if (error!="") {
-                /*$.notify({
-                        // options
-                        message: error
-                    },{
-                        // settings
-                        type: 'danger',
-                        z_index: 1000000,
-                        placement: {
-                                from: 'bottom',
-                                align: 'right'
-                        },
-                    });
-                return false;
-            }
-            else
-            {*/
-                $.ajax({
-                    url: '<?= $insertarcomentarioshijos ?>',
-                    type: 'POST',
-                    
-                    data: {id:"<?= $model->id ?>",padre:$("#foro_comentario-hijo").val(),contenido:$("#foro_comentario-contenido_hijo").val()},
-                    success: function(data){
-                            //$("#foro_comentario-contenido").val("");
-                            var texto="";
-                            texto='<div class="row post-item">'+
-                                '<div class="col-sm-12 col-md-12">'+
-                                    '<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">'+
-                                        ''+$("#foro_comentario-contenido_hijo").val()+''+
-                                        '<div class="post-meta">'+
-                                            '<div class="col-sm-12 col-md-12"></div>'+
-                                            '<div class="col-sm-12 col-md-12">'+
-                                                '<div class="br-wrapper br-theme-fontawesome-stars pull-right">'+
-                                                    '<select class="disabled" disabled>'+
-                                                        '<option value></option>'+
-                                                        '<option value="1" >1</option>'+
-                                                        '<option value="2" >2</option>'+
-                                                        '<option value="3" >3</option>'+
-                                                        '<option value="4" >4</option>'+
-                                                        '<option value="5" >5</option>'+
-                                                    '</select>'+
-                                                '</div>'+
-                                            '</div>'+
-                                            '<div class="clearfix"></div>'+
-                                            '<div class="col-sm-12 col-md-12">'+
-                                                '<div class="pull-right">'+
-                                                    'Comentario de '+data+
-                                                '</div>'+
-                                            '</div>'+
-                                        '</div>'+
-                                        '<div class="clearfix"></div>'+
-                                    '</div>'+
-                                '</div>'+
-                            '</div>';
-                            
-                            $('#hijo_'+$("#foro_comentario-hijo").val()).append(texto);
+             error=error+"No ha comentado <br>"                
+             }
+             console.log("cesar");
+             if (error!="") {
+             /*$.notify({
+             // options
+             message: error
+             },{
+             // settings
+             type: 'danger',
+             z_index: 1000000,
+             placement: {
+             from: 'bottom',
+             align: 'right'
+             },
+             });
+             return false;
+             }
+             else
+             {*/
+            $.ajax({
+                url: '<?= $insertarcomentarioshijos ?>',
+                type: 'POST',
+                data: {id: "<?= $model->id ?>", seccion: $("#proyecto-seccion").val(), padre: $("#foro_comentario-hijo").val(), contenido: $("#foro_comentario-contenido_hijo").val()},
+                success: function(data) {
+                    //$("#foro_comentario-contenido").val("");
+
+
+                    $.ajax({
+                        url: '<?= $comentarios ?>',
+                        type: 'POST',
+                        data: {id: "<?= $model->id ?>", seccion: $("#proyecto-seccion").val()},
+                        dataType: "html",
+                        success: function(data) {
+
+                            $('#comentar').empty();
+                            $('#comentarios').empty();
+                            $('#foro_comentario-contenido').val("");
+                            $('#comentarios').append(data);
+
+                            $('.popover1').webuiPopover();
+
                             $('.disabled').barrating({
                                 theme: 'fontawesome-stars',
                                 hoverState: false,
                                 readonly: true
                             });
+                            
                             $("#foro_comentario-contenido_hijo").val("");
                             $('#faltan_datos').hide();
-                    }
-                });
-                return true;
+
+                        }
+                    });
+
+
+
+                    /*
+                     var texto = "";
+                     texto = '<div class="row post-item">' +
+                     '<div class="col-sm-12 col-md-12">' +
+                     '<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">' +
+                     '' + $("#foro_comentario-contenido_hijo").val() + '' +
+                     '<div class="post-meta">' +
+                     '<div class="col-sm-12 col-md-12"></div>' +
+                     '<div class="col-sm-12 col-md-12">' +
+                     '<div class="br-wrapper br-theme-fontawesome-stars pull-right">' +
+                     '<select class="disabled" disabled>' +
+                     '<option value></option>' +
+                     '<option value="1" >1</option>' +
+                     '<option value="2" >2</option>' +
+                     '<option value="3" >3</option>' +
+                     '<option value="4" >4</option>' +
+                     '<option value="5" >5</option>' +
+                     '</select>' +
+                     '</div>' +
+                     '</div>' +
+                     '<div class="clearfix"></div>' +
+                     '<div class="col-sm-12 col-md-12">' +
+                     '<div class="pull-right">' +
+                     'Comentario de ' + data +
+                     '</div>' +
+                     '</div>' +
+                     '</div>' +
+                     '<div class="clearfix"></div>' +
+                     '</div>' +
+                     '</div>' +
+                     '</div>';
+                     
+                     $('#hijo_' + $("#foro_comentario-hijo").val()).append(texto);*/
+
+
+
+                }
+            });
+            return true;
             //}
         });
         

@@ -154,6 +154,7 @@ $insertarcomentarios = Yii::$app->getUrlManager()->createUrl('foro-comentario/in
 $insertarcomentarioshijos = Yii::$app->getUrlManager()->createUrl('foro-comentario/insertar-comentario-hijo');
 ?>
 
+
 <script>
     $('.disabled').barrating({
         theme: 'fontawesome-stars',

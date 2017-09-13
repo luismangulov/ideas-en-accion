@@ -451,14 +451,14 @@ class ProyectoController extends Controller {
 
     public function actionAsunto($region) {
         if (empty($_SERVER['HTTP_REFERER'])) {
-            echo 2;
+          
             exit;
         } else {
             $parts = parse_url($_SERVER['HTTP_REFERER']);
 
             //print_r($parts);
             if ($parts["host"] != Yii::$app->params["host"]) {
-                echo 2;
+              
                 exit;
             }
         }
@@ -475,13 +475,13 @@ class ProyectoController extends Controller {
         
             $countAsuntos = Proyecto::find()
                             ->select('b.id,b.descripcion_corta')
-                            ->innerJoin('proyecto_copia a', 'c.id=proyecto.id')
+                            ->innerJoin('proyecto_copia a', 'a.id=proyecto.id')
                             ->innerJoin('asunto b', 'a.asunto_id=b.id')
                             ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->count();
 
             $asuntos = Proyecto::find()
                             ->select('b.id,b.descripcion_corta')
-                            ->innerJoin('proyecto_copia a', 'c.id=proyecto.id')
+                            ->innerJoin('proyecto_copia a', 'a.id=proyecto.id')
                             ->innerJoin('asunto b', 'a.asunto_id=b.id')
                             ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->all();
         
@@ -490,7 +490,7 @@ class ProyectoController extends Controller {
         if ($countAsuntos > 0) {
             echo "<option value></option>";
             foreach ($asuntos as $asunto) {
-                echo "<option value='" . $asunto->id . "'>" . $asunto->descripcion_cabecera . "</option>";
+                echo "<option value='" . $asunto->id . "'>" . $asunto->descripcion_corta . "</option>";
             }
         } else {
             echo "<option value></option>";
