@@ -450,8 +450,20 @@ class ProyectoController extends Controller {
     }
 
     public function actionAsunto($region) {
+        if (empty($_SERVER['HTTP_REFERER'])) {
+            echo 2;
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
 
-        $countAsuntos = Resultados::find()
+            //print_r($parts);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+                echo 2;
+                exit;
+            }
+        }
+        
+        /*$countAsuntos = Resultados::find()
                         ->select('a.id,a.descripcion_cabecera')
                         ->innerJoin('asunto a', 'a.id=resultados.asunto_id')
                         ->where('resultados.region_id=:region_id', [':region_id' => $region])->groupBy('a.id,a.descripcion_cabecera')->count();
@@ -459,6 +471,22 @@ class ProyectoController extends Controller {
                         ->innerJoin('asunto a', 'a.id=resultados.asunto_id')
                         ->where('resultados.region_id=:region_id', [':region_id' => $region])->groupBy('a.id,a.descripcion_cabecera')->orderBy('descripcion_cabecera')->all();
 
+        */
+        
+            $countAsuntos = Proyecto::find()
+                            ->select('b.id,b.descripcion_corta')
+                            ->innerJoin('proyecto_copia a', 'c.id=proyecto.id')
+                            ->innerJoin('asunto b', 'a.asunto_id=b.id')
+                            ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->count();
+
+            $asuntos = Proyecto::find()
+                            ->select('b.id,b.descripcion_corta')
+                            ->innerJoin('proyecto_copia a', 'c.id=proyecto.id')
+                            ->innerJoin('asunto b', 'a.asunto_id=b.id')
+                            ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->all();
+        
+        
+        
         if ($countAsuntos > 0) {
             echo "<option value></option>";
             foreach ($asuntos as $asunto) {

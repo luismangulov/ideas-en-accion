@@ -433,13 +433,28 @@ class Proyecto extends \yii\db\ActiveRecord {
 
         $data = "";
         if ($asunto_id && $region) {
-            $countAsuntos = Resultados::find()
-                            ->select('a.id,a.descripcion_cabecera')
-                            ->innerJoin('asunto a', 'a.id=resultados.asunto_id')
-                            ->where('resultados.region_id=:region_id', [':region_id' => $region])->groupBy('a.id,a.descripcion_cabecera')->count();
-            $asuntos = Resultados::find()->select('a.id,a.descripcion_cabecera')
-                            ->innerJoin('asunto a', 'a.id=resultados.asunto_id')
-                            ->where('resultados.region_id=:region_id', [':region_id' => $region])->groupBy('a.id,a.descripcion_cabecera')->orderBy('descripcion_cabecera')->all();
+            /* $countAsuntos = Resultados::find()
+              ->select('a.id,a.descripcion_cabecera')
+              ->innerJoin('asunto a', 'a.id=resultados.asunto_id')
+              ->where('resultados.region_id=:region_id', [':region_id' => $region])->groupBy('a.id,a.descripcion_cabecera')->count();
+              $asuntos = Resultados::find()->select('a.id,a.descripcion_cabecera')
+              ->innerJoin('asunto a', 'a.id=resultados.asunto_id')
+              ->where('resultados.region_id=:region_id', [':region_id' => $region])->groupBy('a.id,a.descripcion_cabecera')->orderBy('descripcion_cabecera')->all();
+             */
+            $countAsuntos = Proyecto::find()
+                            ->select('b.id,b.descripcion_corta')
+                            ->innerJoin('proyecto_copia a', 'c.id=proyecto.id')
+                            ->innerJoin('asunto b', 'a.asunto_id=b.id')
+                            ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->count();
+
+            $asuntos = Proyecto::find()
+                            ->select('b.id,b.descripcion_corta')
+                            ->innerJoin('proyecto_copia a', 'c.id=proyecto.id')
+                            ->innerJoin('asunto b', 'a.asunto_id=b.id')
+                            ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->all();
+
+
+
 
             if ($countAsuntos > 0) {
                 foreach ($asuntos as $asunto) {
