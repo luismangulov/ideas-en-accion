@@ -189,6 +189,7 @@ class UsuarioController extends Controller {
 
 
 
+            $estudiante->grado = $registrar->grado;
             $estudiante->celular = $registrar->celular;
             //$estudiante->fecha_nac=date('Y-m-d',strtotime($fecha_nacimiento));
             $estudiante->update();

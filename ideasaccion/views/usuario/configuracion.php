@@ -17,12 +17,12 @@ $this->title = "Ideas en acción";
     }
 </style>
 
-  <link rel="stylesheet" href="<?= \Yii::$app->request->BaseUrl ?>/css/themes/base/jquery-ui.css">
-  
-  
-  <script src="<?= \Yii::$app->request->BaseUrl ?>/js/libs/1.8.2/jquery-1.8.2.js"></script>
-  
-  <script src="<?= \Yii::$app->request->BaseUrl ?>/js/libs/1.8.24/jquery-ui.js"></script>
+<link rel="stylesheet" href="<?= \Yii::$app->request->BaseUrl ?>/css/themes/base/jquery-ui.css">
+
+
+<script src="<?= \Yii::$app->request->BaseUrl ?>/js/libs/1.8.2/jquery-1.8.2.js"></script>
+
+<script src="<?= \Yii::$app->request->BaseUrl ?>/js/libs/1.8.24/jquery-ui.js"></script>
 
 
 
@@ -125,15 +125,23 @@ $this->title = "Ideas en acción";
             <div class="col-md-6">
                 <div class="form-group  field-registrar-grado required" style="margin-top: 15px">
                     <label class="control-label" for="registrar-grado">Grado de estudios*</label>
-                    <select disabled style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-grado" class="form-control" name="Registrar[grado]">
-                        <option value=""></option>
-                        <option value="1" <?= ($registrar->grado == "1") ? 'selected' : ''; ?>>Primero</option>
-                        <option value="2" <?= ($registrar->grado == "2") ? 'selected' : ''; ?>>Segundo</option>
-                        <option value="3" <?= ($registrar->grado == "3") ? 'selected' : ''; ?>>Tercero</option>
-                        <option value="4" <?= ($registrar->grado == "4") ? 'selected' : ''; ?>>Cuarto</option>
-                        <option value="5" <?= ($registrar->grado == "5") ? 'selected' : ''; ?>>Quinto</option>
-                        <option value="6" <?= ($registrar->grado == "6") ? 'selected' : ''; ?>>Docente</option>
-                    </select>
+                    <?php if ($_SESSION["rol"] == "estudiante") { ?>
+
+                        <select  style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-grado" class="form-control" name="Registrar[grado]">
+                            <option value=""></option>
+                            <option value="1" <?= ($registrar->grado == "1") ? 'selected' : ''; ?>>Primero</option>
+                            <option value="2" <?= ($registrar->grado == "2") ? 'selected' : ''; ?>>Segundo</option>
+                            <option value="3" <?= ($registrar->grado == "3") ? 'selected' : ''; ?>>Tercero</option>
+                            <option value="4" <?= ($registrar->grado == "4") ? 'selected' : ''; ?>>Cuarto</option>
+                            <option value="5" <?= ($registrar->grado == "5") ? 'selected' : ''; ?>>Quinto</option>
+                        </select>
+                    <?php } else { ?>	
+                        <select  style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-grado" class="form-control" name="Registrar[grado]">
+                            <option value=""></option>
+
+                            <option value="6" <?= ($registrar->grado == "6") ? 'selected' : ''; ?>>Docente</option>
+                        </select>
+                    <?php } ?>	
                 </div>
             </div>
         </div>
@@ -144,10 +152,9 @@ $this->title = "Ideas en acción";
         </div>
         <div class="form-group btn_registro_submit text-center">
             <div class="col-md-12">
-               <?php
-              /* Si deseas modificar tu correo, grado u otros datos envía un mensaje al correo electrónico <a href="mailto:ideasenaccion@minedu.gob.pe" target="_top">ideasenaccion@minedu.gob.pe</a> 
-                       
-                       */ ?>
+                <?php /* Si deseas modificar tu correo, grado u otros datos envía un mensaje al correo electrónico <a href="mailto:ideasenaccion@minedu.gob.pe" target="_top">ideasenaccion@minedu.gob.pe</a> 
+
+                 */ ?>
             </div> 
             <div class="clearfix"></div>
         </div>
@@ -268,7 +275,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
     function mostrarImagen(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 $('#img_destino').attr('src', e.target.result);
             }
             reader.readAsDataURL(input.files[0]);
@@ -276,7 +283,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
     }
 
     //$('#registrar-fecha_nac').bootstrapMaterialDatePicker({ weekStart : 0, time: false ,format : 'DD/MM/YYYY',lang : 'es' });
-    $('#registrar-password').focusout(function() {
+    $('#registrar-password').focusout(function () {
         if ($(this).val() != '')
         {
             if ($(this).val().length < 8)
@@ -309,7 +316,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
      
      });*/
 
-    $('#registrar-dni').focusout(function() {
+    $('#registrar-dni').focusout(function () {
         if ($(this).val() != '')
         {
             if ($(this).val().length < 8)
@@ -336,7 +343,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
                 type: 'POST',
                 async: true,
                 data: {dni: $(this).val()},
-                success: function(data) {
+                success: function (data) {
                     if (data == 1)
                     {
                         $('.field-registrar-dni').addClass('has-error');
@@ -362,7 +369,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
     });
 
 
-    $('#registrar-email').focusout(function() {
+    $('#registrar-email').focusout(function () {
         if ($(this).val() != '')
         {
 
@@ -371,7 +378,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
                 type: 'POST',
                 async: true,
                 data: {email: $(this).val()},
-                success: function(data) {
+                success: function (data) {
                     if (data == 1)
                     {
                         $('.field-registrar-email').addClass('has-error');
@@ -397,7 +404,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
     });
 
 
-    $('#registrar-repassword').focusout(function() {
+    $('#registrar-repassword').focusout(function () {
         if ($('#registrar-repassword').val() != $('#registrar-password').val())
         {
             $('.field-registrar-repassword').addClass('has-error');
@@ -427,7 +434,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
 
 
 
-    $('#registrar').click(function() {
+    $('#registrar').click(function () {
         var error = '';
         var p1 = $('input[name=\'Registrar[p1][]\']:checked').length;
         var p2 = $('input[type=radio]:checked').length;
@@ -618,7 +625,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
             type: 'POST',
             async: false,
             data: {dni: $('#registrar-dni').val()},
-            success: function(data) {
+            success: function (data) {
 
             }
         });
@@ -631,7 +638,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
             type: 'POST',
             async: false,
             data: {email: $('#registrar-email').val()},
-            success: function(data) {
+            success: function (data) {
 
             }
         });
@@ -687,13 +694,13 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
     }
 
     function distrito(value) {
-        $.get("<?= $instituciones ?>?distrito=" + value, function(data) {
+        $.get("<?= $instituciones ?>?distrito=" + value, function (data) {
             $("#registrar-institucion").html(data);
         });
     }
 
     function provincia(value) {
-        $.get("<?= $distritos ?>?provincia=" + value, function(data) {
+        $.get("<?= $distritos ?>?provincia=" + value, function (data) {
             $("#registrar-distrito").html(data);
         });
         $("#registrar-distrito").find("option").remove().end().append("<option value></option>").val("");
@@ -701,7 +708,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
     }
 
     function departamento(value) {
-        $.get("<?= $provincias ?>?departamento=" + value, function(data) {
+        $.get("<?= $provincias ?>?departamento=" + value, function (data) {
             $("#registrar-provincia").html(data);
         });
         $("#registrar-provincia").find("option").remove().end().append("<option value></option>").val("");
@@ -710,14 +717,14 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
     }
 
 
-    $('.numerico').keypress(function(tecla) {
+    $('.numerico').keypress(function (tecla) {
         var reg = /^[0-9\s]+$/;
         if (!reg.test(String.fromCharCode(tecla.which))) {
             return false;
         }
         return true;
     });
-    $('.texto').keypress(function(tecla) {
+    $('.texto').keypress(function (tecla) {
         var reg = /^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ'_\s]+$/;
         if (!reg.test(String.fromCharCode(tecla.which))) {
             return false;
@@ -751,7 +758,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
     <script>
         $.notify({
             // options
-            message: '<?=Yii::$app->session->getFlash("mensajesuccess") ?>'
+            message: '<?= Yii::$app->session->getFlash("mensajesuccess") ?>'
         }, {
             // settings
             type: 'success',
@@ -764,7 +771,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
 
     </script>
 <?php endif; ?>
-    
+
 <?php if (Yii::$app->session->hasFlash('error_file_size')): ?>
     <script>
         $.notify({
@@ -785,8 +792,8 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
 
 <script type="text/javascript">
 
-    $(document).ready(function() {
-        
+    $(document).ready(function () {
+
     });
 
 </script>
