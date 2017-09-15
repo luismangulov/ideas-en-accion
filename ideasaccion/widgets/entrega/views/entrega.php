@@ -92,9 +92,9 @@ $finalizarsegundaentrega = Yii::$app->getUrlManager()->createUrl('proyecto/final
             error = 'Debe guardar el video del proyecto <br>' + error;
         }
 
-        var proyectoresumen = '<?= htmlentities($proyecto->resumen,ENT_QUOTES) ?>';
+        var proyectoresumen = '<?= nl2br(htmlentities($proyecto->resumen,ENT_QUOTES)) ?>';
 
-        var proyectobeneficiario = '<?= htmlentities($proyecto->beneficiario,ENT_QUOTES) ?>';
+        var proyectobeneficiario = '<?= nl2br(htmlentities($proyecto->beneficiario,ENT_QUOTES)) ?>';
 
 
         if (jQuery.trim(proyectoresumen) == '') {
