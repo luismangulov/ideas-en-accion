@@ -2,13 +2,10 @@
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\ContactForm */
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\web\JsExpression;
-
 $this->title = "Ideas en acción";
-
 $disabled = false;
 if ($votacionpublica || $etapa->etapa != 3) {
     $disabled = true;
@@ -30,7 +27,7 @@ if ($votacionpublica || $etapa->etapa != 3) {
         <div class="clearfix"></div><p></p>
         <?php //Html::a('Votación interna',['votacioninterna'],['id'=>'btnvotacioninterna','class'=>'btn btn-raised btn-default','disabled'=>$disabled]);  ?>
         <div class="clearfix"></div><p></p>
-            <?php /* <button class="btn btn-raised btn-default"  id="cerrarvotacioninterna" <?= ($votacionpublica || $etapa->etapa!=3)?'disabled':'' ?> >cerrar votación interna</button> */ ?>
+            <button class="btn btn-raised btn-default"  id="cerrarvotacioninterna" <?= ($votacionpublica || $etapa->etapa!=3)?'disabled':'' ?> >cerrar votación interna</button>
     </div>
 </div>
 
@@ -95,7 +92,6 @@ $cerrarvotacioninterna = Yii::$app->getUrlManager()->createUrl('proyecto/cerrarv
                             align: 'right'
                         },
                     });
-
                 }
                 setTimeout(function () {
                     window.location.reload(1);
@@ -104,9 +100,7 @@ $cerrarvotacioninterna = Yii::$app->getUrlManager()->createUrl('proyecto/cerrarv
         });
         return true;
     });
-
     $('#cerrar1entrega').click(function (events) {
-
         if (confirm("¿Está seguro de cerrar la primera entrega?")) {
             var countvoto =<?= $countVoto ?>;
             if (countvoto == 0) {
@@ -124,16 +118,13 @@ $cerrarvotacioninterna = Yii::$app->getUrlManager()->createUrl('proyecto/cerrarv
                 });
                 return false;
             }
-
             var finalizar = $.ajax({
                 url: '<?= $cerrarprimeraentrega ?>',
                 type: 'POST',
                 async: false,
                 success: function (data) {
-
                 }
             });
-
             if (finalizar.responseText == 1)
             {
                 $.notify({
@@ -182,28 +173,18 @@ $cerrarvotacioninterna = Yii::$app->getUrlManager()->createUrl('proyecto/cerrarv
                     window.location.reload(1);
                 }, 1000);
             }
-
             return true;
         }
-
-
     });
-
-
     $('#cerrar2entrega').click(function (events) {
-
         if (confirm("¿Está seguro de cerrar la segunda entrega?")) {
-
-
             var finalizar = $.ajax({
                 url: '<?= $cerrarsegundaentrega ?>',
                 type: 'POST',
                 async: false,
                 success: function (data) {
-
                 }
             });
-
             if (finalizar.responseText == 1)
             {
                 $.notify({
@@ -252,17 +233,13 @@ $cerrarvotacioninterna = Yii::$app->getUrlManager()->createUrl('proyecto/cerrarv
                     window.location.reload(1);
                 }, 1000);
             }
-
         }
-
-
-
-
     });
-
     $('#cerrarvotacioninterna').click(function (events) {
         var faltavalorporcentual =<?= $faltavalorporcentual ?>;
+        alert(faltavalorporcentual);
         var votacionesinternas =<?= $votacionesinternas ?>;
+        alert(votacionesinternas);
         if (faltavalorporcentual > 0) {
             $.notify({
                 message: 'Falta ingresa valor en algunos proyectos'
@@ -276,7 +253,6 @@ $cerrarvotacioninterna = Yii::$app->getUrlManager()->createUrl('proyecto/cerrarv
             });
             return false;
         }
-
         if (votacionesinternas == 0) {
             $.notify({
                 message: 'No tiene ningun registro en votación interna'
@@ -290,7 +266,6 @@ $cerrarvotacioninterna = Yii::$app->getUrlManager()->createUrl('proyecto/cerrarv
             });
             return false;
         }
-
         $.ajax({
             url: '<?= $cerrarvotacioninterna ?>',
             type: 'POST',
@@ -301,8 +276,6 @@ $cerrarvotacioninterna = Yii::$app->getUrlManager()->createUrl('proyecto/cerrarv
                 }, 1000);
             }
         });
-
-
         return true;
     });
     $('#btnvotacioninterna').click(function (events) {
@@ -322,5 +295,4 @@ $cerrarvotacioninterna = Yii::$app->getUrlManager()->createUrl('proyecto/cerrarv
         }
         return true;
     });
-
 </script>
