@@ -19,8 +19,8 @@ AppEstandarAsset::register($this);
 
 if (!\Yii::$app->user->isGuest) {
 
-    $etapa2 = Etapa::find()->where('etapa=2')->one();
-    $etapa3 = Etapa::find()->where('etapa=3')->one();
+    $etapa2 = Etapa::find()->where('etapa=2 and estado=1')->one();
+    $etapa3 = Etapa::find()->where('etapa=3 and estado=1')->one();
     $usuario = Usuario::find()->where('id=:id', [':id' => \Yii::$app->user->id])->one();
 //$invitacion=Invitacion::find()->where('equipo_id=:equipo_id and estado=1',[':equipo_id'=>$equipo->id])->one();
     $integrante = Integrante::find()->where('estudiante_id=:estudiante_id', [':estudiante_id' => $usuario->estudiante_id])->one();
