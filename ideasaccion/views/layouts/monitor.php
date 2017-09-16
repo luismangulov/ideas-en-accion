@@ -18,7 +18,7 @@ use app\models\Invitacion;
 AppEstandarAsset::register($this);
 
 if (!\Yii::$app->user->isGuest) {
-
+    $etapa1 = Etapa::find()->where('etapa=1 and estado=1')->one();
     $etapa2 = Etapa::find()->where('etapa=2 and estado=1')->one();
     $etapa3 = Etapa::find()->where('etapa=3 and estado=1')->one();
     $usuario = Usuario::find()->where('id=:id', [':id' => \Yii::$app->user->id])->one();

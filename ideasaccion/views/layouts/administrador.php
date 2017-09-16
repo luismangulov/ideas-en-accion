@@ -18,7 +18,7 @@ use app\models\Invitacion;
 AppEstandarAsset::register($this);
 
 if (!\Yii::$app->user->isGuest) {
-
+    $etapa1 = Etapa::find()->where('etapa=1 and estado=1')->one();
     $etapa2 = Etapa::find()->where('etapa=2 and estado=1')->one();
     $etapa3 = Etapa::find()->where('etapa=3 and estado=1')->one();
     $usuario = Usuario::find()->where('id=:id', [':id' => \Yii::$app->user->id])->one();
@@ -74,18 +74,25 @@ if (!\Yii::$app->user->isGuest) {
             <script src="<?= \Yii::$app->request->BaseUrl ?>/js/libs/1.2.1/jquery.webui-popover.min.js"></script>
 
             <link href="<?= \Yii::$app->request->BaseUrl ?>/css/style.css" rel="stylesheet">
-            	
+
             <script>
-                                  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                                  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                                  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                                  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+                (function (i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r;
+                    i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+                    a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0];
+                    a.async = 1;
+                    a.src = g;
+                    m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-                                  ga('create', 'UA-102582124-1', 'auto');
-                                  ga('send', 'pageview');
+                ga('create', 'UA-102582124-1', 'auto');
+                ga('send', 'pageview');
 
-                </script>
-            	
+            </script>
+
             <?php $this->head() ?>
         </head>
         <body class="mi_equipo" >
@@ -146,9 +153,11 @@ if (!\Yii::$app->user->isGuest) {
                                         <ul class="menu_lateral">
                                             <!--control de acciones-->
                                             <?php if (\Yii::$app->user->can('administrador')) { ?>
+                                                <?php if ($etapa1 || $etapa2 || $etapa3) { ?>
 
-                                                <li>
-                                                    <?= Html::a('<div class="table_div">
+
+                                                    <li>
+                                                        <?= Html::a('<div class="table_div">
                                                 <div class="row_div">
                                                     <div class="cell_div div_ia_icon">
                                                         <span class="ia_icon ia_icon_idea"></span>
@@ -158,16 +167,13 @@ if (!\Yii::$app->user->isGuest) {
                                                     </div>
                                                 </div>
                                             </div>', ['panel/acciones'], []); ?>
-                                                </li>
-                                            <?php } elseif (\Yii::$app->user->can('monitor')) { ?>
-
-                                            <?php } ?>
-                                            <!--fin control de acciones-->
-                                            <!--Foro-->
-                                            <li>
+                                                    </li>
+                                                    <!--fin control de acciones-->
+                                                    <!--Foro-->
+                                                    <li>
 
 
-                                                <?= Html::a('<div class="table_div">
+                                                        <?= Html::a('<div class="table_div">
                                             <div class="row_div">
                                                 <div class="cell_div div_ia_icon">
                                                     <span class="ia_icon ia_icon_delivery"></span>
@@ -177,75 +183,86 @@ if (!\Yii::$app->user->isGuest) {
                                                 </div>
                                             </div>
                                         </div>', ['panel/foros'], ['id' => 'lnk_forosgeneral']); ?>
-                                            </li>
-                                            <!--Fin Foro-->
-                                            <!--Foro proyectos-->
-                                            <!--<li>
-                                            <?= Html::a("Comentario de proyectos", ['panel/forosproyectos'], []); ?>
-                                            </li>-->
-                                            <!--Fin Foro proyectos-->
+                                                    </li>
+                                                    <!--Fin Foro-->
+                                                    <!--Foro proyectos-->
+                                                    <!--<li>
+                                                    <?= Html::a("Comentario de proyectos", ['panel/forosproyectos'], []); ?>
+                                                    </li>-->
+                                                    <!--Fin Foro proyectos-->
 
-                                            <!--Reportes-->
-                                            <?php /* <li>
-                                              <?= Html::a("Reportes de votación de asuntos públicos",['#'],['class'=>'sub_menu']);?>
-                                              <ul>
-                                              <li><?= Html::a("Reportes de votación de asuntos públicos",['reporte/index'],[]);?></li>
-                                              <li><?= Html::a("Reportes de votación por región ",['reporte/region'],[]);?></li>
-                                              </ul>
-                                              </li> */ ?>
-                                            <li>
-                                                <a href="#" class="sub_menu" id="lnk_reporteinscripcion">
-                                                    <div class="table_div">
-                                                        <div class="row_div">
-                                                            <div class="cell_div div_ia_icon">
-                                                                <span class="ia_icon ia_icon_delivery"></span>
+                                                    <!--Reportes-->
+                                                    <?php /* <li>
+                                                      <?= Html::a("Reportes de votación de asuntos públicos",['#'],['class'=>'sub_menu']);?>
+                                                      <ul>
+                                                      <li><?= Html::a("Reportes de votación de asuntos públicos",['reporte/index'],[]);?></li>
+                                                      <li><?= Html::a("Reportes de votación por región ",['reporte/region'],[]);?></li>
+                                                      </ul>
+                                                      </li> */ ?>
+                                                    <li>
+                                                        <a href="#" class="sub_menu" id="lnk_reporteinscripcion">
+                                                            <div class="table_div">
+                                                                <div class="row_div">
+                                                                    <div class="cell_div div_ia_icon">
+                                                                        <span class="ia_icon ia_icon_delivery"></span>
+                                                                    </div>
+                                                                    <div class="cell_div">
+                                                                        Reporte de inscripcrión a la plataforma <span class="hide">></span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <div class="cell_div">
-                                                                Reporte de inscripcrión a la plataforma <span class="hide">></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
+                                                        </a>
 
 
-                                                <ul>
-                                                    <li><?= Html::a("Reporte de participantes ", ['reporte/registrados'], ['id' => 'lnk_reporteestudiantes']); ?></li>
-                                                    <li><?= Html::a("Reporte de participantes detalles", ['reporte/registrados-detalles'], ['id' => 'lnk_reporteestudiantedet']); ?></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="sub_menu" id="lnk_reporteprimera">
-                                                    <div class="table_div">
-                                                        <div class="row_div">
-                                                            <div class="cell_div div_ia_icon">
-                                                                <span class="ia_icon ia_icon_delivery"></span>
+                                                        <ul>
+                                                            <li><?= Html::a("Reporte de participantes ", ['reporte/registrados'], ['id' => 'lnk_reporteestudiantes']); ?></li>
+                                                            <li><?= Html::a("Reporte de participantes detalles", ['reporte/registrados-detalles'], ['id' => 'lnk_reporteestudiantedet']); ?></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" class="sub_menu" id="lnk_reporteprimera">
+                                                            <div class="table_div">
+                                                                <div class="row_div">
+                                                                    <div class="cell_div div_ia_icon">
+                                                                        <span class="ia_icon ia_icon_delivery"></span>
+                                                                    </div>
+                                                                    <div class="cell_div">
+                                                                        Reporte de primera entrega <span class="hide">></span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <div class="cell_div">
-                                                                Reporte de primera entrega <span class="hide">></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <ul>
-                                                    <li><?= Html::a("Reporte de equipos", ['reporte/equipo'], ['id' => 'lnk_reporteequipos']); ?></li>
-                                                    <li><?= Html::a("Reporte de proyectos", ['reporte/proyecto'], ['id' => 'lnk_reporteproyectos']); ?></li>
-                                                    <li><?= Html::a("Reporte de proyectos regionales", ['reporte/proyecto2'], ['id' => 'lnk_reporteproyectosxregion']); ?></li>
-                                                    <li><?= Html::a("Reporte total", ['reporte/proyecto3'], ['id' => 'lnk_reportetotal']); ?></li>
-                                                </ul>
-                                            </li>
-                                            <?php /*
-                                              <li>
-                                              <?= Html::a("Reporte de segunda entrega",['#'],['class'=>'sub_menu']);?>
-                                              <ul>
-                                              <li><?= Html::a("Reportes de aportes de proyectos",['proyecto/buscar-monitor'],[]);?></li>
-                                              <li><?= Html::a("Reportes de proyectos",['reporte/proyecto2entrega'],[]);?></li>
-                                              </ul>
-                                              </li>
+                                                        </a>
+                                                        <ul>
+                                                            <li><?= Html::a("Reporte de equipos", ['reporte/equipo'], ['id' => 'lnk_reporteequipos']); ?></li>
+                                                            <li><?= Html::a("Reporte de proyectos", ['reporte/proyecto'], ['id' => 'lnk_reporteproyectos']); ?></li>
+                                                            <li><?= Html::a("Reporte de proyectos regionales", ['reporte/proyecto2'], ['id' => 'lnk_reporteproyectosxregion']); ?></li>
+                                                            <li><?= Html::a("Reporte total", ['reporte/proyecto3'], ['id' => 'lnk_reportetotal']); ?></li>
+                                                        </ul>
+                                                    </li>
 
-                                              ?>
-                                              <li>
-                                              <? /*= Html::a("Evaluación de proyectos",['panel/votacioninterna']); */ ?>
-                                            </li>
+
+                                                <?php } ?>
+
+
+
+                                                <?php if ($etapa2 || $etapa3) { ?>
+
+
+
+                                                    <li>
+                                                        <?= Html::a("Reporte de segunda entrega", ['#'], ['class' => 'sub_menu']); ?>
+                                                        <ul>
+                                                            <li><?= Html::a("Reportes de aportes de proyectos", ['proyecto/buscar-monitor'], []); ?></li>
+                                                            <li><?= Html::a("Reportes de proyectos", ['reporte/proyecto2entrega'], []); ?></li>
+                                                        </ul>
+                                                    </li>
+
+                                                <?php } /*
+                                                  <li>
+                                                  <?= Html::a("Evaluación de proyectos", ['panel/votacioninterna']); ?>
+                                                  </li> */
+                                                ?>
+                                            <?php } ?>
                                             <?php /*
                                               <li>
                                               <?= Html::a("Reportes",['#'],['class'=>'sub_menu']);?>
