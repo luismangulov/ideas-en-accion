@@ -21,7 +21,7 @@ class VotacionInterna extends \yii\db\ActiveRecord
     public $voto;
     public $valor;
     public $resultado;
-    public $maximo;
+    public $maximo=0;
     public $department_id;
     public static function tableName()
     {

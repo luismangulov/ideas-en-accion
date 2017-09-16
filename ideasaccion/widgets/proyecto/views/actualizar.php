@@ -758,7 +758,7 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                         $("#proyecto-archivo2").fileinput("upload");
                                     }).on('filebatchuploadcomplete', function(event, data, previewId, index) {
                                         alert("Se ha subido tu proyecto satisfactoriamente");
-                                        location.reload();
+                                       // location.reload();
                                     }).on('fileerror', function(event, data, msg) {
 
                                         $.notify({

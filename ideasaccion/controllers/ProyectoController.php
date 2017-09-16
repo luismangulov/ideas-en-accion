@@ -172,16 +172,15 @@ class ProyectoController extends Controller {
             $equipo = Equipo::findOne($integrante->equipo_id);
 
             if ($equipo->etapa == 1 && $etapa1) {
-               
+
                 //$this->layout = 'blank';
                 return $this->redirect(array('entrega/primera'));
 
                 //return Yii::$app->redirect(array('/entrega/primera'));
                 //$this->redirect('entrega/primera');
-            }else if ($equipo->etapa == 1 && $etapa2) {
-                   
-                return $this->render('actualizar');
+            } else if ($equipo->etapa == 1 && $etapa2) {
 
+                return $this->render('actualizar');
             }
 
             return $this->render('actualizar');
@@ -387,6 +386,20 @@ class ProyectoController extends Controller {
     }
 
     public function actionCerrarprimeraentrega() {
+
+        if (empty($_SERVER['HTTP_REFERER'])) {
+            echo "";
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+
+            //print_r($parts);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+                echo "";
+                exit;
+            }
+        }
+
         $proyectoexiste = ProyectoCopia::find()->where('etapa=1')->all();
         $etapa = Etapa::find()->where('estado=1 and etapa=1')->one();
         if ($proyectoexiste && $etapa) {
@@ -410,6 +423,20 @@ class ProyectoController extends Controller {
     }
 
     public function actionCerrarsegundaentrega() {
+
+        if (empty($_SERVER['HTTP_REFERER'])) {
+            echo "";
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+
+            //print_r($parts);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+                echo "";
+                exit;
+            }
+        }
+
         $proyectoexiste = ProyectoCopia::find()->where('etapa=2')->all();
         $etapa = Etapa::find()->where('estado=1 and etapa=2')->one();
         if ($proyectoexiste && $etapa) {
@@ -451,42 +478,42 @@ class ProyectoController extends Controller {
 
     public function actionAsunto($region) {
         if (empty($_SERVER['HTTP_REFERER'])) {
-          
+
             exit;
         } else {
             $parts = parse_url($_SERVER['HTTP_REFERER']);
 
             //print_r($parts);
             if ($parts["host"] != Yii::$app->params["host"]) {
-              
+
                 exit;
             }
         }
-        
-        /*$countAsuntos = Resultados::find()
-                        ->select('a.id,a.descripcion_cabecera')
-                        ->innerJoin('asunto a', 'a.id=resultados.asunto_id')
-                        ->where('resultados.region_id=:region_id', [':region_id' => $region])->groupBy('a.id,a.descripcion_cabecera')->count();
-        $asuntos = Resultados::find()->select('a.id,a.descripcion_cabecera')
-                        ->innerJoin('asunto a', 'a.id=resultados.asunto_id')
-                        ->where('resultados.region_id=:region_id', [':region_id' => $region])->groupBy('a.id,a.descripcion_cabecera')->orderBy('descripcion_cabecera')->all();
 
-        */
-        
-            $countAsuntos = Proyecto::find()
-                            ->select('b.id,b.descripcion_corta')
-                            ->innerJoin('proyecto_copia a', 'a.id=proyecto.id')
-                            ->innerJoin('asunto b', 'a.asunto_id=b.id')
-                            ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->count();
+        /* $countAsuntos = Resultados::find()
+          ->select('a.id,a.descripcion_cabecera')
+          ->innerJoin('asunto a', 'a.id=resultados.asunto_id')
+          ->where('resultados.region_id=:region_id', [':region_id' => $region])->groupBy('a.id,a.descripcion_cabecera')->count();
+          $asuntos = Resultados::find()->select('a.id,a.descripcion_cabecera')
+          ->innerJoin('asunto a', 'a.id=resultados.asunto_id')
+          ->where('resultados.region_id=:region_id', [':region_id' => $region])->groupBy('a.id,a.descripcion_cabecera')->orderBy('descripcion_cabecera')->all();
 
-            $asuntos = Proyecto::find()
-                            ->select('b.id,b.descripcion_corta')
-                            ->innerJoin('proyecto_copia a', 'a.id=proyecto.id')
-                            ->innerJoin('asunto b', 'a.asunto_id=b.id')
-                            ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->all();
-        
-        
-        
+         */
+
+        $countAsuntos = Proyecto::find()
+                        ->select('b.id,b.descripcion_corta')
+                        ->innerJoin('proyecto_copia a', 'a.id=proyecto.id')
+                        ->innerJoin('asunto b', 'a.asunto_id=b.id')
+                        ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->count();
+
+        $asuntos = Proyecto::find()
+                        ->select('b.id,b.descripcion_corta')
+                        ->innerJoin('proyecto_copia a', 'a.id=proyecto.id')
+                        ->innerJoin('asunto b', 'a.asunto_id=b.id')
+                        ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->all();
+
+
+        echo $region;
         if ($countAsuntos > 0) {
             echo "<option value></option>";
             foreach ($asuntos as $asunto) {
@@ -688,7 +715,12 @@ class ProyectoController extends Controller {
 
         $proyecto->archivo2 = UploadedFile::getInstance($proyecto, 'archivo2');
         if ($proyecto->archivo2) {
-
+            
+            /*pdfVersion($proyecto->archivo2->tempName);
+            
+            
+            print_r($proyecto);
+            exit;*/
             $proyecto->proyecto_archivo2 = $proyecto->id . '_2.' . $proyecto->archivo2->extension;
             $proyecto->formato_proyecto2 = 1; //formato en documento
             $proyecto->update();
@@ -707,5 +739,30 @@ class ProyectoController extends Controller {
             $proyecto->update();
         }
     }
+    
+    function pdfVersion($filename)
+{ 
+    $fp = @fopen($filename, 'rb');
+ 
+    if (!$fp) {
+        return 0;
+    }
+ 
+    /* Reset file pointer to the start */
+    fseek($fp, 0);
+ 
+    /* Read 20 bytes from the start of the PDF */
+    preg_match('/\d\.\d/',fread($fp,20),$match);
+ 
+    fclose($fp);
+ 
+    if (isset($match[0])) {
+        return $match[0];
+    } else {
+        return 0;
+    }
+} 
+    
+    
 
 }
