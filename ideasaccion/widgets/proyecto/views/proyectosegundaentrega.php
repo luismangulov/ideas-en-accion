@@ -596,6 +596,8 @@ $evaluacion = Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
 
 
     $('#btnproyectoevaluacion').click(function(events) {
+    
+    
         var error = '';
 
         if ($.trim($('#proyecto-evaluacion').val()) == '')

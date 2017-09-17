@@ -198,14 +198,14 @@ class ProyectoController extends Controller {
     public function actionFinalizarprimeraentrega() {
 
         if (empty($_SERVER['HTTP_REFERER'])) {
-            echo 2;
+
             exit;
         } else {
             $parts = parse_url($_SERVER['HTTP_REFERER']);
 
             //print_r($parts);
             if ($parts["host"] != Yii::$app->params["host"]) {
-                echo 2;
+
                 exit;
             }
         }
@@ -377,6 +377,19 @@ class ProyectoController extends Controller {
     }
 
     public function actionEvaluacion() {
+        if (empty($_SERVER['HTTP_REFERER'])) {
+            echo "";
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+
+            //print_r($parts);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+                echo "";
+                exit;
+            }
+        }
+
         $evaluacion = new Evaluacion;
         $evaluacion->load(Yii::$app->request->post());
         $evaluaciona = Evaluacion::find()->where('proyecto_id=:proyecto_id and user_id=:user_id', [':proyecto_id' => $evaluacion->proyecto_id, ':user_id' => $evaluacion->user_id])->one();
@@ -707,27 +720,40 @@ class ProyectoController extends Controller {
 
     public function actionArchivo2() {
         //var_dump("primero");die;x
+
+        if (empty($_SERVER['HTTP_REFERER'])) {
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+                exit;
+            }
+        }
+
+
         $usuario = Usuario::findOne(\Yii::$app->user->id);
         $integrante = Integrante::find()->where('estudiante_id=:estudiante_id', [':estudiante_id' => $usuario->estudiante_id])->one();
         $estudiante = Estudiante::find()->where('id=:id', [':id' => $integrante->estudiante_id])->one();
         $equipo = Equipo::findOne($integrante->equipo_id);
         $proyecto = Proyecto::find()->where('equipo_id=:equipo_id', [':equipo_id' => $integrante->equipo_id])->one();
-
+        $respuesta = "0";
         $proyecto->archivo2 = UploadedFile::getInstance($proyecto, 'archivo2');
         if ($proyecto->archivo2) {
-            
-            /*pdfVersion($proyecto->archivo2->tempName);
-            
-            
-            print_r($proyecto);
-            exit;*/
-            $proyecto->proyecto_archivo2 = $proyecto->id . '_2.' . $proyecto->archivo2->extension;
-            $proyecto->formato_proyecto2 = 1; //formato en documento
-            $proyecto->update();
-            $proyecto->archivo2->saveAs('proyectos/' . $proyecto->proyecto_archivo2);
+
+            $version = pdfVersion($proyecto->archivo2->tempName);
+
+            if ($version != 0) {
+
+
+                $proyecto->proyecto_archivo2 = $proyecto->id . '_2.' . $proyecto->archivo2->extension;
+                $proyecto->formato_proyecto2 = 1; //formato en documento
+                $proyecto->update();
+                $proyecto->archivo2->saveAs('proyectos/' . $proyecto->proyecto_archivo2);
+                $respuesta = "1";
+            }
         }
 
-        exit;
+        echo $respuesta;
     }
 
     public function actionEliminarArchivo2() {
@@ -739,30 +765,27 @@ class ProyectoController extends Controller {
             $proyecto->update();
         }
     }
-    
-    function pdfVersion($filename)
-{ 
+
+}
+
+function pdfVersion($filename) {
     $fp = @fopen($filename, 'rb');
- 
+
     if (!$fp) {
         return 0;
     }
- 
+
     /* Reset file pointer to the start */
     fseek($fp, 0);
- 
+
     /* Read 20 bytes from the start of the PDF */
-    preg_match('/\d\.\d/',fread($fp,20),$match);
- 
+    preg_match('/\d\.\d/', fread($fp, 20), $match);
+
     fclose($fp);
- 
+
     if (isset($match[0])) {
         return $match[0];
     } else {
         return 0;
     }
-} 
-    
-    
-
 }

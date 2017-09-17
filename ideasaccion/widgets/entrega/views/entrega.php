@@ -77,7 +77,7 @@ $finalizarsegundaentrega = Yii::$app->getUrlManager()->createUrl('proyecto/final
 ?>
 <script>
 
-    $('#btnprimeraentrega').click(function(event) {
+    $('#btnprimeraentrega').click(function (event) {
         var texto = "¿Estás seguro de finalizar la 1ra entrega?";
         var actividad =<?= $actividades ?>;
         var cronograma =<?= $cronogramas ?>;
@@ -88,22 +88,26 @@ $finalizarsegundaentrega = Yii::$app->getUrlManager()->createUrl('proyecto/final
 
         var video =<?= $videoprimera ?>;
         var error = '';
+
+
+
+
+<?php if (trim($proyecto->resumen) == "") { ?>
+
+            error = 'Debe guardar el resumen del proyecto <br>' + error;
+
+<?php } ?>
+
+
+
+<?php if (trim($proyecto->beneficiario) == "") { ?>
+            error = 'Debe guardar el objetivo general del proyecto <br>' + error;
+<?php } ?>
+
         if (video < 1) {
             error = 'Debe guardar el video del proyecto <br>' + error;
         }
 
-        var proyectoresumen = '<?= nl2br(htmlentities($proyecto->resumen,ENT_QUOTES)) ?>';
-
-        var proyectobeneficiario = '<?= nl2br(htmlentities($proyecto->beneficiario,ENT_QUOTES)) ?>';
-
-
-        if (jQuery.trim(proyectoresumen) == '') {
-            error = 'Debe guardar el resumen del proyecto <br>' + error;
-        }
-
-        if (jQuery.trim(proyectobeneficiario) == '') {
-            error = 'Debe guardar el objetivo general del proyecto <br>' + error;
-        }
 
         if (error != '') {
             $.notify({
@@ -130,12 +134,12 @@ $finalizarsegundaentrega = Yii::$app->getUrlManager()->createUrl('proyecto/final
                         label: 'Aceptar',
                     }
                 },
-                callback: function(result) {
+                callback: function (result) {
 
                     if (result) {
 
                         $.post("<?= $finalizarprimerentrega ?>", {'Proyecto[id]':<?= $proyecto->id ?>})
-                                .done(function(data) {
+                                .done(function (data) {
                                     if (data == 1) {
                                         $.notify({
                                             message: 'Gracias se ha cerrado la 1era entrega'
@@ -147,7 +151,7 @@ $finalizarsegundaentrega = Yii::$app->getUrlManager()->createUrl('proyecto/final
                                                 align: 'right'
                                             },
                                         });
-                                        setTimeout(function() {
+                                        setTimeout(function () {
                                             window.location.reload(1);
                                         }, 1);
                                     }
@@ -170,7 +174,7 @@ $finalizarsegundaentrega = Yii::$app->getUrlManager()->createUrl('proyecto/final
             return true;
         }
     });
-    $('#btnsegundaentrega').click(function(event) {
+    $('#btnsegundaentrega').click(function (event) {
         var error = '';
         //var evaluacion='<?= $errorevaluacion ?>';
         // var recomendacion='<?= $errorrecomendaciones ?>';
@@ -182,6 +186,19 @@ $finalizarsegundaentrega = Yii::$app->getUrlManager()->createUrl('proyecto/final
          if (recomendacion!='') {
          error=recomendacion+error;
          }*/
+
+<?php if (trim($proyecto->resumen) == "") { ?>
+
+            error = 'Debe guardar el resumen del proyecto <br>' + error;
+
+<?php } ?>
+
+
+
+<?php if (trim($proyecto->beneficiario) == "") { ?>
+            error = 'Debe guardar el objetivo general del proyecto <br>' + error;
+<?php } ?>
+
         if (video < 1) {
             error = 'Debe ingresar el video de la Segunda etapa del proyecto <br>' + error;
         }
@@ -207,7 +224,7 @@ $finalizarsegundaentrega = Yii::$app->getUrlManager()->createUrl('proyecto/final
                 type: 'POST',
                 async: true,
                 data: {'Proyecto[id]':<?= $proyecto->id ?>},
-                success: function(data) {
+                success: function (data) {
                     if (data == 1) {
                         $.notify({
                             message: 'Gracias se ha cerrado la 2da entrega'
@@ -219,7 +236,7 @@ $finalizarsegundaentrega = Yii::$app->getUrlManager()->createUrl('proyecto/final
                                 align: 'right'
                             },
                         });
-                        setTimeout(function() {
+                        setTimeout(function () {
                             window.location.reload(1);
                         }, 1000);
                     }

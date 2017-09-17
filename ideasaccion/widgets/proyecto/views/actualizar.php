@@ -81,7 +81,7 @@ $acti3 = 0;
 
 <?php $form = ActiveForm::begin(['options' => ['id' => 'form_actualizar', 'enctype' => 'multipart/form-data']]); ?>
 <div class="box_head title_content_box">
-    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_project_big.png" alt="">MI PROYECTO <?= ($equipo->etapa==1 || $equipo->etapa==2)?'(Segunda entrega)':'' ?>
+    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_project_big.png" alt="">MI PROYECTO <?= ($equipo->etapa == 1 || $equipo->etapa == 2) ? '(Segunda entrega)' : '' ?>
 </div>
 <input type="hidden" name="Proyecto[tab_active_pro]" id="tab_active_pro"/>
 <div class="box_content contenido_seccion_crear_equipo">
@@ -95,9 +95,9 @@ $acti3 = 0;
                 <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Cronograma</a></li>
                 <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false"  style="color: #333 !important">Mi video</a></li>
                 <?php if ($equipo->etapa == 1 && $estudiante->grado != 6) { ?>
-                  <!--<li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>-->
-                  <li class=""><a href="#tab_15" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
-                  <?php }  ?>
+                    <!--<li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>-->
+                    <li class=""><a href="#tab_15" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
+                <?php } ?>
                 <?php if (($etapa->etapa == 2 || $etapa->etapa == 3) && $estudiante->grado != 6) { ?>
                     <!--<li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Mi evaluación</a></li>-->
                     <!--<li class=""><a href="#tab_8" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Foro</a></li>-->
@@ -108,7 +108,7 @@ $acti3 = 0;
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group label-floating field-proyecto-titulo required">
                             <label class="control-label" for="proyecto-titulo">Nombre del proyecto </label>
-                            <input type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras" value="<?= htmlentities($proyecto->titulo) ?>" disabled <?php //= $disabled                                      ?>>
+                            <input type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras" value="<?= htmlentities($proyecto->titulo) ?>" disabled <?php //= $disabled                                         ?>>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -123,7 +123,7 @@ $acti3 = 0;
                                 ?>
 
 
-                                <input type="text" id="proyecto-categoria" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= $resultados->descripcion_categoria ?>" disabled <?php //= $disabled                                      ?>>
+                                <input type="text" id="proyecto-categoria" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= $resultados->descripcion_categoria ?>" disabled <?php //= $disabled                                         ?>>
 
                             <?php } ?>
 
@@ -139,7 +139,7 @@ $acti3 = 0;
                                 ?>
 
 
-                                <input type="text" id="proyecto-asunto_id" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= $equipo->asunto->descripcion_cabecera ?>" disabled <?php //= $disabled                                      ?>>
+                                <input type="text" id="proyecto-asunto_id" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= $equipo->asunto->descripcion_cabecera ?>" disabled <?php //= $disabled                                         ?>>
 
                             <?php } ?>
 
@@ -239,11 +239,11 @@ $acti3 = 0;
                                 <?php if ($proyecto->objetivo_especifico_1) { ?>
                                     <ul>
                                         <li id='oespe'><b>Objetivo Específico N° 1: <?= htmlentities($proyecto->objetivo_especifico_1) ?></b> <?= ($disabled == 'disabled') ? '' : "<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(1)'></span>" ?>  </li>
-                                        <input type='hidden' value='<?= htmlentities($proyecto->objetivo_especifico_1,ENT_QUOTES) ?>' name='Proyecto[objetivo_especifico_1]'>
+                                        <input type='hidden' value='<?= htmlentities($proyecto->objetivo_especifico_1, ENT_QUOTES) ?>' name='Proyecto[objetivo_especifico_1]'>
                                         <ul>
                                             <?php foreach ($actividades as $actividad) { ?>
                                                 <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_1_id) { ?>
-                                                    <li id='act'>Actividad: <?= htmlentities($actividad->descripcion) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion,ENT_QUOTES) ?>' name='Proyecto[actividades_1][]'></li>
+                                                    <li id='act'>Actividad: <?= htmlentities($actividad->descripcion) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion, ENT_QUOTES) ?>' name='Proyecto[actividades_1][]'></li>
                                                     <input id="proyecto-actividades_ids_1_<?= $acti1 ?>" type="hidden" name="Proyecto[actividades_ids_1][]" placeholder="Actividad" value="<?= htmlentities($actividad->actividad_id) ?>" />
                                                     <?php
                                                     $acti1 ++;
@@ -260,11 +260,11 @@ $acti3 = 0;
                                 <?php if ($proyecto->objetivo_especifico_2) { ?>
                                     <ul>
                                         <li id='oespe'><b>Objetivo Específico N° 2: <?= htmlentities($proyecto->objetivo_especifico_2) ?></b> <?= ($disabled == 'disabled') ? '' : "<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(2)'></span>" ?> </li>
-                                        <input type='hidden' value='<?= htmlentities($proyecto->objetivo_especifico_2,ENT_QUOTES) ?>' name='Proyecto[objetivo_especifico_2]'>
+                                        <input type='hidden' value='<?= htmlentities($proyecto->objetivo_especifico_2, ENT_QUOTES) ?>' name='Proyecto[objetivo_especifico_2]'>
                                         <ul>
                                             <?php foreach ($actividades as $actividad) { ?>
                                                 <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_2_id) { ?>
-                                                    <li id='act'>Actividad: <?= htmlentities($actividad->descripcion) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion,ENT_QUOTES) ?>' name='Proyecto[actividades_2][]'></li>
+                                                    <li id='act'>Actividad: <?= htmlentities($actividad->descripcion) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion, ENT_QUOTES) ?>' name='Proyecto[actividades_2][]'></li>
                                                     <input id="proyecto-actividades_ids_2_<?= $acti2 ?>" type="hidden" name="Proyecto[actividades_ids_2][]" placeholder="Actividad" value="<?= htmlentities($actividad->actividad_id) ?>" />
                                                     <?php
                                                     $acti2++;
@@ -281,11 +281,11 @@ $acti3 = 0;
                                 <?php if ($proyecto->objetivo_especifico_3) { ?>
                                     <ul>
                                         <li id='oespe'><b>Objetivo Específico N° 3: <?= htmlentities($proyecto->objetivo_especifico_3) ?></b> <?= ($disabled == 'disabled') ? '' : "<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(3)'></span>" ?> </li>
-                                        <input type='hidden' value='<?= htmlentities($proyecto->objetivo_especifico_3,ENT_QUOTES) ?>' name='Proyecto[objetivo_especifico_3]'>
+                                        <input type='hidden' value='<?= htmlentities($proyecto->objetivo_especifico_3, ENT_QUOTES) ?>' name='Proyecto[objetivo_especifico_3]'>
                                         <ul>
                                             <?php foreach ($actividades as $actividad) { ?>
                                                 <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_3_id) { ?>
-                                                    <li id='act'>Actividad: <?= htmlentities($actividad->descripcion) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion,ENT_QUOTES) ?>' name='Proyecto[actividades_3][]'></li>
+                                                    <li id='act'>Actividad: <?= htmlentities($actividad->descripcion) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion, ENT_QUOTES) ?>' name='Proyecto[actividades_3][]'></li>
                                                     <input id="proyecto-actividades_ids_3_<?= $acti3 ?>" type="hidden" name="Proyecto[actividades_ids_3][]" placeholder="Actividad" value="<?= htmlentities($actividad->actividad_id) ?>" />
                                                     <?php
                                                     $acti3++;
@@ -646,17 +646,17 @@ $acti3 = 0;
                     <div class="col-xs-12 col-sm-4 col-md-4" >
                         <!--<button type="button" id="btnproyectoreflexion" class="btn btn-default">Guardar</button>-->
                     </div>
-                <?php }  else if ($equipo->etapa == 1 && $integrante->rol == 1) { ?>
-                  <div class="col-xs-12 col-sm-4 col-md-4" >
-                  <button type="submit" id="btnproyectoevaluacion" class="btn btn-default">Guardar</button>
-                  </div>
-                  <div class="col-xs-12 col-sm-4 col-md-4 "></div>
-                  <div class="col-xs-12 col-sm-4 col-md-4 ">
-                  <?= \app\widgets\entrega\EntregaWidget::widget(); ?> <!--Activar cuando se acabe la semana de foros-->
-                  </div>
+                <?php } else if ($equipo->etapa == 1 && $integrante->rol == 1) { ?>
+                    <div class="col-xs-12 col-sm-4 col-md-4" >
+                        <button type="button" id="btnproyectoevaluacion" class="btn btn-default">Guardar</button>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 "></div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 ">
+                        <?= \app\widgets\entrega\EntregaWidget::widget(); ?> <!--Activar cuando se acabe la semana de foros-->
+                    </div>
 
 
-                  <?php }  else if ($equipo->etapa == 1 && $integrante->rol == 2) { ?>
+                <?php } else if ($equipo->etapa == 1 && $integrante->rol == 2) { ?>
                     <div class="col-xs-12 col-sm-4 col-md-4" >
                         <!--<button type="button" id="btnproyectoevaluacion" class="btn btn-default">Guardar</button>-->
                     </div>
@@ -702,12 +702,12 @@ $archivo_pro = Yii::$app->getUrlManager()->createUrl('proyecto/archivo');
 $archivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/archivo2');
 $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar-archivo2');
 ?>
-<!--var i=<?php //= $i                                    ?>;
-    var a=<?php //= $a                                     ?>;
-    var e=<?php //= $e                                     ?>;-->
+<!--var i=<?php //= $i                                       ?>;
+    var a=<?php //= $a                                        ?>;
+    var e=<?php //= $e                                        ?>;-->
 <script>
 
-                                $(document).ready(function($) {
+                                $(document).ready(function ($) {
 
                                     $("#proyecto-archivo").fileinput({
                                         uploadUrl: "<?= $archivo_pro ?>", // server upload action
@@ -721,13 +721,13 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                         minFileCount: 1,
                                         maxFileCount: 1,
                                         allowedFileExtensions: ['pdf']
-                                    }).on("filebatchselected", function(event, files) {
+                                    }).on("filebatchselected", function (event, files) {
                                         // trigger upload method immediately after files are selected
                                         $("#proyecto-archivo").fileinput("upload");
-                                    }).on('filebatchuploadcomplete', function(event, data, previewId, index) {
+                                    }).on('filebatchuploadcomplete', function (event, data, previewId, index) {
                                         alert("Se ha subido tu proyecto satisfactoriamente");
                                         location.reload();
-                                    }).on('fileerror', function(event, data, msg) {
+                                    }).on('fileerror', function (event, data, msg) {
 
                                         $.notify({
                                             message: "Solo se permite subir archivos con extensiones .pdf"
@@ -753,13 +753,44 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                         minFileCount: 1,
                                         maxFileCount: 1,
                                         allowedFileExtensions: ['pdf']
-                                    }).on("filebatchselected", function(event, files) {
+                                    }).on("filebatchselected", function (event, files) {
                                         // trigger upload method immediately after files are selected
                                         $("#proyecto-archivo2").fileinput("upload");
-                                    }).on('filebatchuploadcomplete', function(event, data, previewId, index) {
-                                        alert("Se ha subido tu proyecto satisfactoriamente");
-                                       // location.reload();
-                                    }).on('fileerror', function(event, data, msg) {
+                                    }).on('filebatchuploadcomplete', function (event, data, previewId, index) {
+                                        //alert("Se ha subido tu proyecto satisfactoriamente");
+                                        //debugger;
+                                        // alert(data.response);
+                                        // location.reload();
+                                    }).on('filebatchuploadsuccess', function (event, data, previewId, index) {
+                                        //alert("Se ha subido tu proyecto satisfactoriamente");
+
+                                        if (data.response != "1") {
+                                            $.notify({
+                                                message: "Formato inválido"
+                                            }, {
+                                                type: 'danger',
+                                                z_index: 1000000,
+                                                placement: {
+                                                    from: 'bottom',
+                                                    align: 'right'
+                                                },
+                                            });
+                                        } else {
+
+                                            $.notify({
+                                                message: 'Se ha subido tu proyecto satisfactoriamente'
+                                            }, {
+                                                type: 'success',
+                                                z_index: 1000000,
+                                                placement: {
+                                                    from: 'bottom',
+                                                    align: 'right'
+                                                },
+                                            });
+                                            location.reload();
+                                        }
+                                        // location.reload();
+                                    }).on('fileerror', function (event, data, msg) {
 
                                         $.notify({
                                             message: "Solo se permite subir archivos con extensiones .pdf"
@@ -774,15 +805,15 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                         });
                                     });
                                 });
-                                $("#video-nuevo").click(function(event) {
+                                $("#video-nuevo").click(function (event) {
                                     $(".field-video-archivo").show();
                                     $(".field-proyecto-ruta").hide();
                                 });
-                                $("#video-link").click(function(event) {
+                                $("#video-link").click(function (event) {
                                     $(".field-proyecto-ruta").show();
                                     $(".field-video-archivo").hide();
                                 });
-                                $('.numerico').keypress(function(e) {
+                                $('.numerico').keypress(function (e) {
 
                                     tecla = (document.all) ? e.keyCode : e.which; // 2
                                     if (tecla == 8)
@@ -792,7 +823,7 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                     return reg.test(te); // 6
 
                                 });
-                                $('#btnproyectoreflexion').click(function(events) {
+                                $('#btnproyectoreflexion').click(function (events) {
                                     var error = '';
                                     if (jQuery.trim($('#proyecto-reflexion').val()) == '')
                                     {
@@ -826,7 +857,7 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                             type: 'POST',
                                             async: true,
                                             data: {'Reflexion[reflexion]': $('#proyecto-reflexion').val(), 'Reflexion[proyecto_id]':<?= $proyecto->id ?>, 'Reflexion[user_id]':<?= \Yii::$app->user->id ?>},
-                                            success: function(data) {
+                                            success: function (data) {
                                                 $.notify({
                                                     message: 'Se ha guardado tu reflexión'
                                                 }, {
@@ -837,7 +868,7 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                                         align: 'right'
                                                     },
                                                 });
-                                                setTimeout(function() {
+                                                setTimeout(function () {
                                                     window.location.reload(1);
                                                 }, 1000);
                                             }
@@ -846,84 +877,96 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                     }
 
                                 });
-                                $('#btnproyectoevaluacion').click(function(events) {
-                                    var error = '';
-                                    var etapa =<?= $etapa->etapa ?>;
-                                    if (etapa == 2) {
+                                $('#btnproyectoevaluacion').click(function (events) {
 
-                                        $.ajax({
-                                            url: '<?= $evaluacion ?>',
-                                            type: 'POST',
-                                            async: true,
-                                            data: {'Evaluacion[evaluacion]': $('#proyecto-evaluacion').val(), 'Evaluacion[proyecto_id]':<?= $proyecto->id ?>, 'Evaluacion[user_id]':<?= \Yii::$app->user->id ?>},
-                                            success: function(data) {
-                                                $.notify({
-                                                    message: 'Se ha guardado tu información'
-                                                }, {
-                                                    type: 'success',
-                                                    z_index: 1000000,
-                                                    placement: {
-                                                        from: 'bottom',
-                                                        align: 'right'
-                                                    },
-                                                });
-                                                //$( "#w0" ).submit();
-                                            }
-                                        });
-                                        setTimeout(function() {
-                                            window.location.reload(1);
-                                        }, 1000);
-                                        return true;
+                                    if (validarCampos()) {
+                                        // alert("Ingrese todos los campos vacíos");
+                                    } else {
+                                        $("#form_actualizar").submit();
                                     }
-                                    else
-                                    {
-                                        $.notify({
-                                            message: 'Se ha guardado la información'
-                                        }, {
-                                            type: 'success',
-                                            z_index: 1000000,
-                                            placement: {
-                                                from: 'bottom',
-                                                align: 'right'
-                                            },
-                                        });
-                                        //$( "#w0" ).submit();
-                                        setTimeout(function() {
-                                            window.location.reload(1);
-                                        }, 1000);
-                                        return true;
-                                    }
+
+
+                                    /*
+                                     var error = '';
+                                     var etapa =<?= $etapa->etapa ?>;
+                                     if (etapa == 2) {
+                                     
+                                     $.ajax({
+                                     url: '<?= $evaluacion ?>',
+                                     type: 'POST',
+                                     async: true,
+                                     data: {'Evaluacion[evaluacion]': $('#proyecto-evaluacion').val(), 'Evaluacion[proyecto_id]':<?= $proyecto->id ?>, 'Evaluacion[user_id]':<?= \Yii::$app->user->id ?>},
+                                     success: function (data) {
+                                     $.notify({
+                                     message: 'Se ha guardado tu información'
+                                     }, {
+                                     type: 'success',
+                                     z_index: 1000000,
+                                     placement: {
+                                     from: 'bottom',
+                                     align: 'right'
+                                     },
+                                     });
+                                     
+                                     }
+                                     });
+                                     setTimeout(function () {
+                                     window.location.reload(1);
+                                     }, 1000);
+                                     return true;
+                                     }
+                                     else
+                                     {
+                                     $.notify({
+                                     message: 'Se ha guardado la información'
+                                     }, {
+                                     type: 'success',
+                                     z_index: 1000000,
+                                     placement: {
+                                     from: 'bottom',
+                                     align: 'right'
+                                     },
+                                     });
+                                     //$( "#w0" ).submit();
+                                     setTimeout(function () {
+                                     window.location.reload(1);
+                                     }, 1000);
+                                     return true;
+                                     }*/
+
+
+
                                 });
                                 //(function() {
-                                $('#btnvideo').click(function(events) {
+                                $('#btnvideo').click(function (events) {
                                     var bar = $('.bar');
                                     var percent = $('.percent');
                                     var status = $('#status');
                                     $('#w0').ajaxForm({
-                                        beforeSend: function() {
+                                        beforeSend: function () {
                                             var percentVal = '0%';
                                             bar.width(percentVal)
                                             percent.html(percentVal);
                                         },
-                                        uploadProgress: function(event, position, total, percentComplete) {
+                                        uploadProgress: function (event, position, total, percentComplete) {
                                             var percentVal = percentComplete + '%';
                                             bar.width(percentVal)
                                             percent.html(percentVal);
                                             //console.log(percentVal, position, total);
                                         },
-                                        success: function() {
+                                        success: function () {
                                             var percentVal = '100%';
                                             bar.width(percentVal)
                                             percent.html(percentVal);
                                             // $( "#w0" ).submit();
-                                            setTimeout(function() {
+                                            setTimeout(function () {
                                                 window.location.reload(1);
                                             }, 10);
                                         },
-                                        complete: function(xhr) {
+                                        complete: function (xhr) {
                                             status.html(xhr.responseText);
                                             // $( "#w0" ).submit();
-                                            setTimeout(function() {
+                                            setTimeout(function () {
                                                 window.location.reload(1);
                                             }, 10);
                                         }
@@ -1123,7 +1166,7 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                     }
 
 
-                                    $("#actividades input").each(function(index) {
+                                    $("#actividades input").each(function (index) {
                                         bodyactividades = bodyactividades + "<li id='act'> Actividad: " + xescape($(this).val()) + " <input type='hidden' value='" + xescape($(this).val()) + "' name='Proyecto[actividades_" + oe + "][]'></li>";
                                         console.log($(this).val());
                                     });
@@ -1145,16 +1188,16 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                 }
 
                                 function Editar(identificador) {
-                                    
+
                                     $('#oe_modal').html("");
                                     $('#objetivo_especifico_general_copia').modal({backdrop: 'static', keyboard: false});
                                     //var objetivo_especifico="";
                                     var objetivo_especifico = $("input[name='Proyecto[objetivo_especifico_" + identificador + "]']").val();
                                     //alert("Hola " + xescape(objetivo_especifico) );
-                                   
+
                                     var bodyactividades = "";
                                     var a = 1;
-                                    $("input[name='Proyecto[actividades_" + identificador + "][]']").each(function(index) {
+                                    $("input[name='Proyecto[actividades_" + identificador + "][]']").each(function (index) {
                                         bodyactividades = bodyactividades + "<div class='col-xs-12 col-sm-11 col-md-11 pull-right' style='margin-top:15px;'>" +
                                                 "<div class='form-group label-floating field-proyecto-temp_actividad_" + a + " required' style='margin-top: 15px'>" +
                                                 "<label class='control-label' for='proyecto-temp_actividad_actividad_" + a + "'>Descripción de actividad #" + a + "</label>" +
@@ -1266,7 +1309,7 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
 
 
                                     var acti = 0;
-                                    $("#actividades_copia input").each(function(index) {
+                                    $("#actividades_copia input").each(function (index) {
                                         //console.log($("#proyecto-actividades_ids_"+oe+"_"+acti+"").val());
                                         input = "";
                                         if ($("#proyecto-actividades_ids_" + oe + "_" + acti + "").length > 0) {
@@ -1395,7 +1438,7 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                         type: 'POST',
                                         async: true,
                                         data: {'id': proyecto},
-                                        success: function(data) {
+                                        success: function (data) {
                                             $.notify({
                                                 message: 'Se ha ha elimando el archivo del proyecto 2'
                                             }, {
@@ -1406,20 +1449,20 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                                     align: 'right'
                                                 },
                                             });
-                                            setTimeout(function() {
+                                            setTimeout(function () {
                                                 window.location.reload(1);
                                             }, 1000);
                                         }
                                     });
                                 }
 
-                                $("a[href*='#tab']").click(function() {
+                                $("a[href*='#tab']").click(function () {
                                     // str.replace("Microsoft", "W3Schools");
                                     var idtab = $(this).attr("href");
                                     //alert( );
                                     $("#tab_active_pro").val(idtab.replace("#", ""));
                                 });
-                                $("#btnproyecto").click(function() {
+                                $("#btnproyecto").click(function () {
 
                                     if (validarCampos()) {
                                         // alert("Ingrese todos los campos vacíos");
@@ -1520,11 +1563,11 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                  return true;
                                  }*/
 
-    $(document).ready(function() {
+                                $(document).ready(function () {
 // Handler for .ready() called.
 
-        $("#lnk_proyecto").attr("class", "active");
-    });
+                                    $("#lnk_proyecto").attr("class", "active");
+                                });
 </script>
 </script>
 
