@@ -187,20 +187,22 @@ $finalizarsegundaentrega = Yii::$app->getUrlManager()->createUrl('proyecto/final
          error=recomendacion+error;
          }*/
 
+error+=validarReflexion();
+
 <?php if (trim($proyecto->resumen) == "") { ?>
 
-            error = 'Debe guardar el resumen del proyecto <br>' + error;
+            error += 'Debe guardar el resumen del proyecto <br>' ;
 
 <?php } ?>
 
 
 
 <?php if (trim($proyecto->beneficiario) == "") { ?>
-            error = 'Debe guardar el objetivo general del proyecto <br>' + error;
+            error += 'Debe guardar el objetivo general del proyecto <br>' ;
 <?php } ?>
 
         if (video < 1) {
-            error = 'Debe ingresar el video de la Segunda etapa del proyecto <br>' + error;
+            error += 'Debe ingresar el video de la Segunda etapa del proyecto<br>' ;
         }
 
 

@@ -108,7 +108,7 @@ $acti3 = 0;
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group label-floating field-proyecto-titulo required">
                             <label class="control-label" for="proyecto-titulo">Nombre del proyecto </label>
-                            <input type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras" value="<?= htmlentities($proyecto->titulo) ?>" disabled <?php //= $disabled                                         ?>>
+                            <input type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras" value="<?= htmlentities($proyecto->titulo) ?>" disabled <?php //= $disabled                                           ?>>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -123,7 +123,7 @@ $acti3 = 0;
                                 ?>
 
 
-                                <input type="text" id="proyecto-categoria" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= $resultados->descripcion_categoria ?>" disabled <?php //= $disabled                                         ?>>
+                                <input type="text" id="proyecto-categoria" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= $resultados->descripcion_categoria ?>" disabled <?php //= $disabled                                           ?>>
 
                             <?php } ?>
 
@@ -139,7 +139,7 @@ $acti3 = 0;
                                 ?>
 
 
-                                <input type="text" id="proyecto-asunto_id" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= $equipo->asunto->descripcion_cabecera ?>" disabled <?php //= $disabled                                         ?>>
+                                <input type="text" id="proyecto-asunto_id" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= $equipo->asunto->descripcion_cabecera ?>" disabled <?php //= $disabled                                           ?>>
 
                             <?php } ?>
 
@@ -702,9 +702,9 @@ $archivo_pro = Yii::$app->getUrlManager()->createUrl('proyecto/archivo');
 $archivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/archivo2');
 $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar-archivo2');
 ?>
-<!--var i=<?php //= $i                                       ?>;
-    var a=<?php //= $a                                        ?>;
-    var e=<?php //= $e                                        ?>;-->
+<!--var i=<?php //= $i                                         ?>;
+    var a=<?php //= $a                                          ?>;
+    var e=<?php //= $e                                          ?>;-->
 <script>
 
                                 $(document).ready(function ($) {
@@ -878,6 +878,9 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
 
                                 });
                                 $('#btnproyectoevaluacion').click(function (events) {
+
+
+
 
                                     if (validarCampos()) {
                                         // alert("Ingrese todos los campos vacíos");
@@ -1568,6 +1571,18 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
 
                                     $("#lnk_proyecto").attr("class", "active");
                                 });
+
+
+                                function validarReflexion() {
+                                    var mensajex = "";
+                                  
+<?php if ((($proyecto->p5_1 == 0 || !$proyecto->p5_1 ) && ($proyecto->p5_2 == "0" || !$proyecto->p5_2 ) && ($proyecto->p5_3 == "0" || !$proyecto->p5_3 ) && ($proyecto->p5_4 == "0" || !$proyecto->p5_4 ) && ($proyecto->p5_5 == "0" || !$proyecto->p5_5 ) && ($proyecto->p5_6 == "0" || !$proyecto->p5_6 ) && ($proyecto->p5_7 == "0" || !$proyecto->p5_7 ) && ($proyecto->p5_8 == "0" || !$proyecto->p5_8 ))) {
+    ?>
+                                        mensajex='Seleccione por lo menos una opción en la primera pregunta <br>';
+
+<?php } ?>
+                                    return mensajex;
+                                }
 </script>
 </script>
 
