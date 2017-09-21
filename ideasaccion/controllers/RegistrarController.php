@@ -11,6 +11,7 @@ use app\models\Ubigeo;
 use app\models\Usuario;
 use app\models\Participante;
 use app\models\ParticipanteSearch;
+use app\models\Etapa;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -50,6 +51,15 @@ class RegistrarController extends Controller {
         if ($usuario->status_registro == "2") {
             return $this->redirect(['/panel/ideas-accion']);
         }
+
+        $etapa = Etapa::find()->where('estado=1')->one();
+
+        if ($etapa->etapa != "1" && $usuario->status_registro == "1") {
+            Yii::$app->session->setFlash('mensajeerror', 'La etapa de inscripción ha terminado');
+            
+            return $this->redirect(['site/index']);
+        }
+
 
         $userIdString = $usuario->userId . "";
         //echo $userIdString.strlen ($userIdString);

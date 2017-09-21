@@ -89,7 +89,7 @@ class SiteController extends Controller {
         //echo  $_SESSION["captcha_code"];exit;
 
         if ($mensajeerror != "") {
-            Yii::$app->session->setFlash('mensajeerror', 'El usuario no pertenece a una institución educativa focalizada');
+            Yii::$app->session->setFlash('mensajeerror', $mensajeerror);
         }
 
         if ($model->load(Yii::$app->request->post())) {
