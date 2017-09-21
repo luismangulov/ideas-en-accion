@@ -216,12 +216,21 @@ use yii\web\JsExpression;
                     <?php if ($videosegunda) { ?>
 
                         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                            <?php if ($videosegunda->ruta && $videosegunda->tipo == 1) { ?>
+                            <?php
+                            if ($videosegunda->ruta && $videosegunda->tipo == 1) {
+                                $url = $videosegunda->ruta;
+                                parse_str(parse_url($url, PHP_URL_QUERY), $my_array_of_vars);
+                                $v_variable = "";
+
+                                if (!empty($my_array_of_vars['v'])) {
+                                    $v_variable = $my_array_of_vars['v'];
+                                }
+                                ?>
                                 <br>
-                                <iframe type="text/html" 
+                                <iframe allowfullscreen="allowfullscreen"  type="text/html" 
                                         width="320" 
                                         height="240" 
-                                        src="https://www.youtube.com/embed/<?= substr($videosegunda->ruta, -11) ?>" 
+                                        src="https://www.youtube.com/embed/<?= $v_variable ?>" 
                                         frameborder="0">
                                 </iframe>
                             <?php } elseif ($videosegunda->tipo == 2) { ?>
@@ -260,7 +269,7 @@ $evaluacion = Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
 <script>
 
 
-    $("#btn_objetivo_general").click(function(event) {
+    $("#btn_objetivo_general").click(function (event) {
         if ($('#proyecto-objetivo_general').val() == '') {
             $.notify({
                 message: 'Ingrese el Objetivo General'
@@ -280,7 +289,7 @@ $evaluacion = Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
         return true;
     });
 
-    $("#btn_objetivo_especifico_1").click(function(event) {
+    $("#btn_objetivo_especifico_1").click(function (event) {
         var error = '';
         if ($('#proyecto-objetivo_especifico_1').val() == '') {
             error = error + ' Ingrese el Objetivo especifico 1 <br>';
@@ -330,7 +339,7 @@ $evaluacion = Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
 
     });
 
-    $("#btn_objetivo_especifico_2").click(function(event) {
+    $("#btn_objetivo_especifico_2").click(function (event) {
         var error = '';
 
         var objetivo2 = $('input[name=\'Proyecto[actividades_2][]\']').length;
@@ -380,7 +389,7 @@ $evaluacion = Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
         }
     });
 
-    $("#btn_objetivo_especifico_3").click(function(event) {
+    $("#btn_objetivo_especifico_3").click(function (event) {
         var error = '';
 
         if ($('#proyecto-objetivo_especifico_3').val() == '') {
@@ -431,7 +440,7 @@ $evaluacion = Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
         }
     });
 
-    $("#btnproyecto").click(function(event) {
+    $("#btnproyecto").click(function (event) {
         var error = '';
 
         if ($('#proyecto-titulo').val() == '')
@@ -527,7 +536,7 @@ $evaluacion = Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
         return true;
     });
 
-    $('.numerico').keypress(function(tecla) {
+    $('.numerico').keypress(function (tecla) {
         var reg = /^[0-9\s]+$/;
         if (!reg.test(String.fromCharCode(tecla.which))) {
             return false;
@@ -535,7 +544,7 @@ $evaluacion = Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
         return true;
     });
 
-    $('#btnproyectoreflexion').click(function(events) {
+    $('#btnproyectoreflexion').click(function (events) {
         var error = '';
 
         if ($.trim($('#proyecto-reflexion').val()) == '')
@@ -570,7 +579,7 @@ $evaluacion = Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
                 type: 'POST',
                 async: true,
                 data: {'Reflexion[reflexion]': $('#proyecto-reflexion').val(), 'Reflexion[proyecto_id]':<?= $proyecto->id ?>, 'Reflexion[user_id]':<?= \Yii::$app->user->id ?>},
-                success: function(data) {
+                success: function (data) {
                     $.notify({
                         message: 'Se ha guardado tu reflexión'
                     }, {
@@ -582,7 +591,7 @@ $evaluacion = Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
                         },
                     });
 
-                    setTimeout(function() {
+                    setTimeout(function () {
                         window.location.reload(1);
                     }, 1000);
                 }
@@ -595,9 +604,9 @@ $evaluacion = Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
 
 
 
-    $('#btnproyectoevaluacion').click(function(events) {
-    
-    
+    $('#btnproyectoevaluacion').click(function (events) {
+
+
         var error = '';
 
         if ($.trim($('#proyecto-evaluacion').val()) == '')
@@ -632,7 +641,7 @@ $evaluacion = Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
                 type: 'POST',
                 async: true,
                 data: {'Evaluacion[evaluacion]': $('#proyecto-evaluacion').val(), 'Evaluacion[proyecto_id]':<?= $proyecto->id ?>, 'Evaluacion[user_id]':<?= \Yii::$app->user->id ?>},
-                success: function(data) {
+                success: function (data) {
                     $.notify({
                         message: 'Se ha guardado tu evaluación'
                     }, {
@@ -647,7 +656,7 @@ $evaluacion = Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
                 }
             });
 
-            setTimeout(function() {
+            setTimeout(function () {
                 window.location.reload(1);
             }, 1000);
             return true;
@@ -656,31 +665,31 @@ $evaluacion = Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
     });
 
 
-    (function() {
+    (function () {
 
         var bar = $('.bar');
         var percent = $('.percent');
         var status = $('#status');
         $('#w0').ajaxForm({
-            beforeSend: function() {
+            beforeSend: function () {
                 var percentVal = '0%';
                 bar.width(percentVal)
                 percent.html(percentVal);
 
             },
-            uploadProgress: function(event, position, total, percentComplete) {
+            uploadProgress: function (event, position, total, percentComplete) {
                 var percentVal = percentComplete + '%';
                 bar.width(percentVal)
                 percent.html(percentVal);
                 //console.log(percentVal, position, total);
             },
-            success: function() {
+            success: function () {
                 var percentVal = '100%';
                 bar.width(percentVal)
                 percent.html(percentVal);
                 $("#w0").submit();
             },
-            complete: function(xhr) {
+            complete: function (xhr) {
                 status.html(xhr.responseText);
                 $("#w0").submit();
                 /*setTimeout(function(){
@@ -690,7 +699,7 @@ $evaluacion = Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
         });
     })();
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 // Handler for .ready() called.
 
         $("#lnk_segunda").attr("class", "active");
