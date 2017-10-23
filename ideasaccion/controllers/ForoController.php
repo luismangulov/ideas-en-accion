@@ -11,7 +11,6 @@ use app\models\Usuario;
 use app\models\Integrante;
 use app\models\Equipo;
 use app\models\Estudiante;
-
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -247,9 +246,26 @@ class ForoController extends Controller {
     public function actionProyectoMonitorVotacion($id) {
         $this->layout = 'administrador';
         //$model=$this->findModel($id);
+        if (!\Yii::$app->user->can('monitor')) {
+            //session_start();
+            //$_SESSION["rol"] = "ADMINISTRADOR";
+
+
+            return $this->goHome();
+        }
         return $this->render('proyecto-monitor-votacion', [
                     'id' => $id
         ]);
     }
 
+    public function actionProyectoVotacion($id) {
+        $this->layout = 'estandar';
+        //$model=$this->findModel($id);
+
+        return $this->render('proyecto-monitor-votacion', [
+                    'id' => $id
+        ]);
+    }    
+    
+    
 }

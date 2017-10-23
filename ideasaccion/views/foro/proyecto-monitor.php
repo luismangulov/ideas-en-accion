@@ -14,3 +14,17 @@ $posts = $model->getPosts($model->id);
 ?>
    <?= \app\widgets\proyecto\ProyectoBuscarMonitorPrimeraEntregaWidget::widget(['proyecto_id'=>$model->proyecto_id]); ?>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+// Handler for .ready() called.
+
+        $("#lnk_reportesegunda").addClass("active");
+        $("#lnk_reportesegunda").parent().find("ul").show();
+        $("#lnk_reportesegunda_aporte").addClass("active");
+
+
+    });
+
+
+
+</script>

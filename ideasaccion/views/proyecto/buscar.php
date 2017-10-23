@@ -95,10 +95,11 @@ use yii\widgets\Pjax;
 ?>
 <script>
     function Region(value) {
+        
         $.get( "<?= $asunto ?>?region="+value, function( data ) {
             $( "#proyecto-asunto_id" ).html( data );
         });
-        //$( "#w1" ).submit();
+        $( "#w1" ).submit();
     }
     
     function Asunto(value) {

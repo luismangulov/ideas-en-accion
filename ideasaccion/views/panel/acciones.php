@@ -2,9 +2,11 @@
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\ContactForm */
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\web\JsExpression;
+
 $this->title = "Ideas en acción";
 $disabled = false;
 if ($votacionpublica || $etapa->etapa != 3) {
@@ -19,15 +21,15 @@ if ($votacionpublica || $etapa->etapa != 3) {
 
     <div class="panel-body text-center">
         <div class="clearfix"></div>
-        <?php /* <button class="btn btn-raised btn-default" id="cerrarvoto" <?= $resultados?'disabled':'' ?>>cerrar votación</button> */ ?>
+<?php /* <button class="btn btn-raised btn-default" id="cerrarvoto" <?= $resultados?'disabled':'' ?>>cerrar votación</button> */ ?>
         <div class="clearfix"></div><p></p>
         <button class="btn btn-raised btn-default" id="cerrar1entrega" <?= ($etapa->etapa != 1 || !$resultados) ? 'disabled' : '' ?> >cerrar 1era entrega</button>
         <div class="clearfix"></div><p></p>
         <button class="btn btn-raised btn-default" id="cerrar2entrega" <?= ($etapa->etapa != 2) ? 'disabled' : '' ?> >cerrar 2da entrega</button>
         <div class="clearfix"></div><p></p>
-        <?php //Html::a('Votación interna',['votacioninterna'],['id'=>'btnvotacioninterna','class'=>'btn btn-raised btn-default','disabled'=>$disabled]);  ?>
+<?php //Html::a('Votación interna',['votacioninterna'],['id'=>'btnvotacioninterna','class'=>'btn btn-raised btn-default','disabled'=>$disabled]);   ?>
         <div class="clearfix"></div><p></p>
-            <button class="btn btn-raised btn-default"  id="cerrarvotacioninterna" <?= ($votacionpublica || $etapa->etapa!=3)?'disabled':'' ?> >cerrar votación interna</button>
+        <button class="btn btn-raised btn-default"  id="cerrarvotacioninterna" <?= ($votacionpublica || $etapa->etapa != 3) ? 'disabled' : '' ?> >cerrar votación interna</button>
     </div>
 </div>
 
@@ -236,46 +238,48 @@ $cerrarvotacioninterna = Yii::$app->getUrlManager()->createUrl('proyecto/cerrarv
         }
     });
     $('#cerrarvotacioninterna').click(function (events) {
-        var faltavalorporcentual =<?= $faltavalorporcentual ?>;
-        alert(faltavalorporcentual);
-        var votacionesinternas =<?= $votacionesinternas ?>;
-        alert(votacionesinternas);
-        if (faltavalorporcentual > 0) {
-            $.notify({
-                message: 'Falta ingresa valor en algunos proyectos'
-            }, {
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });
-            return false;
-        }
-        if (votacionesinternas == 0) {
-            $.notify({
-                message: 'No tiene ningun registro en votación interna'
-            }, {
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });
-            return false;
-        }
-        $.ajax({
-            url: '<?= $cerrarvotacioninterna ?>',
-            type: 'POST',
-            async: true,
-            success: function (data) {
-                setTimeout(function () {
-                    window.location.reload(1);
-                }, 1000);
+        if (confirm("¿Está seguro de cerrar la votación interna?")) {
+            var faltavalorporcentual =<?= $faltavalorporcentual ?>;
+            // alert(faltavalorporcentual);
+            var votacionesinternas =<?= $votacionesinternas ?>;
+            //alert(votacionesinternas);
+            if (faltavalorporcentual > 0) {
+                $.notify({
+                    message: 'Falta ingresa valor en algunos proyectos'
+                }, {
+                    type: 'danger',
+                    z_index: 1000000,
+                    placement: {
+                        from: 'bottom',
+                        align: 'right'
+                    },
+                });
+                return false;
             }
-        });
+            if (votacionesinternas == 0) {
+                $.notify({
+                    message: 'No tiene ningun registro en votación interna'
+                }, {
+                    type: 'danger',
+                    z_index: 1000000,
+                    placement: {
+                        from: 'bottom',
+                        align: 'right'
+                    },
+                });
+                return false;
+            }
+            $.ajax({
+                url: '<?= $cerrarvotacioninterna ?>',
+                type: 'POST',
+                async: true,
+                success: function (data) {
+                    setTimeout(function () {
+                        window.location.reload(1);
+                    }, 1000);
+                }
+            });
+        }
         return true;
     });
     $('#btnvotacioninterna').click(function (events) {

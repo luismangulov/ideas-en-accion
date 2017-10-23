@@ -27,26 +27,27 @@ if (!\Yii::$app->user->isGuest) {
     $votacionpublica = VotacionPublica::find()->all();
 //$invitacion=Invitacion::find()->where('equipo_id=:equipo_id and estado=1',[':equipo_id'=>$equipo->id])->one();
     $integrante = Integrante::find()->where('estudiante_id=:estudiante_id', [':estudiante_id' => $usuario->estudiante_id])->one();
-        $foro_sinleer_string="";
-    $foro_sinleer=0;
-
+    $foro_sinleer_string = "";
+    $foro_sinleer = 0;
+    $proyecto = null;
     if ($integrante) {
         $equipo = Equipo::find()->where('id=:id and estado=1', [':id' => $integrante->equipo_id])->one();
         if ($equipo) {
 
             $proyecto = Proyecto::find()->where('equipo_id=:equipo_id', [':equipo_id' => $equipo->id])->one();
+            if ($etapa2) {
+                $connectionx = Yii::$app->db;
+                $commandx = $connectionx->createCommand("select count(a.id) as cantidad_sinleer from foro_comentario a inner join foro c on a.foro_id=c.id inner join proyecto b on c.proyecto_id=b.id where b.id=" . $proyecto->id . " AND  leido='0' group by a.foro_id");
+                /* echo "select count(a.id) as cantidad_sinleer from foro_comentario a inner join foro c on a.foro_id=c.id inner join proyecto b on c.proyecto_id=b.id where b.id=".$proyecto->id." AND  and leido='0' group by a.foro_id";
+                  exit; */
+                $rowx = $commandx->queryAll();
 
-            $connectionx = Yii::$app->db;
-            $commandx = $connectionx->createCommand("select count(a.id) as cantidad_sinleer from foro_comentario a inner join foro c on a.foro_id=c.id inner join proyecto b on c.proyecto_id=b.id where b.id=" . $proyecto->id . " AND  leido='0' group by a.foro_id");
-            /* echo "select count(a.id) as cantidad_sinleer from foro_comentario a inner join foro c on a.foro_id=c.id inner join proyecto b on c.proyecto_id=b.id where b.id=".$proyecto->id." AND  and leido='0' group by a.foro_id";
-              exit; */
-            $rowx = $commandx->queryAll();
-
-            if (!empty($rowx)) {
-                $foro_sinleer = $rowx[0]["cantidad_sinleer"];
-            }
-            if ($foro_sinleer > 0) {
-                $foro_sinleer_string = " <span style='color:red'>(" . $foro_sinleer . " mensajes sin leer)</span> ";
+                if (!empty($rowx)) {
+                    $foro_sinleer = $rowx[0]["cantidad_sinleer"];
+                }
+                if ($foro_sinleer > 0) {
+                    $foro_sinleer_string = " <span style='color:red'>(" . $foro_sinleer . " mensajes sin leer)</span> ";
+                }
             }
         }
 
@@ -86,7 +87,7 @@ if (!\Yii::$app->user->isGuest) {
             <title><?= Html::encode($this->title) ?></title>
             <script src="<?= \Yii::$app->request->BaseUrl ?>/js/util.js" type="text/javascript"></script>
 
-                                    <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>-->
+                                            <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>-->
             <script src="<?= \Yii::$app->request->BaseUrl ?>/js/libs/2.2.0/jquery.min.js" type="text/javascript"></script>
             <script src="<?= \Yii::$app->request->BaseUrl ?>/js/libs/angularjs/1.5.5/angular.min.js"></script>
             <link href="<?= \Yii::$app->request->BaseUrl ?>/img/favicon.ico" rel="Shortcut Icon">
@@ -119,9 +120,9 @@ if (!\Yii::$app->user->isGuest) {
             <link href="<?= \Yii::$app->request->BaseUrl ?>/css/style.css" rel="stylesheet">
 
             <script>
-                (function(i, s, o, g, r, a, m) {
+                (function (i, s, o, g, r, a, m) {
                     i['GoogleAnalyticsObject'] = r;
-                    i[r] = i[r] || function() {
+                    i[r] = i[r] || function () {
                         (i[r].q = i[r].q || []).push(arguments)
                     }, i[r].l = 1 * new Date();
                     a = s.createElement(o),
@@ -230,7 +231,7 @@ if (!\Yii::$app->user->isGuest) {
                                                 </div>', ['panel/index'], ['id' => 'lnk_miequipo']); ?>
                                             </li>
                                             <!--Mi proyecto-->
-                                            <?php if ($integrante && $equipo && !$proyecto && $equipo->etapa == 0 && $integrante->rol == 1) { ?>
+                                            <?php if ($integrante && $equipo && !$proyecto && $equipo->etapa == 0 && $integrante->rol == 1 && !$etapa2 && !$etapa3) { ?>
                                                 <li>
                                                     <?= Html::a('<div class="table_div">
                                             <div class="row_div">
@@ -243,7 +244,7 @@ if (!\Yii::$app->user->isGuest) {
                                             </div>
                                         </div>', ['proyecto/index'], ['id' => 'lnk_proyecto']); ?>
                                                 </li>
-                                            <?php } elseif (($integrante && $equipo && $proyecto && $equipo->etapa == 0 && ($integrante->rol == 1 || $integrante->rol == 2)) || $etapa2) { ?>
+                                            <?php } elseif (($integrante && $equipo && $proyecto && $equipo->etapa == 0 && ($integrante->rol == 1 || $integrante->rol == 2) && !$etapa2 && !$etapa3)) { ?>
                                                 <li>
                                                     <?= Html::a('<div class="table_div">
                                             <div class="row_div">
@@ -256,6 +257,20 @@ if (!\Yii::$app->user->isGuest) {
                                             </div>
                                         </div>', ['proyecto/actualizar'], ['id' => 'lnk_proyecto']); ?>
                                                 </li>
+
+                                            <?php } elseif (($integrante && $equipo && $proyecto && $equipo->etapa == 1 && ($integrante->rol == 1 || $integrante->rol == 2) && $etapa2)) { ?>
+                                                <li>
+                                                    <?= Html::a('<div class="table_div">
+                                            <div class="row_div">
+                                                <div class="cell_div div_ia_icon">
+                                                    <span class="ia_icon ia_icon_project"></span>
+                                                </div>
+                                                <div class="cell_div">
+                                                    Mi proyecto <span class="hide">></span>
+                                                </div>
+                                            </div>
+                                        </div>', ['proyecto/actualizar'], ['id' => 'lnk_proyecto']); ?>
+                                                </li>                                                
                                             <?php } ?>
 
                                             <!--Fin mi proyecto-->
@@ -296,7 +311,7 @@ if (!\Yii::$app->user->isGuest) {
                                                         <span class="ia_icon ia_icon_delivery"></span>
                                                     </div>
                                                     <div class="cell_div">
-                                                        Mi primera entrega'.$foro_sinleer_string.'<span class="hide">></span>
+                                                        Mi primera entrega' . $foro_sinleer_string . '<span class="hide">></span>
                                                     </div>
                                                 </div>
                                             </div>', ['entrega/primera'], ['id' => 'lnk_primera']); ?>
@@ -316,7 +331,7 @@ if (!\Yii::$app->user->isGuest) {
                                                     </li>
                                                 <?php } ?>
 
-                                                <?php if ($integrante && $equipo && $proyecto && ($etapa2 || $etapa3)  /* && ($equipo->etapa == 1 || $equipo->etapa == 2 ) */ && $estudiante->grado != 6) { ?>
+                                                <?php if ($integrante && $equipo && $proyecto && ($etapa2 || $etapa3) /* && ($equipo->etapa == 1 || $equipo->etapa == 2 ) */ && $estudiante->grado != 6) { ?>
                                                     <li><?= Html::a('<div class="table_div">
                                                   <div class="row_div">
                                                   <div class="cell_div div_ia_icon">
@@ -377,7 +392,7 @@ if (!\Yii::$app->user->isGuest) {
             <!-- Open source code -->
             <?php $this->endBody() ?>
             <script>
-                $(".menu_lateral li a.sub_menu").on("click", function(e) {
+                $(".menu_lateral li a.sub_menu").on("click", function (e) {
                     e.preventDefault();
                     var _a = $(this);
                     var _li = _a.parent();
@@ -387,17 +402,17 @@ if (!\Yii::$app->user->isGuest) {
                 });
 
                 window.page = window.location.hash || "#about";
-                $(document).ready(function() {
+                $(document).ready(function () {
                     if (window.page != "#about") {
                         $(".menu").find("li[data-target=" + window.page + "]").trigger("click");
                     }
                 });
-                $(window).on("resize", function() {
+                $(window).on("resize", function () {
                     $("html, body").height($(window).height());
                     $(".main, .menu").height($(window).height() - $(".header-panel").outerHeight());
                     $(".pages").height($(window).height());
                 }).trigger("resize");
-                $(".menu li").click(function() {
+                $(".menu li").click(function () {
                     // Menu
                     if (!$(this).data("target"))
                         return;
@@ -410,12 +425,12 @@ if (!\Yii::$app->user->isGuest) {
                     window.location.hash = window.page;
                     $(this).addClass("active");
                     page.show();
-                    var totop = setInterval(function() {
+                    var totop = setInterval(function () {
                         $(".pages").animate({scrollTop: 0}, 0);
                     }, 1);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         page.addClass("active");
-                        setTimeout(function() {
+                        setTimeout(function () {
                             clearInterval(totop);
                         }, 1000);
                     }, 100);
@@ -426,7 +441,7 @@ if (!\Yii::$app->user->isGuest) {
                     lines.splice(-1, 1);
                     var indentSize = lines[0].length - lines[0].trim().length,
                             re = new RegExp(" {" + indentSize + "}");
-                    lines = lines.map(function(line) {
+                    lines = lines.map(function (line) {
                         if (line.match(re)) {
                             line = line.substring(indentSize);
                         }
@@ -435,8 +450,8 @@ if (!\Yii::$app->user->isGuest) {
                     lines = lines.join("\n");
                     return lines;
                 }
-                $("#opensource").click(function() {
-                    $.get(window.location.href, function(data) {
+                $("#opensource").click(function () {
+                    $.get(window.location.href, function (data) {
                         var html = $(data).find(window.page).html();
                         html = cleanSource(html);
                         $("#source-modal pre").text(html);
@@ -486,7 +501,7 @@ if (!\Yii::$app->user->isGuest) {
     </div>
 </div>
 <script>
-    $('#myModalVideo').on('hide.bs.modal', function(e) {
+    $('#myModalVideo').on('hide.bs.modal', function (e) {
         var $if = $(e.delegateTarget).find('iframe');
         var src = $if.attr("src");
         $if.attr("src", '/empty.html');

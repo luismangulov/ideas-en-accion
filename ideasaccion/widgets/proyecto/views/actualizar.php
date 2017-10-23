@@ -94,10 +94,14 @@ $acti3 = 0;
                 <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Recursos</a></li>
                 <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Cronograma</a></li>
                 <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false"  style="color: #333 !important">Mi video</a></li>
-                <?php if ($equipo->etapa == 1 && $estudiante->grado != 6) { ?>
-                    <!--<li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>-->
-                    <li class=""><a href="#tab_15" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
+                <?php if ($equipo->etapa == 0 && $estudiante->grado != 6) { ?>
+                  <!--   <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
+                   <li class=""><a href="#tab_15" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>-->
                 <?php } ?>
+                <?php if ($equipo->etapa == 1 && $estudiante->grado != 6) { ?>
+                    <li class=""><a href="#tab_15" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
+                   <!-- <li class=""><a href="#tab_15" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>-->
+                <?php } ?>                   
                 <?php if (($etapa->etapa == 2 || $etapa->etapa == 3) && $estudiante->grado != 6) { ?>
                     <!--<li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Mi evaluación</a></li>-->
                     <!--<li class=""><a href="#tab_8" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Foro</a></li>-->
@@ -201,7 +205,7 @@ $acti3 = 0;
                         <?php } ?>
                         <?php if (($proyecto->formato_proyecto2 == '' || $proyecto->formato_proyecto2 == 0) && $integrante->rol == 1 && ($etapa->etapa == 2) && $equipo->etapa == 1) { ?>
                             <div class="form-group" style="background: #F0EFF1">
-                                <p class="text-justify" style="margin-left: 20px;margin-bottom: 0px;margin-top: 20px;padding-top: 10px">Tambien puedes subir tu proyecto:</p>
+                                <p class="text-justify" style="margin-left: 20px;margin-bottom: 0px;margin-top: 20px;padding-top: 10px">También puedes subir tu proyecto <b>(2MB como máximo)</b>:</p>
                                 <div class="col-xs-12 col-sm-4 col-md-4"></div>
                                 <div class="col-xs-12 col-sm-4 col-md-4 text-center">
                                     <input type="file" id="proyecto-archivo2"  name="Proyecto[archivo2]" />
@@ -764,7 +768,7 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                     }).on('filebatchuploadsuccess', function (event, data, previewId, index) {
                                         //alert("Se ha subido tu proyecto satisfactoriamente");
 
-                                        if (data.response != "1") {
+                                        if (data.response == "0") {
                                             $.notify({
                                                 message: "Formato inválido"
                                             }, {
@@ -775,7 +779,7 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                                     align: 'right'
                                                 },
                                             });
-                                        } else {
+                                        }  else if (data.response == "1") {
 
                                             $.notify({
                                                 message: 'Se ha subido tu proyecto satisfactoriamente'
@@ -788,6 +792,17 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                                 },
                                             });
                                             location.reload();
+                                        } else  {
+                                            $.notify({
+                                                message: "El tamaño máximo es de 2 MB"
+                                            }, {
+                                                type: 'danger',
+                                                z_index: 1000000,
+                                                placement: {
+                                                    from: 'bottom',
+                                                    align: 'right'
+                                                },
+                                            });
                                         }
                                         // location.reload();
                                     }).on('fileerror', function (event, data, msg) {
@@ -1575,10 +1590,13 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
 
                                 function validarReflexion() {
                                     var mensajex = "";
-                                  
-<?php if ((($proyecto->p5_1 == 0 || !$proyecto->p5_1 ) && ($proyecto->p5_2 == "0" || !$proyecto->p5_2 ) && ($proyecto->p5_3 == "0" || !$proyecto->p5_3 ) && ($proyecto->p5_4 == "0" || !$proyecto->p5_4 ) && ($proyecto->p5_5 == "0" || !$proyecto->p5_5 ) && ($proyecto->p5_6 == "0" || !$proyecto->p5_6 ) && ($proyecto->p5_7 == "0" || !$proyecto->p5_7 ) && ($proyecto->p5_8 == "0" || !$proyecto->p5_8 ))) {
+                                    
+                                //  alert('<?= $proyecto->p8?>');
+<?php 
+/* if ((($proyecto->p4 == "0" || ($proyecto->p4) ) && ($proyecto->p5_1 == 0 || !$proyecto->p5_1 ) && ($proyecto->p5_2 == "0" || !$proyecto->p5_2 ) && ($proyecto->p5_3 == "0" || !$proyecto->p5_3 ) && ($proyecto->p5_4 == "0" || !$proyecto->p5_4 ) && ($proyecto->p5_5 == "0" || !$proyecto->p5_5 ) && ($proyecto->p5_6 == "0" || !$proyecto->p5_6 ) && ($proyecto->p5_7 == "0" || !$proyecto->p5_7 ) && ($proyecto->p5_8 == "0" || !$proyecto->p5_8 ))) {*/
+if (( !$proyecto->p4 || !$proyecto->p6  || !$proyecto->p8  )) {
     ?>
-                                        mensajex='Seleccione por lo menos una opción en la primera pregunta <br>';
+                                        mensajex='Complete la reflexión <br>';
 
 <?php } ?>
                                     return mensajex;

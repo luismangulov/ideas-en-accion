@@ -68,9 +68,9 @@ class PanelController extends Controller {
                         y <b>¡seguir poniendo tus ideas en acción!</b>.";
         if (\Yii::$app->user->can('administrador')) {
             //session_start();
-                //$_SESSION["rol"] = "ADMINISTRADOR";
-               
-            
+            //$_SESSION["rol"] = "ADMINISTRADOR";
+
+
             return $this->redirect(['panel/acciones']);
         } elseif (\Yii::$app->user->can('monitor')) {
             return $this->redirect(['reporte/index']);
@@ -165,7 +165,7 @@ class PanelController extends Controller {
     public function actionIndex() {
         $this->layout = 'panel';
         if (\Yii::$app->user->can('administrador')) {
-           // $_SESSION["rol"] = "ADMINISTRADOR";
+            // $_SESSION["rol"] = "ADMINISTRADOR";
             return $this->redirect(['panel/acciones']);
         } elseif (\Yii::$app->user->can('monitor')) {
             return $this->redirect(['reporte/index']);
@@ -221,9 +221,9 @@ class PanelController extends Controller {
 
         if (!\Yii::$app->user->can('administrador')) {
             return $this->redirect(['login/logout']);
-        }/*else{
-            $_SESSION["rol"] = "ADMINISTRADOR";
-        }*/
+        }/* else{
+          $_SESSION["rol"] = "ADMINISTRADOR";
+          } */
 
 
 
@@ -271,12 +271,22 @@ class PanelController extends Controller {
 
     public function actionVotacioninterna() {
         $this->layout = 'administrador';
+        $etapa3 = Etapa::find()->where('etapa=3 and estado=1')->one();
+
+        $votacionpublica = VotacionPublica::find()->count();
+
+
+        if (!\Yii::$app->user->can('monitor') || !$etapa3 || $votacionpublica > 0) {
+            return $this->goHome();
+        }
+
 
         $searchModel = new VotacionInternaSearch();
         $dataProvider = $searchModel->votacion(Yii::$app->request->queryParams);
         $countInterna = VotacionInterna::find()->select(['count(proyecto_id) as maximo'])
-                        ->where('estado=2')
+                        ->where('estado=1')
                         ->groupBy('proyecto_id')->orderBy('maximo desc')->one();
+
 
         return $this->render('votacioninterna', [
                     'searchModel' => $searchModel,
@@ -288,7 +298,7 @@ class PanelController extends Controller {
         $this->layout = 'administrador';
 
         $usuario = Usuario::findOne(\Yii::$app->user->id);
-        if (!$usuario->name_temporal == "Monitor" && !$usuario->name_temporal == "Adminitrador") {
+        if (!\Yii::$app->user->can('monitor') && !\Yii::$app->user->can('administrador')) {
             return $this->goHome();
         }
 

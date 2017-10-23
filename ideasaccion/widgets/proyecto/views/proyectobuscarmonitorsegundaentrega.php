@@ -327,3 +327,14 @@ label{
 
 
 
+<script type="text/javascript">
+    $(document).ready(function() {
+// Handler for .ready() called.
+
+        $("#lnk_votacioninterna").addClass("active");
+
+    });
+
+
+
+</script>

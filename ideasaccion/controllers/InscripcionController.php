@@ -11,6 +11,7 @@ use app\models\Estudiante;
 use app\models\EstudianteSearch;
 use app\models\Equipo;
 use app\models\Usuario;
+use app\models\Etapa;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -136,6 +137,11 @@ class InscripcionController extends Controller {
             $equipo->estado = 0;
             $equipo->save();
             if ($equipo->foto_img) {
+
+                if (strtoupper($equipo->foto_img->extension) != "JPG" && strtoupper($equipo->foto_img->extension) != "PNG") {
+                    Yii::$app->session->setFlash('error_file');
+                    return $this->refresh();
+                }
 
                 if (!empty($equipo->foto_img->tempName)) {
                     if ($equipo->foto_img->size / 1024 / 1024 > 1) {
@@ -275,7 +281,10 @@ class InscripcionController extends Controller {
         //$integrante = Integrante::find()->where('estudiante_id=:estudiante_id', [':estudiante_id' => $id])->one();
         $usuario = Usuario::findOne(\Yii::$app->user->id);
 
-        if ($usuario->name_temporal == "Monitor" || $usuario->name_temporal == "Adminitrador" || $usuario->status_registro == "1") {
+
+
+
+        if (\Yii::$app->user->can('monitor') || \Yii::$app->user->can('administrador') || $usuario->status_registro == "1") {
             return $this->goHome();
         }
 
@@ -286,6 +295,13 @@ class InscripcionController extends Controller {
         }
 
         $equipo = Equipo::find()->where('id=:id', [':id' => $integrante->equipo_id])->one();
+        $etapa2 = Etapa::find()->where('etapa=2 and estado=1')->one();
+        $etapa3 = Etapa::find()->where('etapa=3 and estado=1')->one();
+        if ($equipo->estado == 1 || $etapa2 || $etapa3) {
+            return $this->redirect(['panel/index']);
+        }
+
+
         if (!$equipo->foto) {
             $equipo->foto = 'no_disponible.png';
         } else {
@@ -346,6 +362,14 @@ class InscripcionController extends Controller {
         if ($equipo->load(Yii::$app->request->post()) && $equipo->validate()) {
             $equipo->foto_img = UploadedFile::getInstance($equipo, 'foto_img');
             if ($equipo->foto_img) {
+
+                if (strtoupper($equipo->foto_img->extension) != "JPG" && strtoupper($equipo->foto_img->extension) != "PNG") {
+                    Yii::$app->session->setFlash('error_file');
+                    return $this->refresh();
+                }
+
+
+
                 $equipo->foto = $equipo->id . '.' . $equipo->foto_img->extension;
 
                 if ($equipo->foto_img) {

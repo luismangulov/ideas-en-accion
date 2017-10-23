@@ -56,7 +56,7 @@ class RegistrarController extends Controller {
 
         if ($etapa->etapa != "1" && $usuario->status_registro == "1") {
             Yii::$app->session->setFlash('mensajeerror', 'La etapa de inscripción ha terminado');
-            
+
             return $this->redirect(['site/index']);
         }
 
@@ -148,8 +148,15 @@ class RegistrarController extends Controller {
             //$estudiante = new Estudiante;
             // echo $usuario->estudiante_id;
             if ($registrar->foto) {
-                print_r($registrar->foto);
+                //print_r($registrar->foto);
                 /* exit; */
+
+                if (strtoupper($registrar->foto->extension) != "JPG" && strtoupper($registrar->foto->extension) != "PNG") {
+                    Yii::$app->session->setFlash('error_file');
+                    return $this->refresh();
+                }
+
+
 
                 if (!empty($registrar->foto->tempName)) {
                     $exif = exif_imagetype($registrar->foto->tempName);

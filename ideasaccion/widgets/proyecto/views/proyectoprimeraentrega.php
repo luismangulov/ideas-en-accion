@@ -226,7 +226,7 @@ $acti3 = 0;
                                 }
                                 ?>
                                 <br>
-                                <iframe allowfullscreen="allowfullscreen"  type="text/html" 
+                                <iframe allowfullscreen="allowfullscreen" type="text/html" 
                                         width="320" 
                                         height="240" 
                                         src="https://www.youtube.com/embed/<?= $v_variable ?>" 

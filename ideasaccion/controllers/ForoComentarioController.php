@@ -789,15 +789,21 @@ class ForoComentarioController extends Controller {
 
 
 
-            $seccion = $_POST["seccion"];
 
 
+            if (empty($_POST["seccion"])) {
+                $seccion = null;
+            } else {
+                $seccion = $_POST["seccion"];
+            }
 
 
             $newComentario = new ForoComentario();
             $newComentario->foro_id = $foro->id;
             $newComentario->foro_comentario_hijo_id = $padre;
+
             $newComentario->seccion = $seccion;
+
             $newComentario->contenido = $contenido;
             $newComentario->save();
 

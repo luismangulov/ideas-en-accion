@@ -131,12 +131,10 @@ class UsuarioController extends Controller {
 
         $usuario = Usuario::findOne(\Yii::$app->user->id);
         // $usuario = Usuario::find()->where("id=:estudiante_id and status_registro=2", [':estudiante_id' => $usuario->estudiante_id])->one();
-        if ($usuario->name_temporal == "Monitor" || $usuario->name_temporal == "Adminitrador" || $usuario->status_registro == "1") {
+        if (\Yii::$app->user->can('monitor') || \Yii::$app->user->can('administrador') || $usuario->status_registro == "1") {
             return $this->goHome();
         }
-
-
-        $estudiante = Estudiante::find()->where('id=:id', [':id' => $usuario->estudiante_id])->one();
+       $estudiante = Estudiante::find()->where('id=:id', [':id' => $usuario->estudiante_id])->one();
         $institucion = Institucion::find()->where('id=:id', [':id' => $estudiante->institucion_id])->one();
         $ubigeo = Ubigeo::find()->where('district_id=:district_id', [':district_id' => $institucion->ubigeo_id])->one();
         $registrar = new Registrar;
@@ -158,7 +156,12 @@ class UsuarioController extends Controller {
             //$estudiante->sexo=$registrar->sexo;
 
             if ($registrar->foto) {
-                //print_r($registrar->foto);
+
+                if (strtoupper($registrar->foto->extension) != "JPG" && strtoupper($registrar->foto->extension) != "PNG") {
+                    Yii::$app->session->setFlash('error_file');
+                    return $this->refresh();
+                }
+                //print_r($registrar->foto);exit;
 
                 if (!empty($registrar->foto->tempName)) {
                     if ($registrar->foto->size / 1024 / 1024 > 1) {
@@ -191,7 +194,7 @@ class UsuarioController extends Controller {
             if ($estudiante->grado != "6") {
                 $estudiante->grado = $registrar->grado;
             }
-            
+
             $estudiante->celular = $registrar->celular;
             //$estudiante->fecha_nac=date('Y-m-d',strtotime($fecha_nacimiento));
             $estudiante->update();

@@ -76,9 +76,10 @@ $finalizarprimerentrega = Yii::$app->getUrlManager()->createUrl('proyecto/finali
 $finalizarsegundaentrega = Yii::$app->getUrlManager()->createUrl('proyecto/finalizarsegundaentrega');
 ?>
 <script>
-
+var texto2 = "¿Estás seguro de finalizar la 2da entrega?";
     $('#btnprimeraentrega').click(function (event) {
         var texto = "¿Estás seguro de finalizar la 1ra entrega?";
+        
         var actividad =<?= $actividades ?>;
         var cronograma =<?= $cronogramas ?>;
         var planepresupuestales =<?= $planepresupuestales ?>;
@@ -187,22 +188,22 @@ $finalizarsegundaentrega = Yii::$app->getUrlManager()->createUrl('proyecto/final
          error=recomendacion+error;
          }*/
 
-error+=validarReflexion();
+     //   error += validarReflexion();
 
 <?php if (trim($proyecto->resumen) == "") { ?>
 
-            error += 'Debe guardar el resumen del proyecto <br>' ;
+            error += 'Debe guardar el resumen del proyecto <br>';
 
 <?php } ?>
 
 
 
 <?php if (trim($proyecto->beneficiario) == "") { ?>
-            error += 'Debe guardar el objetivo general del proyecto <br>' ;
+            error += 'Debe guardar el objetivo general del proyecto <br>';
 <?php } ?>
 
         if (video < 1) {
-            error += 'Debe ingresar el video de la Segunda etapa del proyecto<br>' ;
+            error += 'Debe ingresar el video de la Segunda etapa del proyecto<br>';
         }
 
 
@@ -221,30 +222,52 @@ error+=validarReflexion();
         }
         else
         {
-            $.ajax({
-                url: '<?= $finalizarsegundaentrega ?>',
-                type: 'POST',
-                async: true,
-                data: {'Proyecto[id]':<?= $proyecto->id ?>},
-                success: function (data) {
-                    if (data == 1) {
-                        $.notify({
-                            message: 'Gracias se ha cerrado la 2da entrega'
-                        }, {
-                            type: 'success',
-                            z_index: 1000000,
-                            placement: {
-                                from: 'bottom',
-                                align: 'right'
-                            },
+
+            bootbox.confirm({
+                message: texto2,
+                buttons: {
+                    'cancel': {
+                        label: 'Cancelar',
+                    },
+                    'confirm': {
+                        label: 'Aceptar',
+                    }
+                },
+                callback: function (result) {
+
+                    if (result) {
+
+
+                        $.ajax({
+                            url: '<?= $finalizarsegundaentrega ?>',
+                            type: 'POST',
+                            async: true,
+                            data: {'Proyecto[id]':<?= $proyecto->id ?>},
+                            success: function (data) {
+                                if (data == 1) {
+                                    $.notify({
+                                        message: 'Gracias se ha cerrado la 2da entrega'
+                                    }, {
+                                        type: 'success',
+                                        z_index: 1000000,
+                                        placement: {
+                                            from: 'bottom',
+                                            align: 'right'
+                                        },
+                                    });
+                                    setTimeout(function () {
+                                        window.location.reload(1);
+                                    }, 1000);
+                                }
+
+                            }
                         });
-                        setTimeout(function () {
-                            window.location.reload(1);
-                        }, 1000);
+
                     }
 
                 }
             });
+
             return true;
         }
     });

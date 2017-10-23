@@ -517,16 +517,16 @@ class ProyectoController extends Controller {
                         ->select('b.id,b.descripcion_corta')
                         ->innerJoin('proyecto_copia a', 'a.id=proyecto.id')
                         ->innerJoin('asunto b', 'a.asunto_id=b.id')
-                        ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->count();
+                        ->where('a.etapa=1 and proyecto.region_id=:region_idx', [':region_idx' => $region])->groupBy('b.id,b.descripcion_corta')->all();
 
         $asuntos = Proyecto::find()
                         ->select('b.id,b.descripcion_corta')
                         ->innerJoin('proyecto_copia a', 'a.id=proyecto.id')
                         ->innerJoin('asunto b', 'a.asunto_id=b.id')
-                        ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->all();
+                        ->where('a.etapa=1 and proyecto.region_id=:region_idx', [':region_idx' => $region])->groupBy('b.id,b.descripcion_corta')->all();
 
-
-        echo $region;
+//[':department_id' => $ubigeo->department_id]
+        // echo $region;
         if ($countAsuntos > 0) {
             echo "<option value></option>";
             foreach ($asuntos as $asunto) {
@@ -538,6 +538,17 @@ class ProyectoController extends Controller {
     }
 
     public function actionVotacion() {
+
+        $etapa3 = Etapa::find()->where('etapa=3 and estado=1')->one();
+        $votacionpublica = VotacionPublica::find()->count();
+
+
+
+
+        if (\Yii::$app->user->can('monitor') || \Yii::$app->user->can('administrador') || !$etapa3 || $votacionpublica > 0) {
+            return $this->goHome();
+        }
+
         $this->layout = 'estandar';
         $model = new Proyecto;
         $searchModel = new ProyectoSearch();
@@ -579,7 +590,31 @@ class ProyectoController extends Controller {
     }
 
     public function actionVotacioninterna($id) {
+        if (empty($_SERVER['HTTP_REFERER'])) {
+
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+
+            //print_r($parts);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+
+                exit;
+            }
+        }
+        $usuario = Usuario::findOne(\Yii::$app->user->id);
+        $integrante = Integrante::find()->where('estudiante_id=:estudiante_id', [':estudiante_id' => $usuario->estudiante_id])->one();
+
+        $proyectosession = Proyecto::find()->where('equipo_id=:equipo_id', [':equipo_id' => $integrante->equipo_id])->one();
+
         $proyecto = Proyecto::findOne($id);
+
+        if ($proyecto->region_id != $proyectosession->region_id) {
+            echo 3;
+            exit;
+        }
+
+
         $votacioninterna = VotacionInterna::find()
                 ->where('proyecto_id=:proyecto_id and user_id=:user_id and estado=1', [':proyecto_id' => $proyecto->id, ':user_id' => \Yii::$app->user->id])
                 ->one();
@@ -613,7 +648,33 @@ class ProyectoController extends Controller {
     }
 
     public function actionVotacioninternaeliminar($id) {
+        if (empty($_SERVER['HTTP_REFERER'])) {
+
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+
+            //print_r($parts);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+
+                exit;
+            }
+        }
+
+
+        $usuario = Usuario::findOne(\Yii::$app->user->id);
+        $integrante = Integrante::find()->where('estudiante_id=:estudiante_id', [':estudiante_id' => $usuario->estudiante_id])->one();
+
+        $proyectosession = Proyecto::find()->where('equipo_id=:equipo_id', [':equipo_id' => $integrante->equipo_id])->one();
+
         $proyecto = Proyecto::findOne($id);
+
+        if ($proyecto->region_id != $proyectosession->region_id) {
+            echo 3;
+            exit;
+        }
+
+
         $votacioninterna = VotacionInterna::find()
                 ->where('proyecto_id=:proyecto_id and user_id=:user_id and estado=1', [':proyecto_id' => $proyecto->id, ':user_id' => \Yii::$app->user->id])
                 ->one();
@@ -736,20 +797,32 @@ class ProyectoController extends Controller {
         $estudiante = Estudiante::find()->where('id=:id', [':id' => $integrante->estudiante_id])->one();
         $equipo = Equipo::findOne($integrante->equipo_id);
         $proyecto = Proyecto::find()->where('equipo_id=:equipo_id', [':equipo_id' => $integrante->equipo_id])->one();
-        $respuesta = "0";
+
         $proyecto->archivo2 = UploadedFile::getInstance($proyecto, 'archivo2');
+
+        $respuesta = "0";
         if ($proyecto->archivo2) {
+            /* print_r($proyecto->archivo2);
+              exit; */
 
-            $version = pdfVersion($proyecto->archivo2->tempName);
+            if (strtoupper($proyecto->archivo2->extension) != "PDF") {
+                $respuesta = "0";
+            } else {
+                if ($proyecto->archivo2->size > 2097152) {
+                    $respuesta = "2";
+                } else {
+                    $version = pdfVersion($proyecto->archivo2->tempName);
 
-            if ($version != 0) {
+                    if ($version != 0) {
 
 
-                $proyecto->proyecto_archivo2 = $proyecto->id . '_2.' . $proyecto->archivo2->extension;
-                $proyecto->formato_proyecto2 = 1; //formato en documento
-                $proyecto->update();
-                $proyecto->archivo2->saveAs('proyectos/' . $proyecto->proyecto_archivo2);
-                $respuesta = "1";
+                        $proyecto->proyecto_archivo2 = $proyecto->id . '_2.' . $proyecto->archivo2->extension;
+                        $proyecto->formato_proyecto2 = 1; //formato en documento
+                        $proyecto->update();
+                        $proyecto->archivo2->saveAs('proyectos/' . $proyecto->proyecto_archivo2);
+                        $respuesta = "1";
+                    }
+                }
             }
         }
 

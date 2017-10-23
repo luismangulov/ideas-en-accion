@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <div class="box_head title_content_box">
-    <img src="../img/icon_team_big.jpg" alt="">Aporta a otros proyectos
+    <img src="../img/icon_team_big.jpg" alt="">Reporte de  aportes de proyectos
 </div>
 <div class="box_content contenido_seccion_crear_equipo">
     <div class="clearfix"></div>
@@ -107,4 +107,19 @@ use yii\widgets\Pjax;
         //code
         
     }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+// Handler for .ready() called.
+
+        $("#lnk_reportesegunda").addClass("active");
+        $("#lnk_reportesegunda").parent().find("ul").show();
+        $("#lnk_reportesegunda_aporte").addClass("active");
+
+
+    });
+
+
+
 </script>

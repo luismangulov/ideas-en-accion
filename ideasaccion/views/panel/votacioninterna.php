@@ -11,7 +11,7 @@ use yii\widgets\Pjax;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <div class="box_head title_content_box">
-    <img src="../img/icon_team_big.jpg" alt="">Votación interna administrador
+    <img src="../img/icon_team_big.jpg" alt="">Evaluación de Proyectos
 </div>
 <div class="box_content contenido_seccion_crear_equipo" >
     <?php Pjax::begin(); ?>
@@ -134,5 +134,17 @@ function grabado_automatico(element,proyecto_id,voto) {
     
     return true;
 }
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+// Handler for .ready() called.
+
+        $("#lnk_votacioninterna").addClass("active");
+
+    });
+
+
 
 </script>

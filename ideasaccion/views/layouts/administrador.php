@@ -13,10 +13,11 @@ use app\models\Integrante;
 use app\models\Equipo;
 use app\models\Proyecto;
 use app\models\Etapa;
+use app\models\VotacionPublica;
 use app\models\Invitacion;
 
 AppEstandarAsset::register($this);
-
+$votacionpublica = VotacionPublica::find()->all();
 if (!\Yii::$app->user->isGuest) {
     $etapa1 = Etapa::find()->where('etapa=1 and estado=1')->one();
     $etapa2 = Etapa::find()->where('etapa=2 and estado=1')->one();
@@ -185,7 +186,7 @@ if (!\Yii::$app->user->isGuest) {
                                             </div>
                                         </div>', ['panel/foros'], ['id' => 'lnk_forosgeneral']); ?>
                                                 </li>
-                                                <?php if (( $etapa3)) { ?>
+                                                <?php if (( $etapa3)&& !$votacionpublica) { ?>
                                                     <li>
                                                         <?= Html::a('<div class="table_div">
                                                 <div class="row_div">
@@ -196,7 +197,7 @@ if (!\Yii::$app->user->isGuest) {
                                                        Evaluación de proyectos <span class="hide">></span>
                                                     </div>
                                                 </div>
-                                            </div>', ['panel/votacioninterna']); ?>
+                                            </div>', ['panel/votacioninterna'],['id' => 'lnk_votacioninterna']); ?>
                                                     </li>
                                                 <?php } ?>
                                             <?php } ?>
@@ -261,7 +262,7 @@ if (!\Yii::$app->user->isGuest) {
                                             <?php if (( $etapa2 || $etapa3)) { ?>
                                                 <li>
 
-                                                    <a href="#" class="sub_menu" id="lnk_reporteprimera">
+                                                    <a href="#" class="sub_menu" id="lnk_reportesegunda">
                                                         <div class="table_div">
                                                             <div class="row_div">
                                                                 <div class="cell_div div_ia_icon">
@@ -274,8 +275,8 @@ if (!\Yii::$app->user->isGuest) {
                                                         </div>
                                                     </a>
                                                     <ul>
-                                                        <li><?= Html::a("Reportes de aportes de proyectos", ['proyecto/buscar-monitor'], []); ?></li>
-                                                        <li><?= Html::a("Reportes de proyectos", ['reporte/proyecto2entrega'], []); ?></li>
+                                                        <li><?= Html::a("Reportes de aportes de proyectos", ['proyecto/buscar-monitor'], ['id' => 'lnk_reportesegunda_aporte']); ?></li>
+                                                        <li><?= Html::a("Reportes de proyectos", ['reporte/proyecto2entrega'], ['id' => 'lnk_reportesegunda_reporte']); ?></li>
                                                     </ul>
                                                 </li>
 

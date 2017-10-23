@@ -27,28 +27,30 @@ if (!\Yii::$app->user->isGuest) {
     $votacionpublica = VotacionPublica::find()->all();
 //$invitacion=Invitacion::find()->where('equipo_id=:equipo_id and estado=1',[':equipo_id'=>$equipo->id])->one();
     $integrante = Integrante::find()->where('estudiante_id=:estudiante_id', [':estudiante_id' => $usuario->estudiante_id])->one();
-    $foro_sinleer_string="";
-    $foro_sinleer=0;
+    $foro_sinleer_string = "";
+    $foro_sinleer = 0;
+    $proyecto = null;
     if ($integrante) {
         $equipo = Equipo::find()->where('id=:id and estado=1', [':id' => $integrante->equipo_id])->one();
         if ($equipo) {
 
+
+
             $proyecto = Proyecto::find()->where('equipo_id=:equipo_id', [':equipo_id' => $equipo->id])->one();
+            if ($etapa2) {
+                $connectionx = Yii::$app->db;
+                $commandx = $connectionx->createCommand("select count(a.id) as cantidad_sinleer from foro_comentario a inner join foro c on a.foro_id=c.id inner join proyecto b on c.proyecto_id=b.id where b.id=" . $proyecto->id . " AND  leido='0' group by a.foro_id");
+                /* echo "select count(a.id) as cantidad_sinleer from foro_comentario a inner join foro c on a.foro_id=c.id inner join proyecto b on c.proyecto_id=b.id where b.id=".$proyecto->id." AND  and leido='0' group by a.foro_id";
+                  exit; */
+                $rowx = $commandx->queryAll();
 
-            $connectionx = Yii::$app->db;
-            $commandx = $connectionx->createCommand("select count(a.id) as cantidad_sinleer from foro_comentario a inner join foro c on a.foro_id=c.id inner join proyecto b on c.proyecto_id=b.id where b.id=".$proyecto->id." AND  leido='0' group by a.foro_id");
-            /*echo "select count(a.id) as cantidad_sinleer from foro_comentario a inner join foro c on a.foro_id=c.id inner join proyecto b on c.proyecto_id=b.id where b.id=".$proyecto->id." AND  and leido='0' group by a.foro_id";
-            exit;*/
-            $rowx = $commandx->queryAll();
-
-            if (!empty($rowx)) {
-                $foro_sinleer = $rowx[0]["cantidad_sinleer"];
+                if (!empty($rowx)) {
+                    $foro_sinleer = $rowx[0]["cantidad_sinleer"];
+                }
+                if ($foro_sinleer > 0) {
+                    $foro_sinleer_string = " <span style='color:red'>(" . $foro_sinleer . " mensajes sin leer)</span> ";
+                }
             }
-            if($foro_sinleer>0){
-                $foro_sinleer_string = " <span style='color:red'>(".$foro_sinleer." mensajes sin leer)</span> ";
-            }
-          
-            
         } else {
             $msg = " ¡Qué esperas!  Recuerda que tienes hasta el 14 de agosto para inscribirte con tu equipo y poner sus… IDEAS EN ACCIÓN";
         }
@@ -114,9 +116,9 @@ if (!\Yii::$app->user->isGuest) {
 
 
             <script>
-                (function(i, s, o, g, r, a, m) {
+                (function (i, s, o, g, r, a, m) {
                     i['GoogleAnalyticsObject'] = r;
-                    i[r] = i[r] || function() {
+                    i[r] = i[r] || function () {
                         (i[r].q = i[r].q || []).push(arguments)
                     }, i[r].l = 1 * new Date();
                     a = s.createElement(o),
@@ -186,8 +188,8 @@ if (!\Yii::$app->user->isGuest) {
                                                             </div>
                                                             <div class="line_separator"></div>
                                                             <div class="cell_info_content"><?php
-                                $datex = new DateTime($_SESSION["ultimologin"]);
-                                ?>
+                                                                $datex = new DateTime($_SESSION["ultimologin"]);
+                                                                ?>
                                                                 <b class="uppercase">Último acceso: <?= $datex->format('d/m/Y H:i:s') ?></b>
                                                             </div>
                                                         </div>
@@ -224,7 +226,7 @@ if (!\Yii::$app->user->isGuest) {
                                                 </div>', ['panel/index'], ['id' => 'lnk_miequipo']); ?>
                                             </li>
                                             <!--Mi proyecto-->
-                                            <?php if ($integrante && $equipo && !$proyecto && $equipo->etapa == 0 && $integrante->rol == 1) { ?>
+                                            <?php if ($integrante && $equipo && !$proyecto && $equipo->etapa == 0 && $integrante->rol == 1 && !$etapa2 && !$etapa3) { ?>
                                                 <li>
                                                     <?= Html::a('<div class="table_div">
                                             <div class="row_div">
@@ -237,7 +239,7 @@ if (!\Yii::$app->user->isGuest) {
                                             </div>
                                         </div>', ['proyecto/index'], ['id' => 'lnk_proyecto']); ?>
                                                 </li>
-                                            <?php } elseif (($integrante && $equipo && $proyecto && $equipo->etapa == 0 && ($integrante->rol == 1 || $integrante->rol == 2)) || $etapa2) { ?>
+                                            <?php } elseif (($integrante && $equipo && $proyecto && $equipo->etapa == 0 && ($integrante->rol == 1 || $integrante->rol == 2) && !$etapa2 && !$etapa3)) { ?>
                                                 <li>
                                                     <?= Html::a('<div class="table_div">
                                             <div class="row_div">
@@ -250,6 +252,20 @@ if (!\Yii::$app->user->isGuest) {
                                             </div>
                                         </div>', ['proyecto/actualizar'], ['id' => 'lnk_proyecto']); ?>
                                                 </li>
+
+                                            <?php } elseif (($integrante && $equipo && $proyecto && $equipo->etapa == 1 && ($integrante->rol == 1 || $integrante->rol == 2) && $etapa2)) { ?>
+                                                <li>
+                                                    <?= Html::a('<div class="table_div">
+                                            <div class="row_div">
+                                                <div class="cell_div div_ia_icon">
+                                                    <span class="ia_icon ia_icon_project"></span>
+                                                </div>
+                                                <div class="cell_div">
+                                                    Mi proyecto <span class="hide">></span>
+                                                </div>
+                                            </div>
+                                        </div>', ['proyecto/actualizar'], ['id' => 'lnk_proyecto']); ?>
+                                                </li>                                                
                                             <?php } ?>
 
                                             <!--Fin mi proyecto-->
@@ -282,6 +298,7 @@ if (!\Yii::$app->user->isGuest) {
                                                 </li>
                                             <?php } ?>
                                             <!--Fin Foro-->
+                                            
                                             <?php if ($integrante && $equipo && $proyecto && ($integrante->rol == 1 || $integrante->rol == 2)) { ?>
                                                 <?php if ($integrante && $equipo && $proyecto && ($equipo->etapa == 1 || $equipo->etapa == 2 || $equipo->etapa == 3)) { ?>
                                                     <li><?= Html::a('<div class="table_div">
@@ -290,7 +307,7 @@ if (!\Yii::$app->user->isGuest) {
                                                         <span class="ia_icon ia_icon_delivery"></span>
                                                     </div>
                                                     <div class="cell_div">
-                                                        Mi primera entrega'.$foro_sinleer_string.'<span class="hide">></span>
+                                                        Mi primera entrega' . $foro_sinleer_string . '<span class="hide">></span>
                                                     </div>
                                                 </div>
                                             </div>', ['entrega/primera'], []); ?>
@@ -310,7 +327,7 @@ if (!\Yii::$app->user->isGuest) {
                                                     </li>
                                                 <?php } ?>
 
-                                                <?php if ($integrante && $equipo && $proyecto && ($etapa2 || $etapa3) /*&& ($equipo->etapa == 1 || $equipo->etapa == 2 )*/ && $estudiante->grado != 6) { ?>
+                                                <?php if ($integrante && $equipo && $proyecto && ($etapa2 || $etapa3) /* && ($equipo->etapa == 1 || $equipo->etapa == 2 ) */ && $estudiante->grado != 6) { ?>
                                                     <li><?= Html::a('<div class="table_div">
                                                   <div class="row_div">
                                                   <div class="cell_div div_ia_icon">
@@ -371,11 +388,11 @@ if (!\Yii::$app->user->isGuest) {
             <!-- Open source code -->
             <?php $this->endBody() ?>
             <script>
-                $('#myModalVideo').on('hidden.bs.modal', function() {
+                $('#myModalVideo').on('hidden.bs.modal', function () {
                     $("#myModalVideo iframe").attr("src", $("#myModalVideo iframe").attr("src"));
                 });
 
-                $(".menu_lateral li a.sub_menu").on("click", function(e) {
+                $(".menu_lateral li a.sub_menu").on("click", function (e) {
                     e.preventDefault();
                     var _a = $(this);
                     var _li = _a.parent();
@@ -410,7 +427,7 @@ if (!\Yii::$app->user->isGuest) {
 </div>
 
 <script>
-    $('#myModalVideo').on('hide.bs.modal', function(e) {
+    $('#myModalVideo').on('hide.bs.modal', function (e) {
         var $if = $(e.delegateTarget).find('iframe');
         var src = $if.attr("src");
         $if.attr("src", '/empty.html');

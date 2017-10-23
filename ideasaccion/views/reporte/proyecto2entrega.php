@@ -13,7 +13,7 @@ if (isset($_GET['page']) >= 2)
 
 ?>
 <div class="box_head title_content_box">
-    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_team_big.jpg" alt=""> Reporte 
+    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_team_big.jpg" alt=""> Reporte de proyectos
 </div>
 <div ng-app="ideasaccion" class="box_content contenido_seccion_crear_equipo">
     <?php $form = ActiveForm::begin([
@@ -79,4 +79,18 @@ if (isset($_GET['page']) >= 2)
         event.preventDefault();
         $( "#w0" ).submit();
     }
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+// Handler for .ready() called.
+
+        $("#lnk_reportesegunda").addClass("active");
+        $("#lnk_reportesegunda").parent().find("ul").show();
+        $("#lnk_reportesegunda_reporte").addClass("active");
+
+
+    });
+
+
+
 </script>

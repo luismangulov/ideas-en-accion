@@ -25,6 +25,7 @@ if (!\Yii::$app->user->isGuest) {
     $usuario = Usuario::find()->where('id=:id', [':id' => \Yii::$app->user->id])->one();
     $estudiante = Estudiante::find()->where('id=:id', [':id' => $usuario->estudiante_id])->one();
     $votacionpublica = VotacionPublica::find()->all();
+    $proyecto =null;
 //$invitacion=Invitacion::find()->where('equipo_id=:equipo_id and estado=1',[':equipo_id'=>$equipo->id])->one();
     $integrante = Integrante::find()->where('estudiante_id=:estudiante_id', [':estudiante_id' => $usuario->estudiante_id])->one();
     if ($integrante) {

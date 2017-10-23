@@ -85,7 +85,7 @@ class Proyecto extends \yii\db\ActiveRecord {
     public $planes_presupuestales_recursos_descripciones;
     public $planes_presupuestales_unidades;
     public $planes_presupuestales_dirigidos;
-public $descripcion_corta;
+    public $descripcion_corta;
 
     /* cronograma */
     public $cronogramas_objetivos;
@@ -309,7 +309,7 @@ public $descripcion_corta;
                         p.titulo, 
                         COUNT( i.estudiante_id ) AS total_integrantes,
                         IF((SELECT COUNT(video.proyecto_id) FROM video WHERE video.etapa=2 and video.proyecto_id = p.id AND TRIM( video.ruta ) IS NOT NULL and TRIM( video.ruta )!="") =1, 1, 0 ) AS video_check,
-                        IF( ( SELECT COUNT( reflexion.proyecto_id ) FROM reflexion WHERE reflexion.proyecto_id = p.id AND TRIM( reflexion.p1 ) IS NOT NULL and TRIM( reflexion.p1 )!="" AND TRIM( reflexion.p2 ) IS NOT NULL and TRIM( reflexion.p2 )!="" AND TRIM( reflexion.p3 ) IS NOT NULL and TRIM( reflexion.p3 )!="") =1, 1, 0 ) AS reflexion_check,
+                        IF( ( SELECT COUNT( reflexion.proyecto_id ) FROM reflexion WHERE reflexion.proyecto_id = p.id AND TRIM( reflexion.p4 ) IS NOT NULL and TRIM( reflexion.p4 )!="" AND TRIM( reflexion.p6 ) IS NOT NULL and TRIM( reflexion.p6 )!="" AND TRIM( reflexion.p8 ) IS NOT NULL and TRIM( reflexion.p8 )!="") =1, 1, 0 ) AS reflexion_check,
                         IF(trim(p.proyecto_archivo2)!="",1,0) as archivo_proyecto_check,
                         IF(e.etapa=2,1,0) as proyecto_finalizado
                       '])
@@ -432,7 +432,7 @@ public $descripcion_corta;
     public function Asuntos($asunto_id, $region) {
 
         $data = "";
-        if ($asunto_id && $region) {
+        if ($region) {
             /* $countAsuntos = Resultados::find()
               ->select('a.id,a.descripcion_cabecera')
               ->innerJoin('asunto a', 'a.id=resultados.asunto_id')
@@ -445,13 +445,13 @@ public $descripcion_corta;
                             ->select('b.id,b.descripcion_corta')
                             ->innerJoin('proyecto_copia a', 'a.id=proyecto.id')
                             ->innerJoin('asunto b', 'a.asunto_id=b.id')
-                            ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->count();
+                            ->where('a.etapa=1 and proyecto.region_id=:region_idx', [':region_idx' => $region])->groupBy('b.id,b.descripcion_corta')->all();
 
             $asuntos = Proyecto::find()
                             ->select('b.id,b.descripcion_corta')
                             ->innerJoin('proyecto_copia a', 'a.id=proyecto.id')
                             ->innerJoin('asunto b', 'a.asunto_id=b.id')
-                            ->where('a.etapa=1 ', [':proyecto.region_id' => $region])->groupBy('b.id,b.descripcion_corta')->all();
+                            ->where('a.etapa=1 and proyecto.region_id=:region_idx', [':region_idx' => $region])->groupBy('b.id,b.descripcion_corta')->all();
 
 
             if ($countAsuntos > 0) {
@@ -459,7 +459,7 @@ public $descripcion_corta;
                     if ($asunto->id == $asunto_id) {
                         $data = $data . "<option value='" . $asunto->id . "'  selected>" . $asunto->descripcion_corta . "</option>";
                     } else {
-                        $data = $data . "<option value='" . $asunto->id . "'  >" . $asunto->descripcion_cabecera . "</option>";
+                        $data = $data . "<option value='" . $asunto->id . "'  >" . $asunto->descripcion_corta . "</option>";
                     }
                 }
             }
@@ -606,7 +606,8 @@ public $descripcion_corta;
                     ->innerJoin('estudiante', 'estudiante.id=integrante.estudiante_id')
                     ->innerJoin('institucion', 'institucion.id=estudiante.institucion_id')
                     ->innerJoin('ubigeo', 'ubigeo.district_id=institucion.ubigeo_id')
-                    ->where('integrante.rol=1 and equipo.etapa=2 and proyecto.titulo like "%' . $titulo . '%" and ubigeo.department_id="' . $ubigeo->department_id . '"');
+                    ->where('integrante.rol=1 and equipo.etapa=2  and ubigeo.department_id="' . $ubigeo->department_id . '"');
+            $query->andFilterWhere(['like', 'proyecto.titulo', $titulo]);
         } else {
             $query->select('
                             proyecto.id,
