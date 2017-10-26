@@ -79,7 +79,7 @@ label{
         <div style="border: 2px solid #1f2a69;padding: 10px" class="text-justify">
             <b>Región:</b> <?= $region->department ?><br>
             <b>Institución educativa:</b> <?= $institucion->denominacion ?><br>
-            <b>Título del proyecto:</b> <?= $proyecto->titulo ?><br>
+            <b>Título del proyecto:</b> <?= htmlentities($proyecto->titulo, ENT_QUOTES) ?><br>
         </div> 
         <div class="nav-tabs-custom" >
             <ul class="nav nav-tabs" style="background: white;">
@@ -100,14 +100,14 @@ label{
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group label-floating field-proyecto-titulo">
                                     <label class="control-label" for="proyecto-titulo">Título del proyecto</label>
-                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $proyecto->titulo ?></p>
+                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= htmlentities($proyecto->titulo, ENT_QUOTES) ?></p>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group label-floating field-proyecto-asunto required">
                                     <label class="control-label" for="proyecto-asunto" >Asunto público</label>
-                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $equipo->asunto->descripcion_cabecera ?></p>
+                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= htmlentities($equipo->asunto->descripcion_cabecera,ENT_QUOTES) ?></p>
                                 </div>
                             </div>
                             
@@ -115,14 +115,14 @@ label{
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group label-floating field-proyecto-resumen required">
                                     <label class="control-label" for="proyecto-resumen" >Sumilla / Justificación</label>
-                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $proyecto->resumen ?></p>
+                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= htmlentities($proyecto->resumen, ENT_QUOTES) ?></p>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group label-floating field-proyecto-beneficiario required">
                                     <label class="control-label" for="proyecto-beneficiario">Objetivo General</label>
-                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $proyecto->beneficiario ?></p>
+                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= htmlentities($proyecto->beneficiario, ENT_QUOTES) ?></p>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -141,7 +141,7 @@ label{
                                                 <ul>
                                                     <?php foreach($actividades as $actividad){ ?>
                                                         <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_1_id){ ?>
-                                                            <li id='act'>Actividad: <?= $actividad->descripcion ?></li>
+                                                            <li id='act'>Actividad: <?= htmlentities($actividad->descripcion,ENT_QUOTES) ?></li>
                                                         <?php  } ?>
                                                     <?php  } ?>
                                                 </ul>
@@ -155,7 +155,7 @@ label{
                                                 <ul>
                                                     <?php foreach($actividades as $actividad){ ?>
                                                         <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_2_id){?>
-                                                            <li id='act'>Actividad: <?= $actividad->descripcion ?></li>
+                                                            <li id='act'>Actividad: <?= htmlentities($actividad->descripcion,ENT_QUOTES) ?></li>
                                                         <?php } ?>
                                                     <?php  } ?>
                                                 </ul>
@@ -170,7 +170,7 @@ label{
                                                 <ul>
                                                     <?php foreach($actividades as $actividad){ ?>
                                                         <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_3_id){?>
-                                                            <li id='act'>Actividad: <?= $actividad->descripcion ?></li>
+                                                            <li id='act'>Actividad: <?= htmlentities($actividad->descripcion,ENT_QUOTES) ?></li>
                                                         <?php  } ?>
                                                     <?php  } ?>
                                                 </ul>
@@ -235,7 +235,7 @@ label{
                             <select style="border: 2px solid #1f2a69;padding: 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1" id="proyecto-p4" class="form-control" name="Proyecto[p4]" disabled />
                                 <option value=""></option>
                                 <?php foreach($comen_monitores as $comen_monitor){ ?>
-                                <option value="<?= $comen_monitor->id ?>" <?= ($comen_monitor->id==$proyecto->p4)?'selected':'' ?>><?= $comen_monitor->contenido ?></option>
+                                <option value="<?= $comen_monitor->id ?>" <?= ($comen_monitor->id==$proyecto->p4)?'selected':'' ?>><?= htmlentities($comen_monitor->contenido,ENT_QUOTES) ?></option>
                                 <?php }?>
                             </select>
                         </div>
@@ -268,7 +268,7 @@ label{
                             <select style="border: 2px solid #1f2a69;padding: 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1" id="proyecto-p6" class="form-control" name="Proyecto[p6]" disabled />
                                 <option value=""></option>
                                 <?php foreach($comen_participantes as $comen_participante){ ?>
-                                <option value="<?= $comen_participante->id ?>" <?= ($comen_participante->id==$proyecto->p6)?'selected':'' ?> ><?= $comen_participante->contenido ?></option>
+                                <option value="<?= $comen_participante->id ?>" <?= ($comen_participante->id==$proyecto->p6)?'selected':'' ?> ><?= htmlentities($comen_participante->contenido,ENT_QUOTES) ?></option>
                                 <?php }?>
                             </select>
                         </div>

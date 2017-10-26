@@ -159,7 +159,7 @@ $urlproyectox = Yii::$app->getUrlManager()->createUrl('foro/proyecto-votacion');
                         ?>
                         <?php $voto = VotacionInterna::find()->where('user_id=:user_id and proyecto_id=:proyecto_id', [':user_id' => \Yii::$app->user->id, ':proyecto_id' => $votacion["id"]])->one();
                         ?>
-                        <div class="box_content_option" data-id="<?= $votacion["id"] ?>" data-title="<?= $votacion["titulo"] ?>">
+                        <div class="box_content_option" data-id="<?= $votacion["id"] ?>" data-title="<?= htmlentities($votacion["titulo"], ENT_QUOTES) ?>">
                             <a href="<?= $urlproyectox.'?id='.$votacion["id"] ?>" target="_blank"><img  src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_votation_info.jpg" class="icon_votation_info md"> </a>
                             <?php if (!$votacionesinternasfinalizadasCount) { ?>
                                 <a  href="#" class="btn_votation_item <?= ($voto) ? 'active' : ''; ?>">
@@ -168,11 +168,11 @@ $urlproyectox = Yii::$app->getUrlManager()->createUrl('foro/proyecto-votacion');
                             <?php } ?>
                             <h1 class="box_option_title">> TITULO</h1>
                             <p class="box_option_content">
-                                <?= $votacion["titulo"] ?>
+                                <?= htmlentities($votacion["titulo"], ENT_QUOTES) ?>
                             </p>
                             <h1 class="box_option_title">> EQUIPO</h1>
                             <p class="box_option_content">
-                                <?= $votacion["descripcion_equipo"] ?>
+                                <?= htmlentities($votacion["descripcion_equipo"],ENT_QUOTES) ?>
                             </p>
                         </div>
 
@@ -264,7 +264,7 @@ $urlproyectox = Yii::$app->getUrlManager()->createUrl('foro/proyecto-votacion');
                                                                 <ul>
                                                                     <?php foreach ($actividades as $actividad) { ?>
                                                                         <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_1_id) { ?>
-                                                                            <li id='act'>Actividad: <?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_1][]'></li>
+                                                                            <li id='act'>Actividad: <?= htmlentities($actividad->descripcion,ENT_QUOTES) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion,ENT_QUOTES) ?>' name='Proyecto[actividades_1][]'></li>
 
                                                                             <?php
                                                                             $acti1 ++;
@@ -284,7 +284,7 @@ $urlproyectox = Yii::$app->getUrlManager()->createUrl('foro/proyecto-votacion');
                                                                 <ul>
                                                                     <?php foreach ($actividades as $actividad) { ?>
                                                                         <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_2_id) { ?>
-                                                                            <li id='act'>Actividad: <?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_2][]'></li>
+                                                                            <li id='act'>Actividad: <?= htmlentities($actividad->descripcion,ENT_QUOTES) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion,ENT_QUOTES) ?>' name='Proyecto[actividades_2][]'></li>
 
                                                                             <?php
                                                                             $acti2++;
@@ -305,7 +305,7 @@ $urlproyectox = Yii::$app->getUrlManager()->createUrl('foro/proyecto-votacion');
                                                                 <ul>
                                                                     <?php foreach ($actividades as $actividad) { ?>
                                                                         <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_3_id) { ?>
-                                                                            <li id='act'>Actividad: <?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_3][]'></li>
+                                                                    <li id='act'>Actividad: <?= htmlentities($actividad->descripcion,ENT_QUOTES) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion,ENT_QUOTES) ?>' name='Proyecto[actividades_3][]'></li>
                                                                             <?php
                                                                             $acti3++;
                                                                         }
@@ -502,7 +502,7 @@ $urlproyectox = Yii::$app->getUrlManager()->createUrl('foro/proyecto-votacion');
             var p = $('#v' +<?= $a ?>);
             p.addClass('active');
             p.attr("data-option", "<?= $votacion["id"] ?>");
-            $(".box_votacion_content", p).html("<?= $votacion["titulo"] ?>");
+            $(".box_votacion_content", p).html("<?= htmlentities($votacion["titulo"], ENT_QUOTES) ?>");
             $("#input_votation_" + <?= $a ?>).val("<?= $votacion["id"] ?>");</script>
         <?php $a++; ?>
     <?php } ?>

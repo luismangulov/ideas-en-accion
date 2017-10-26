@@ -457,9 +457,9 @@ class Proyecto extends \yii\db\ActiveRecord {
             if ($countAsuntos > 0) {
                 foreach ($asuntos as $asunto) {
                     if ($asunto->id == $asunto_id) {
-                        $data = $data . "<option value='" . $asunto->id . "'  selected>" . $asunto->descripcion_corta . "</option>";
+                        $data = $data . "<option value='" . $asunto->id . "'  selected>" . htmlentities($asunto->descripcion_corta,ENT_QUOTES) . "</option>";
                     } else {
-                        $data = $data . "<option value='" . $asunto->id . "'  >" . $asunto->descripcion_corta . "</option>";
+                        $data = $data . "<option value='" . $asunto->id . "'  >" . htmlentities($asunto->descripcion_corta,ENT_QUOTES) . "</option>";
                     }
                 }
             }

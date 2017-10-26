@@ -26,7 +26,7 @@ use yii\web\JsExpression;
 
 	<div class="clearfix"></div>
 	<div class="col-xs-12 col-sm-3 col-md-3">
-	    <?= $actividad->descripcion ?>
+	    <?= htmlentities($actividad->descripcion,ENT_QUOTES) ?>
 	</div>
 	<div class="col-xs-12 col-sm-9 col-md-3">
 	    <div class="form-group field-actividad-resultado_esperado required">

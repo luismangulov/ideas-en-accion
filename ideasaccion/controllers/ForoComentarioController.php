@@ -196,7 +196,7 @@ class ForoComentarioController extends Controller {
                 $data = $data . '<div class="col-sm-12 col-md-12">';
                 if ($post['user_id'] >= 2 and $post['user_id'] <= 8) {
                     $data = $data . '<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #4EB3C7">';
-                    $data = $data . ' ' . HtmlPurifier::process($post['contenido']);
+                    $data = $data . ' ' . htmlentities(HtmlPurifier::process($post['contenido']), ENT_QUOTES);
                     $data = $data . '<div class="post-meta">';
                     $data = $data . '<div class="col-sm-12 col-md-12"></div>';
                     $data = $data . '<div class="clearfix"></div>';
@@ -215,7 +215,7 @@ class ForoComentarioController extends Controller {
                     $data = $data . '</div>';
                 } else {
                     $data = $data . '<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">';
-                    $data = $data . HtmlPurifier::process($post['contenido']);
+                    $data = $data . htmlentities(HtmlPurifier::process($post['contenido']), ENT_QUOTES);
                     $data = $data . '<div class="post-meta">';
                     $data = $data . '<div class="col-sm-12 col-md-12"></div>';
                     $data = $data . '<div class="col-sm-12 col-md-12">';
@@ -294,9 +294,9 @@ class ForoComentarioController extends Controller {
                     $data = $data . '<div class="col-sm-11 col-md-11">';
                     $data = $data . '<div class="row post-item">';
                     $data = $data . '<div class="col-sm-12 col-md-12">';
-                    if ($hijo->user_id >= 2 and $hijo->user_id <= 8) {
+                    if ($hijo->user_id >= 1 and $hijo->user_id <= 8) {
                         $data = $data . '<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #4EB3C7">';
-                        $data = $data . ' ' . HtmlPurifier::process($hijo->contenido);
+                        $data = $data . ' ' . htmlentities(HtmlPurifier::process($hijo->contenido), ENT_QUOTES);
                         $data = $data . '<div class="post-meta">';
                         $data = $data . '<div class="col-sm-12 col-md-12"></div>';
                         $data = $data . '<div class="clearfix"></div>';
@@ -316,7 +316,7 @@ class ForoComentarioController extends Controller {
                         $institucion = Institucion::findOne($estudiante->institucion_id);
                         $ubigeo = Ubigeo::find()->where('district_id=:district_id', [':district_id' => $institucion->ubigeo_id])->one();
                         $data = $data . '<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">';
-                        $data = $data . HtmlPurifier::process($hijo->contenido);
+                        $data = $data . htmlentities(HtmlPurifier::process($hijo->contenido), ENT_QUOTES);
                         $data = $data . '<div class="post-meta">';
                         $data = $data . '<div class="col-sm-12 col-md-12"></div>';
                         $data = $data . '<div class="col-sm-12 col-md-12">';
@@ -387,6 +387,19 @@ class ForoComentarioController extends Controller {
 
     public function actionComentarioMonitor() {
 
+        if (empty($_SERVER['HTTP_REFERER'])) {
+            echo "";
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+
+            //print_r($parts);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+                echo "";
+                exit;
+            }
+        }
+
         if (isset($_POST["id"]) && isset($_POST["seccion"])) {
 
             $data = "";
@@ -402,7 +415,7 @@ class ForoComentarioController extends Controller {
                 $data = $data . '<div class="col-sm-12 col-md-12">';
                 if ($post['user_id'] >= 2 and $post['user_id'] <= 8) {
                     $data = $data . '<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #4EB3C7">';
-                    $data = $data . ' ' . HtmlPurifier::process($post['contenido']);
+                    $data = $data . ' ' . htmlentities(HtmlPurifier::process($post['contenido']), ENT_QUOTES);
                     $data = $data . '<div class="post-meta">';
                     $data = $data . '<div class="col-sm-12 col-md-12"></div>';
                     $data = $data . '<div class="clearfix"></div>';
@@ -427,7 +440,7 @@ class ForoComentarioController extends Controller {
 
 
                     $data = $data . '<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">';
-                    $data = $data . HtmlPurifier::process($post['contenido']);
+                    $data = $data . htmlentities(HtmlPurifier::process($post['contenido']), ENT_QUOTES);
                     $data = $data . '<div class="post-meta">';
                     if ($post['valoracion'] != 0 && $post['valoracion'] != '') {
                         $data = $data . '<div class="col-sm-12 col-md-12"></div>';
@@ -551,9 +564,9 @@ class ForoComentarioController extends Controller {
                     $data = $data . '<div class="col-sm-11 col-md-11">';
                     $data = $data . '<div class="row post-item">';
                     $data = $data . '<div class="col-sm-12 col-md-12">';
-                    if ($hijo->user_id >= 2 and $hijo->user_id <= 8) {
+                    if ($hijo->user_id >= 1 and $hijo->user_id <= 8) {
                         $data = $data . '<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #4EB3C7">';
-                        $data = $data . ' ' . HtmlPurifier::process($hijo->contenido);
+                        $data = $data . ' ' . htmlentities(HtmlPurifier::process($hijo->contenido), ENT_QUOTES);
                         $data = $data . '<div class="post-meta">';
                         $data = $data . '<div class="col-sm-12 col-md-12"></div>';
                         $data = $data . '<div class="clearfix"></div>';
@@ -576,7 +589,7 @@ class ForoComentarioController extends Controller {
                         $ubigeo = Ubigeo::find()->where('district_id=:district_id', [':district_id' => $institucion->ubigeo_id])->one();
 
                         $data = $data . '<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">';
-                        $data = $data . HtmlPurifier::process($hijo->contenido);
+                        $data = $data . htmlentities(HtmlPurifier::process($hijo->contenido), ENT_QUOTES);
                         $data = $data . '<div class="post-meta">';
                         if ($hijo->valoracion != 0 && $hijo->valoracion != '') {
                             $data = $data . '<div class="col-sm-12 col-md-12"></div>';

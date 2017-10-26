@@ -32,18 +32,18 @@ use yii\web\JsExpression;
             <div class="tab-pane active" id="tab_11">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <h4 style="margin-bottom: 0px;padding-bottom: 0px;color: black"><label>Título:</label> </h4>
-                    <p class="text-justify" style="padding-bottom: 5px"><?= $proyecto->titulo ?></p>
+                    <p class="text-justify" style="padding-bottom: 5px"><?= htmlentities($proyecto->titulo , ENT_QUOTES)?></p>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <h4 style="margin-bottom: 0px;padding-bottom: 0px;color: black"><label>Resumen:</label> </h4>
-                    <p class="text-justify" style="padding-bottom: 5px"><?= $proyecto->resumen ?></p>
+                    <p class="text-justify" style="padding-bottom: 5px"><?= htmlentities($proyecto->resumen, ENT_QUOTES) ?></p>
                     
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <h4 style="margin-bottom: 0px;padding-bottom: 0px;color: black"><label>Objetivo General:</label> </h4>
-                    <p class="text-justify" style="padding-bottom: 5px"><?= $proyecto->beneficiario ?></p>
+                    <p class="text-justify" style="padding-bottom: 5px"><?= htmlentities($proyecto->beneficiario , ENT_QUOTES)?></p>
                 </div>
                 <div class="clearfix"></div>
             </div><!-- /.tab-pane -->
@@ -70,7 +70,7 @@ use yii\web\JsExpression;
                                     <ul>
                                         <?php foreach($actividades as $actividad){ ?>
                                             <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_1_id){?>
-                                                <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_1][]'></li>
+                                                <li><?= htmlentities($actividad->descripcion,ENT_QUOTES) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion,ENT_QUOTES) ?>' name='Proyecto[actividades_1][]'></li>
                                                 <input type="hidden" name="Proyecto[actividades_ids_1][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" <?= $disabled ?>/>
                                             <?php } ?>
                                         <?php } ?>
@@ -86,7 +86,7 @@ use yii\web\JsExpression;
                                     <ul>
                                         <?php foreach($actividades as $actividad){ ?>
                                             <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_2_id){?>
-                                                <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_2][]'></li>
+                                                <li><?= htmlentities($actividad->descripcion,ENT_QUOTES) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion,ENT_QUOTES) ?>' name='Proyecto[actividades_2][]'></li>
                                                 <input type="hidden" name="Proyecto[actividades_ids_2][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" <?= $disabled ?>/>
                                             <?php } ?>
                                         <?php } ?>
@@ -102,7 +102,7 @@ use yii\web\JsExpression;
                                     <ul>
                                         <?php foreach($actividades as $actividad){ ?>
                                             <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_3_id){?>
-                                                <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_3][]'></li>
+                                                <li><?= htmlentities($actividad->descripcion,ENT_QUOTES) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion,ENT_QUOTES) ?>' name='Proyecto[actividades_3][]'></li>
                                                 <input type="hidden" name="Proyecto[actividades_ids_3][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" <?= $disabled ?>/>
                                             <?php } ?>
                                         <?php } ?>
@@ -128,7 +128,7 @@ use yii\web\JsExpression;
                     <?php $i=0;?>
                     <?php foreach($actividades as $actividad){ ?>
                         <tr>
-                            <td><?= $actividad->descripcion ?></td>
+                            <td><?= htmlentities($actividad->descripcion,ENT_QUOTES) ?></td>
                             <td>
                                 <div class="form-group field-proyecto-resultado_esperado_<?= $i ?> required">
                                     <input type="hidden"  class="form-control" name="Proyecto[resultados_ids][]" value="<?= $actividad->actividad_id ?>" >

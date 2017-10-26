@@ -205,6 +205,11 @@ $cargatablapresupuesto = Yii::$app->getUrlManager()->createUrl('plan-presupuesta
     });
     var plan = 0;
     function InsertarPlanPresupuestal() {
+    
+    if($("#proyecto-plan_presupuestal_actividad_99").val()==""){
+        alert("Seleccione una actividad");
+        return;
+    }
         var error = '';
         plan = parseInt($("#contador").val());
         var planespresupuestalesrecursosdescripciones = $('input[name=\'Proyecto[planes_presupuestales_recursos_descripciones][]\']').length;
@@ -603,7 +608,7 @@ $cargatablapresupuesto = Yii::$app->getUrlManager()->createUrl('plan-presupuesta
 
 
     function presupuesto(valor) {
-
+$('#presupuesto').hide();
         $.ajax({
             url: '<?= $cargatablapresupuesto ?>',
             type: 'GET',

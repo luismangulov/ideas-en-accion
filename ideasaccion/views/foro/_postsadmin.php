@@ -188,7 +188,7 @@ if (isset($_GET['page']) >= 2)
                                     //$estudiante_apellido_paterno = $estudiante->apellido_paterno;
                                     ?>
                                     <div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #81F1FC">
-                <?= htmlentities($p_hijo['contenido']) ?>
+                <?= htmlentities($p_hijo['contenido'], ENT_QUOTES) ?>
                                         <div class="post-meta">
                                             <div class="col-sm-12 col-md-12"></div>
                                             <div class="clearfix"></div>
@@ -212,7 +212,7 @@ if (isset($_GET['page']) >= 2)
                                     //print_r($p_hijo); exit;
                                     ?>
                                     <div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">
-                <?= htmlentities(($p_hijo['contenido'])) ?>
+                <?= htmlentities(($p_hijo['contenido']), ENT_QUOTES) ?>
                                         <div class="post-meta">
                                             <div class="col-sm-12 col-md-12"></div>
                                             <div class="col-sm-12 col-md-12">

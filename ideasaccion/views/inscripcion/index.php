@@ -132,9 +132,9 @@ if ($equipo->id) {
                     if (!empty($resultados))
                         foreach ($resultados as $resultado) {
                             if ($equipo->asunto->id == $resultado->id) {
-                                echo "<option value='$resultado->id' selected='selected'>" . $resultado->descripcion_cabecera . "</option>";
+                                echo "<option value='$resultado->id' selected='selected'>" .  htmlentities($resultado->descripcion_cabecera, ENT_QUOTES) . "</option>";
                             } else {
-                                echo "<option value='$resultado->id'>" . $resultado->descripcion_cabecera . "</option>";
+                                echo "<option value='$resultado->id'>" .  htmlentities($resultado->descripcion_cabecera, ENT_QUOTES) . "</option>";
                             }
                         }
 
@@ -687,7 +687,7 @@ $this->registerJs(
 
                 for (i = 0; i < data.length; i++) {
                     //alert(data[i].id);
-                    $("#equipo-asunto_id").append("<option value='" + data[i].id + "'>" + data[i].descripcion_corta + "</option>");
+                    $("#equipo-asunto_id").append("<option value='" + data[i].id + "'>" + xescape(data[i].descripcion_corta) + "</option>");
                 }
                 //alert(data.length);
                 /*$("#text_asunto").html(data);

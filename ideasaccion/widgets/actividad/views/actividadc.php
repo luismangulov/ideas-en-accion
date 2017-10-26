@@ -20,7 +20,7 @@ use yii\web\JsExpression;
 <div class="row">
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-	<label class="control-label" for="proyecto-actividad" >Actividad: </label><p><?= $actividad->descripcion ?></p>
+	<label class="control-label" for="proyecto-actividad" >Actividad: </label><p><?= htmlentities($actividad->descripcion,ENT_QUOTES) ?></p>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
 	<div class="form-group field-actividad-resultado_esperado required">

@@ -60,7 +60,7 @@ function ResultadosProyectos(valor) {
                     //var foro=value["foro"];
                     //var link='<?= Html::a("'+falta_valorar+'",["foro/viewadmin?id='+foro+'"]) ?>';
                     $("#resultados_proyectos").show();
-                    $("#resultados_proyectos").append("<div class='col-md-6'>"+value["titulo"]+"</div>"+
+                    $("#resultados_proyectos").append("<div class='col-md-6'>"+xescape(value["titulo"])+"</div>"+
                                                       "<div class='col-md-2'>"+value["total_comentario"]+"</div>"+
                                                       "<div class='col-md-2'>"+value["valorado"]+"</div>"+
                                                       "<div class='col-md-2'><a href='../foro/viewadmin?id="+value["foro"]+"'>"+value["falta_valorar"]+"</a></div>"+

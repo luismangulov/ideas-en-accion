@@ -35,7 +35,7 @@ if (isset($_GET['page']) >= 2)
     
     <table class="table">
         <thead style="background: #D9D9D9">
-            <th><b><?= $sort->link('descripcion_cabecera')?></b></th>
+            <th><b><?= htmlentities($sort->link('descripcion_cabecera'),ENT_QUOTES)?></b></th>
             <th align="center"><b><?= $sort->link('voto_emitido')?></b></th>
         </thead>
         <tbody>
@@ -46,7 +46,7 @@ if (isset($_GET['page']) >= 2)
             $floor_number=$floor++; //?????
             ?>
             <tr>
-                <td><?= $voto['descripcion_cabecera'] ?></td>
+                <td><?= htmlentities($voto['descripcion_cabecera'],ENT_QUOTES) ?></td>
                 <td align="center"><?= $voto['voto_emitido'] ?></td>
             </tr>
         <?php

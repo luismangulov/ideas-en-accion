@@ -127,7 +127,7 @@ $acti3 = 0;
                                 ?>
 
 
-                                <input type="text" id="proyecto-categoria" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= $resultados->descripcion_categoria ?>" disabled <?php //= $disabled                                           ?>>
+                                <input type="text" id="proyecto-categoria" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= htmlentities($resultados->descripcion_categoria,ENT_QUOTES) ?>" disabled <?php //= $disabled                                           ?>>
 
                             <?php } ?>
 
@@ -143,7 +143,7 @@ $acti3 = 0;
                                 ?>
 
 
-                                <input type="text" id="proyecto-asunto_id" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= $equipo->asunto->descripcion_cabecera ?>" disabled <?php //= $disabled                                           ?>>
+                            <input type="text" id="proyecto-asunto_id" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= htmlentities($equipo->asunto->descripcion_cabecera,ENT_QUOTES) ?>" disabled <?php //= $disabled                                           ?>>
 
                             <?php } ?>
 
@@ -155,7 +155,7 @@ $acti3 = 0;
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group label-floating field-proyecto-resumen required">
                             <label class="control-label" for="proyecto-resumen" >Resumen del proyecto <span style="font-weight: normal !important;">(máximo 500 caracteres)</span></label>
-                            <textarea id="proyecto-resumen" class="form-control" name="Proyecto[resumen]" rows="3"  maxlength="500"  <?= $disabled ?> ><?= htmlentities($proyecto->resumen) ?></textarea>
+                            <textarea id="proyecto-resumen" class="form-control" name="Proyecto[resumen]" rows="3"  maxlength="500"  <?= $disabled ?> ><?= htmlentities($proyecto->resumen, ENT_QUOTES) ?></textarea>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -242,7 +242,7 @@ $acti3 = 0;
                             <div id="oe_1" class='col-xs-12 col-sm-12 col-md-12'>
                                 <?php if ($proyecto->objetivo_especifico_1) { ?>
                                     <ul>
-                                        <li id='oespe'><b>Objetivo Específico N° 1: <?= htmlentities($proyecto->objetivo_especifico_1) ?></b> <?= ($disabled == 'disabled') ? '' : "<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(1)'></span>" ?>  </li>
+                                        <li id='oespe'><b>Objetivo Específico N° 1: <?= htmlentities($proyecto->objetivo_especifico_1, ENT_QUOTES) ?></b> <?= ($disabled == 'disabled') ? '' : "<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(1)'></span>" ?>  </li>
                                         <input type='hidden' value='<?= htmlentities($proyecto->objetivo_especifico_1, ENT_QUOTES) ?>' name='Proyecto[objetivo_especifico_1]'>
                                         <ul>
                                             <?php foreach ($actividades as $actividad) { ?>
@@ -498,7 +498,7 @@ $acti3 = 0;
                                 if ($comen_monitores)
                                     foreach ($comen_monitores as $comen_monitor) {
                                         ?>
-                                        <option value="<?= $comen_monitor->id ?>" <?= ($comen_monitor->id == $proyecto->p4) ? 'selected' : '' ?>><?= $comen_monitor->contenido ?></option>
+                                        <option value="<?= $comen_monitor->id ?>" <?= ($comen_monitor->id == $proyecto->p4) ? 'selected' : '' ?>><?= htmlentities($comen_monitor->contenido,ENT_QUOTES) ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -534,7 +534,7 @@ $acti3 = 0;
                                 if ($comen_participantes)
                                     foreach ($comen_participantes as $comen_participante) {
                                         ?>
-                                        <option value="<?= $comen_participante->id ?>" <?= ($comen_participante->id == $proyecto->p6) ? 'selected' : '' ?> ><?= $comen_participante->contenido ?></option>
+                                <option value="<?= $comen_participante->id ?>" <?= ($comen_participante->id == $proyecto->p6) ? 'selected' : '' ?> ><?= htmlentities($comen_participante->contenido,ENT_QUOTES) ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -791,7 +791,10 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                                     align: 'right'
                                                 },
                                             });
-                                            location.reload();
+                                              setTimeout(function () {
+                                                    location.reload();
+                                                }, 1500);
+                                            
                                         } else  {
                                             $.notify({
                                                 message: "El tamaño máximo es de 2 MB"
@@ -1302,24 +1305,21 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                     if (oe == 1) {
 <?php foreach ($actividades as $actividad) { ?>
     <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_1_id) { ?>
-                                                //bodyactividades=bodyactividades+"<li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_"+oe+"][]'></li>"+
-                                                //"<input type='hidden' name='Proyecto[actividades_ids_"+oe+"][]'  value='<?= $actividad->actividad_id ?>' />";
+                                                
     <?php } ?>
 <?php } ?>
                                     }
                                     else if (oe == 2) {
 <?php foreach ($actividades as $actividad) { ?>
     <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_2_id) { ?>
-                                                //bodyactividades=bodyactividades+"<li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_"+oe+"][]'></li>"+
-                                                //    "<input type='hidden' name='Proyecto[actividades_ids_"+oe+"][]'  value='<?= $actividad->actividad_id ?>' />";
+                                             
     <?php } ?>
 <?php } ?>
                                     }
                                     else if (oe == 3) {
 <?php foreach ($actividades as $actividad) { ?>
     <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_3_id) { ?>
-                                                //bodyactividades=bodyactividades+"<li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_"+oe+"][]'></li>"+
-                                                //  "<input type='hidden' name='Proyecto[actividades_ids_"+oe+"][]'  value='<?= $actividad->actividad_id ?>' />";
+                                               
     <?php } ?>
 <?php } ?>
                                     }
@@ -1458,7 +1458,7 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                         data: {'id': proyecto},
                                         success: function (data) {
                                             $.notify({
-                                                message: 'Se ha ha elimando el archivo del proyecto 2'
+                                                message: 'Se ha eliminado el archivo del proyecto'
                                             }, {
                                                 type: 'success',
                                                 z_index: 1000000,

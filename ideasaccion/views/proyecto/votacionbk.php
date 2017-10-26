@@ -92,8 +92,8 @@ use yii\widgets\Pjax;
             <th>Equipo</th>
             <?php foreach($votacionesinternas as $votacioninterna){ ?>
             <tr>
-                <td><?= $votacioninterna->proyecto->titulo ?></td>
-                <td><?= $votacioninterna->proyecto->equipo->descripcion_equipo ?></td>
+                <td><?= htmlentities($votacioninterna->proyecto->titulo,ENT_QUOTES) ?></td>
+                <td><?= htmlentities($votacioninterna->proyecto->equipo->descripcion_equipo,ENT_QUOTES) ?></td>
             </tr>
             <?php } ?>
         </table>

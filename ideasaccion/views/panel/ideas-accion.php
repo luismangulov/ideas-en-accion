@@ -283,7 +283,7 @@ $octavo = Yii::$app->getUrlManager()->createUrl('ruta/octavo');
                 //$scope.asuntos = data;
                 angular.forEach(data, function(value, key) {
 
-                    $scope.asuntos = $scope.asuntos + value["descripcion_cabecera"] + "<br>";
+                    $scope.asuntos = $scope.asuntos + xescape(value["descripcion_cabecera"]) + "<br>";
 
                 });
 

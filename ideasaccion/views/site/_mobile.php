@@ -22,11 +22,11 @@ $resultados=Resultados::find()->all();
         <div class="modal-content">
             <div class="modal-header text-center">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h2 class="modal-title" id="myModalLabel"><?= $asunto->descripcion_cabecera ?></h2><br>
-                <h4><i><?= $asunto->descripcion_corta ?></i></h4>
+                <h2 class="modal-title" id="myModalLabel"><?= htmlentities($asunto->descripcion_cabecera) ?></h2><br>
+                <h4><i><?= htmlentities($asunto->descripcion_corta ,ENT_QUOTES)?></i></h4>
             </div>
             <div class="modal-body">
-                <?= $asunto->descripcion_larga ?>
+                <?= htmlentities($asunto->descripcion_larga, ENT_QUOTES) ?>
             </div>
             <?php if(!$resultados){ ?>
             <div class="modal-footer">

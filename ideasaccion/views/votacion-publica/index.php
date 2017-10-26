@@ -932,7 +932,7 @@ use yii\helpers\Html;
 					<div class="box-head-voto">
 						<div class="row">
 							<div class="col-md-7 bhb_left">
-                                                            <?= $resultado->titulo ?>
+                                                            <?= htmlentities($resultado->titulo, ENT_QUOTES) ?>
                                                         </div>
 							<div class="col-md-5 bhb_right">
 								<?= $resultado->voto_nuevo; ?> votos <span class="<?= ($resultado->puesto==1)?'vote_icon_map_ganador':'vote_icon_map' ?>"></span>
@@ -942,7 +942,7 @@ use yii\helpers\Html;
 
 					<div class="box-body-voto" <?= ($resultado->puesto==1)?'style="background:white"':'' ?>>
 						<b>Resumen:</b><br>
-						<p class="text-justify"><?= $resultado->resumen ?></p>
+                                                    <p class="text-justify"><?= htmlentities($resultado->resumen, ENT_QUOTES) ?></p>
 						<div class="line_yellow"></div>
 						<b>IIEE:</b><br>
 						<?= $resultado->denominacion ?>

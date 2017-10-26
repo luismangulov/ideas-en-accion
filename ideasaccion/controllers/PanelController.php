@@ -684,10 +684,10 @@ class PanelController extends Controller {
                     //var_dump($coordinador);
                     if ($coordinador && $coordinador->rol == 1) {
                         $equipo = Equipo::find()->where('id=:id', [':id' => $coordinador->equipo_id])->one();
-                        echo "Ya es lider del equipo " . $equipo->descripcion_equipo . " " . $estudiante->dni . "<br>";
+                        echo "Ya es lider del equipo " . htmlentities($equipo->descripcion_equipo,ENT_QUOTES) . " " . $estudiante->dni . "<br>";
                     } elseif ($coordinador && $coordinador->rol == 2) {
                         $equipo = Equipo::find()->where('id=:id', [':id' => $coordinador->equipo_id])->one();
-                        echo "Es integrante del equipo " . $equipo->descripcion_equipo . " " . $estudiante->dni . "<br>";
+                        echo "Es integrante del equipo " . htmlentities($equipo->descripcion_equipo,ENT_QUOTES) . " " . $estudiante->dni . "<br>";
                     } else {
                         $equipo = new Equipo;
                         $equipo->descripcion_equipo = $inscripcion->equipo;
@@ -803,7 +803,7 @@ class PanelController extends Controller {
                         }
                     } elseif ($coordinador && $coordinador->rol == 2) {
                         $equipo = Equipo::find()->where('id=:id', [':id' => $coordinador->equipo_id])->one();
-                        echo "Es integrante del equipo " . $equipo->descripcion_equipo;
+                        echo "Es integrante del equipo " . htmlentities($equipo->descripcion_equipo,ENT_QUOTES);
                     } else {
                         echo "Lo sentimos sigue intentando";
                     }

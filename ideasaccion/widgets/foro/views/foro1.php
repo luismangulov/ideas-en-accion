@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Foro */
 
-$this->title = $model->titulo;
+$this->title = htmlentities($model->titulo, ENT_QUOTES);
 $usuario = $model->usuario;
 //$posts = $model->getPosts($model->id);
 $posts = $model->getForo1Entrega($model->id, $seccion);
@@ -189,7 +189,7 @@ $insertarcomentarioshijos = Yii::$app->getUrlManager()->createUrl('foro-comentar
 
         $('#btncomentar').click(function(event) {
 
-            console.log($("#foro_comentario-contenido").val());
+            
             var error = "";
 
             if (jQuery.trim($("#foro_comentario-contenido").val()) == '') {

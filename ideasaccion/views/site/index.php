@@ -104,10 +104,10 @@ $resultados=Resultados::find()->all();
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel"><?= $asunto->descripcion_cabecera ?></h4>
+                <h4 class="modal-title" id="myModalLabel"><?= htmlentities($asunto->descripcion_cabecera,ENT_QUOTES) ?></h4>
             </div>
             <div class="modal-body">
-                <?= $asunto->descripcion_larga ?>
+                <?= htmlentities($asunto->descripcion_larga, ENT_QUOTES) ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

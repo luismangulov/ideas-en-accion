@@ -225,7 +225,7 @@ class VotoController extends Controller
         {
                                                 
             $div=$div."     <tr>
-                                <td width=\"60%\" class=\"ia_left\"><span class=\"ia_icon_heart_small\">".$resultado->asuntod."<p style='font-size:13px'>".$resultado->descripcion_corta."</p></span></td>
+                                <td width=\"60%\" class=\"ia_left\"><span class=\"ia_icon_heart_small\">".$resultado->asuntod."<p style='font-size:13px'>".htmlentities($resultado->descripcion_corta,ENT_QUOTES)."</p></span></td>
                                 <td class=\"ia_right\" align=\"middle\">
                                     <div class=\"show_percent\">
                                         <div class=\"percent_bar\" style=\"width:".number_format((($resultado->contador*100)/$total), 1, '.', '')."%;\"></div>
@@ -458,7 +458,7 @@ class VotoController extends Controller
                                             <div class="box-head-voto">
                                                     <div class="row">
                                                             <div class="col-md-7 bhb_left">
-                                                                '.$resultado->titulo.'
+                                                                '.htmlentities($resultado->titulo, ENT_QUOTES).'
                                                             </div>
                                                             <div class="col-md-5 bhb_right">
                                                                     '.$resultado->voto_nuevo.' votos <span class="'.$class.'"></span>
@@ -468,10 +468,10 @@ class VotoController extends Controller
     
                                             <div class="box-body-voto" style="'.$style.'">
                                                 <b>Resumen:</b><br>
-                                                <p class="text-justify">'.$resultado->resumen.'</p>
+                                                <p class="text-justify">'.htmlentities($resultado->resumen, ENT_QUOTES).'</p>
                                                 <div class="line_yellow"></div>
                                                 <b>IIEE:</b><br>
-                                                '.$resultado->denominacion.'
+                                                '.htmlentities($resultado->denominacion, ENT_QUOTES).'
                                                 <div class="line_yellow"></div>
                                                 <b>Equipo:</b><br>';
                                                 /*
@@ -513,7 +513,7 @@ class VotoController extends Controller
                                                 <!--
                                                         Pasa la voz a tu mancha
                                                         <a href="#" class="share_fb"
-							data-project="'.$resultado->titulo.'"
+							data-project="'.htmlentities($resultado->titulo, ENT_QUOTES).'"
 							data-image="http://face.ideasenaccion.pe/images/logo_for_fb.jpg"
 							data-link="http://votacion.ideasenaccion.pe/votacion-publica">
 								<img src="'.\Yii::$app->request->BaseUrl.'/votacion/images/icon_fb_normal.png" alt="">
@@ -584,7 +584,7 @@ class VotoController extends Controller
                                             <div class="box-head-voto">
                                                     <div class="row">
                                                             <div class="col-md-7 bhb_left">
-                                                                '.$resultado->titulo.'
+                                                                '.htmlentities($resultado->titulo, ENT_QUOTES).'
                                                             </div>
                                                             <div class="col-md-5 bhb_right">
                                                                     '.$resultado->voto_nuevo.' votos <span class="'.$class.'"></span>
@@ -594,10 +594,10 @@ class VotoController extends Controller
     
                                             <div class="box-body-voto" style="'.$style.'">
                                                 <b>Resumen:</b><br>
-                                                <p class="text-justify">'.$resultado->resumen.'</p>
+                                                <p class="text-justify">'.htmlentities($resultado->resumen, ENT_QUOTES).'</p>
                                                 <div class="line_yellow"></div>
                                                 <b>IIEE:</b><br>
-                                                '.$resultado->denominacion.'
+                                                '.htmlentities($resultado->denominacion, ENT_QUOTES).'
                                                 <div class="line_yellow"></div>
                                                 <b>Equipo:</b><br>';
                                                 $integrantes=VistaIntegrantes::find()
@@ -641,7 +641,7 @@ class VotoController extends Controller
                                                 <!--
                                                         Pasa la voz a tu mancha
                                                         <a href="#" class="share_fb"
-							data-project="'.$resultado->titulo.'"
+							data-project="'.htmlentities($resultado->titulo, ENT_QUOTES).'"
 							data-image="http://face.ideasenaccion.pe/images/logo_for_fb.jpg"
 							data-link="http://votacion.ideasenaccion.pe/votacion-publica">
 								<img src="'.\Yii::$app->request->BaseUrl.'/votacion/images/icon_fb_normal.png" alt="">

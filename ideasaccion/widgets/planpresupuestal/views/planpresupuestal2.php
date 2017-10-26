@@ -12,7 +12,7 @@ use yii\web\JsExpression;
 /* @var $title string */
 $opciones_objetivos='';
 foreach($objetivos as $objetivo){ 
-    $opciones_objetivos=$opciones_objetivos.'<option value='.$objetivo->id.'>'.$objetivo->descripcion.'</option>';
+    $opciones_objetivos=$opciones_objetivos.'<option value='.$objetivo->id.'>'.htmlentities($objetivo->descripcion,ENT_QUOTES).'</option>';
 }
 
 
@@ -288,7 +288,8 @@ label{
     
     
     function presupuesto(valor) {
-	
+        alert(3);
+	$('#presupuesto').hide();
 	$.ajax({
 	    url: '<?= $cargatablapresupuesto ?>',
 	    type: 'GET',
@@ -323,7 +324,7 @@ label{
 					"<td style='padding: 2px'>"+
 					    
 					    "<div class='form-group field-proyecto-plan_presupuestal_recurso_descripcion_"+i+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_recurso_descripcion_"+i+"' class='form-control' name='Proyecto[planes_presupuestales_recursos_descripciones][]' placeholder='Recurso' value='"+star.recurso_descripcion+"' <?= $disabled?> />"+
+						"<input id='proyecto-plan_presupuestal_recurso_descripcion_"+i+"' class='form-control' name='Proyecto[planes_presupuestales_recursos_descripciones][]' placeholder='Recurso' value='"+xescape(star.recurso_descripcion)+"' <?= $disabled?> />"+
 					    "</div>"+
 					"</td>"+
 					"<td style='padding: 2px'>"+
@@ -338,7 +339,7 @@ label{
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_dirigido_"+i+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_dirigido_"+i+"' class='form-control' name='Proyecto[planes_presupuestales_dirigidos][]' placeholder='Dirigido' value='"+star.dirigido+"'  <?= $disabled?>/>"+
+						"<input id='proyecto-plan_presupuestal_dirigido_"+i+"' class='form-control' name='Proyecto[planes_presupuestales_dirigidos][]' placeholder='Dirigido' value='"+xescape(star.dirigido)+"'  <?= $disabled?>/>"+
 					    "</div>"+
 					"</td>"+
 					

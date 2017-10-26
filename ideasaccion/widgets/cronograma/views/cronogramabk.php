@@ -12,7 +12,7 @@ use yii\web\JsExpression;
 /* @var $title string */
 $opciones_objetivos='';
 foreach($objetivos as $objetivo){ 
-    $opciones_objetivos=$opciones_objetivos.'<option value='.$objetivo->id.'>'.$objetivo->descripcion.'</option>';
+    $opciones_objetivos=$opciones_objetivos.'<option value='.$objetivo->id.'>'.htmlentities($objetivo->descripcion,ENT_QUOTES).'</option>';
 }
 
 ?>
@@ -36,7 +36,7 @@ foreach($objetivos as $objetivo){
 				    <select id="proyecto-cronograma_objetivo_<?= $cron ?>" class="form-control" name="Proyecto[cronogramas_objetivos][]" onchange="actividad2($(this).val(),<?= $cron ?>)" <?= $disabled ?>>
 					<option value>seleccionar</option>
 					<?php foreach($objetivos as $objetivo){  ?>
-					    <option value='<?= $objetivo->id ?>' <?= ($objetivo->id==$cronograma->objetivo_especifico_id)?'selected':'' ?>><?= $objetivo->descripcion ?></option>
+					    <option value='<?= $objetivo->id ?>' <?= ($objetivo->id==$cronograma->objetivo_especifico_id)?'selected':'' ?>><?= htmlentities($objetivo->descripcion,ENT_QUOTES) ?></option>
 					<?php }  ?>
 				    </select>
 				</div>
@@ -46,7 +46,7 @@ foreach($objetivos as $objetivo){
 				    <select id="proyecto-cronograma_actividad_<?= $cron ?>" class="form-control" name="Proyecto[cronogramas_actividades][]" <?= $disabled ?>>
 					<option value>seleccionar</option>
 					<?php foreach($actividades as $actividad){  ?>
-					    <option value='<?= $actividad->id ?>' <?= ($actividad->id==$cronograma->actividad_id)?'selected':'' ?> ><?= $actividad->descripcion ?> </option>
+					    <option value='<?= $actividad->id ?>' <?= ($actividad->id==$cronograma->actividad_id)?'selected':'' ?> ><?= htmlentities($actividad->descripcion,ENT_QUOTES) ?> </option>
 					<?php } ?>
 				    </select>
 				</div>
@@ -93,7 +93,7 @@ foreach($objetivos as $objetivo){
 				    <select id="proyecto-cronograma_objetivo_0" class="form-control" name="Proyecto[cronogramas_objetivos][]" onchange="actividad2($(this).val(),0)" <?= $disabled ?>>
 					<option value>seleccionar</option>
 					<?php foreach($objetivos as $objetivo){  ?>
-					    <option value='<?= $objetivo->id ?>' ><?= $objetivo->descripcion ?></option>
+					    <option value='<?= $objetivo->id ?>' ><?= htmlentities($objetivo->descripcion,ENT_QUOTES) ?></option>
 					<?php }  ?>
 				    </select>
 				</div>

@@ -207,7 +207,7 @@ class PlanPresupuestalController extends Controller {
         if ($countActividades > 0) {
             echo "<option value>Seleccionar</option>";
             foreach ($actividades as $actividad) {
-                echo "<option value='" . $actividad->id . "'>" . $actividad->descripcion . "</option>";
+                echo "<option value='" . $actividad->id . "'>" . htmlentities($actividad->descripcion,ENT_QUOTES) . "</option>";
             }
         } else {
             echo "<option value>Seleccionar</option>";

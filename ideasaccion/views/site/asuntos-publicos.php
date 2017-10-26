@@ -69,7 +69,7 @@ Hay un listado de 33 asuntos públicos. Cada uno debe tener:
             $categorias1=Asunto::find()->where('padre_id=:padre_id',[':padre_id'=>1])->all();
             foreach($categorias1 as $categoria1)
             {
-                echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoria1->id.'"  id="proyecto'.$categoria1->id.'" class="" style="cursor: pointer" ><u>'.$categoria1->descripcion_cabecera.'</u></span> <br>';
+                echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoria1->id.'"  id="proyecto'.$categoria1->id.'" class="" style="cursor: pointer" ><u>'.htmlentities($categoria1->descripcion_cabecera,ENT_QUOTES).'</u></span> <br>';
             }
         ?>
     </div>
@@ -85,7 +85,7 @@ Hay un listado de 33 asuntos públicos. Cada uno debe tener:
             $categorias2=Asunto::find()->where('padre_id=:padre_id',[':padre_id'=>2])->all();
             foreach($categorias2 as $categoria2)
             {
-                echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoria2->id.'"  id="proyecto'.$categoria2->id.'" class="" style="cursor: pointer" ><u>'.$categoria2->descripcion_cabecera.'</u></span> <br>';
+                echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoria2->id.'"  id="proyecto'.$categoria2->id.'" class="" style="cursor: pointer" ><u>'.htmlentities($categoria2->descripcion_cabecera,ENT_QUOTES).'</u></span> <br>';
             }
         ?>
     </div>
@@ -102,7 +102,7 @@ Hay un listado de 33 asuntos públicos. Cada uno debe tener:
             $categorias3=Asunto::find()->where('padre_id=:padre_id',[':padre_id'=>3])->all();
             foreach($categorias3 as $categoria3)
             {
-                echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoria3->id.'"  id="proyecto'.$categoria3->id.'" class="" style="cursor: pointer" ><u>'.$categoria3->descripcion_cabecera.'</u></span> <br>';
+                echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoria3->id.'"  id="proyecto'.$categoria3->id.'" class="" style="cursor: pointer" ><u>'.htmlentities($categoria3->descripcion_cabecera,ENT_QUOTES).'</u></span> <br>';
             }
         ?>
     </div>
@@ -267,7 +267,7 @@ Hay un listado de 33 asuntos públicos. Cada uno debe tener:
                     {
                 ?>
                     var asuntop=<?= $asuntop->id ?>;
-                    var asuntonombre="<?= $asuntop->descripcion_cabecera ?>";
+                    var asuntonombre="<?= htmlentities($asuntop->descripcion_cabecera,ENT_QUOTES) ?>";
                     if (asuntop==value) {
                         $.notify({
                             // options

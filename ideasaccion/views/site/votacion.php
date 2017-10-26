@@ -95,7 +95,7 @@ $this->title="Ideas en acción";
                                         <div class="ia_table">
                                             <div class="ia_row">
                                                 <div class="ia_cell"><span class="ia_icon_heart"></span></div>
-                                                <div class="ia_cell" ><?= $categoria1->descripcion_cabecera ?> <input type="hidden" id="ocultar<?= $categoria1->id ?>" ></div>
+                                                <div class="ia_cell" ><?= htmlentities($categoria1->descripcion_cabecera,ENT_QUOTES) ?> <input type="hidden" id="ocultar<?= $categoria1->id ?>" ></div>
                                             </div>
                                         </div>
                                     </a>
@@ -104,9 +104,9 @@ $this->title="Ideas en acción";
                                 <div class="popup" id="popup<?= $categoria1->id ?>">
                                     <div class="popup_content2" align="center">
                                             <a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
-                                            <div class="popuptitle1 "><?= $categoria1->descripcion_cabecera ?></div>
-                                            <div class=" "><?= $categoria1->descripcion_corta ?></div>
-                                            <p class="text-justify" style="padding-left: 25px;padding-right: 25px;padding-top: 10px"><?= $categoria1->descripcion_larga ?></p>
+                                            <div class="popuptitle1 "><?= htmlentities($categoria1->descripcion_cabecera,ENT_QUOTES) ?></div>
+                                            <div class=" "><?= htmlentities($categoria1->descripcion_corta,ENT_QUOTES) ?></div>
+                                            <p class="text-justify" style="padding-left: 25px;padding-right: 25px;padding-top: 10px"><?= htmlentities($categoria1->descripcion_larga, ENT_QUOTES) ?></p>
                                             
                                             <button class="btn1 btn-default"" onclick="Seleccionar(<?= $categoria1->id ?>,event)" id="btnpopup<?= $categoria1->id ?>">SELECCIONAR</button>
                                             
@@ -138,7 +138,7 @@ $this->title="Ideas en acción";
                                         <div class="ia_table">
                                             <div class="ia_row">
                                                 <div class="ia_cell"><span class="ia_icon_heart"></span></div>
-                                                <div class="ia_cell" ><?= $categoria2->descripcion_cabecera ?> <input type="hidden" id="ocultar<?= $categoria2->id ?>" ></div>
+                                                <div class="ia_cell" ><?= htmlentities($categoria2->descripcion_cabecera,ENT_QUOTES) ?> <input type="hidden" id="ocultar<?= $categoria2->id ?>" ></div>
                                             </div>
                                         </div>
                                     </a>
@@ -147,9 +147,9 @@ $this->title="Ideas en acción";
                                 <div class="popup" id="popup<?= $categoria2->id ?>">
                                     <div class="popup_content2" align="center">
                                             <a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
-                                            <div class="popuptitle2 "><?= $categoria2->descripcion_cabecera ?></div>
-                                            <div class=" "><?= $categoria2->descripcion_corta ?></div>
-                                            <p class="text-justify" style="padding-left: 25px;padding-right: 25px;padding-top: 10px"><?= $categoria2->descripcion_larga ?></p>
+                                            <div class="popuptitle2 "><?= htmlentities($categoria2->descripcion_cabecera,ENT_QUOTES) ?></div>
+                                            <div class=" "><?= htmlentities($categoria2->descripcion_corta,ENT_QUOTES) ?></div>
+                                            <p class="text-justify" style="padding-left: 25px;padding-right: 25px;padding-top: 10px"><?= htmlentities($categoria2->descripcion_larga, ENT_QUOTES) ?></p>
                                             
                                             <button class="btn1 btn-default" onclick="Seleccionar(<?= $categoria2->id ?>,event)" id="btnpopup<?= $categoria2->id ?>">SELECCIONAR</button>
                                             
@@ -181,7 +181,7 @@ $this->title="Ideas en acción";
                                         <div class="ia_table">
                                             <div class="ia_row">
                                                 <div class="ia_cell"><span class="ia_icon_heart"></span></div>
-                                                <div class="ia_cell" ><?= $categoria3->descripcion_cabecera ?> <input type="hidden" id="ocultar<?= $categoria3->id ?>" ></div>
+                                                <div class="ia_cell" ><?= htmlentities($categoria3->descripcion_cabecera,ENT_QUOTES) ?> <input type="hidden" id="ocultar<?= $categoria3->id ?>" ></div>
                                             </div>
                                         </div>
                                     </a>
@@ -190,9 +190,9 @@ $this->title="Ideas en acción";
                                 <div class="popup" id="popup<?= $categoria3->id ?>">
                                     <div class="popup_content2" align="center">
                                             <a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>  
-                                            <p class="popuptitle3 "><?= $categoria3->descripcion_cabecera ?></p>
-                                            <div class=" "><?= $categoria3->descripcion_corta ?></div>
-                                            <p class="text-justify" style="padding-left: 25px;padding-right: 25px;padding-top: 10px"><?= $categoria3->descripcion_larga ?></p>
+                                            <p class="popuptitle3 "><?= htmlentities($categoria3->descripcion_cabecera,ENT_QUOTES) ?></p>
+                                            <div class=" "><?= htmlentities($categoria3->descripcion_corta,ENT_QUOTES) ?></div>
+                                            <p class="text-justify" style="padding-left: 25px;padding-right: 25px;padding-top: 10px"><?= htmlentities($categoria3->descripcion_larga, ENT_QUOTES) ?></p>
                                             
                                             <button class="btn1 btn-default" onclick="Seleccionar(<?= $categoria3->id ?>,event)" id="btnpopup<?= $categoria3->id ?>">SELECCIONAR</button>
                                             

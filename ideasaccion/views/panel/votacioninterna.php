@@ -51,7 +51,7 @@ use yii\widgets\Pjax;
                     'format'=>'raw',
                     'value'=>function($data)
                     {
-                        return Html::a($data->titulo,['foro/proyecto-monitor-votacion','id'=>$data->id],['target'=>'blank']);
+                        return Html::a(htmlentities($data->titulo, ENT_QUOTES),['foro/proyecto-monitor-votacion','id'=>$data->id],['target'=>'blank']);
                     },
                 ],
                 

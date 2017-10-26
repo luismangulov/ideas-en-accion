@@ -23,12 +23,12 @@ $proyecto = $model->id;
         </div>   
     <?php } elseif ($model->id >= 3 && $model->id <= 35) { ?>
         <div style="border: 2px solid #1f2a69;padding: 10px" class="text-justify">
-            <h4><b><?= Html::encode($this->title) ?></b></h4>
-            <h4><?= $model->asunto->descripcion_cabecera ?></h4>
-            <p class="text-justify"><?= $model->asunto->descripcion_larga ?></p>
+            <h4><b><?=htmlentities( Html::encode($this->title), ENT_QUOTES) ?></b></h4>
+            <h4><?= htmlentities($model->asunto->descripcion_cabecera , ENT_QUOTES)?></h4>
+            <p class="text-justify"><?= htmlentities($model->asunto->descripcion_larga, ENT_QUOTES) ?></p>
         </div>
     <?php } else { ?>
-        <h1><?= Html::encode($this->title) ?></h1>
+        <h1><?= htmlentities(Html::encode($this->title), ENT_QUOTES) ?></h1>
     <?php } ?>
 
 

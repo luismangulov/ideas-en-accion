@@ -11,7 +11,7 @@ $asuntos=Asunto::find()->all();
 $mensajecorto=[];
 foreach($asuntos as $asunto)
 {
-    $mensajecorto[]=[$asunto->id=>$asunto->descripcion_corta];
+    $mensajecorto[]=[$asunto->id=>htmlentities($asunto->descripcion_corta,ENT_QUOTES)];
 }
 $resultados=Resultados::find()->all();
 ?>
@@ -34,7 +34,7 @@ An easy and beautiful way to navigate throw the sections An easy and beautiful w
 		$categoriasAlg=Asunto::find()->where('padre_id=:padre_id',[':padre_id'=>1])->all();
 		foreach($categoriasAlg as $categoriaAlg)
 		{
-		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaAlg->id.'" id="proyecto'.$categoriaAlg->id.'" class="badge" style="cursor: pointer" >'.$categoriaAlg->descripcion_cabecera.'</span>';
+		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaAlg->id.'" id="proyecto'.$categoriaAlg->id.'" class="badge" style="cursor: pointer" >'.htmlentities($categoriaAlg->descripcion_cabecera,ENT_QUOTES).'</span>';
 		}
 	    ?>
 	</div>
@@ -48,7 +48,7 @@ An easy and beautiful way to navigate throw the sections An easy and beautiful w
 		$categoriasBlg=Asunto::find()->where('padre_id=:padre_id',[':padre_id'=>2])->all();
 		foreach($categoriasBlg as $categoriaBlg)
 		{
-		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaBlg->id.'" id="proyecto'.$categoriaBlg->id.'" class="badge" style="cursor: pointer" >'.$categoriaBlg->descripcion_cabecera.'</span>';
+		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaBlg->id.'" id="proyecto'.$categoriaBlg->id.'" class="badge" style="cursor: pointer" >'.htmlentities($categoriaBlg->descripcion_cabecera,ENT_QUOTES).'</span>';
 		}
 	    ?>
 	</div>
@@ -62,7 +62,7 @@ An easy and beautiful way to navigate throw the sections An easy and beautiful w
 		$categoriasClg=Asunto::find()->where('padre_id=:padre_id',[':padre_id'=>3])->all();
 		foreach($categoriasClg as $categoriaClg)
 		{
-		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaClg->id.'" id="proyecto'.$categoriaClg->id.'" class="badge" style="cursor: pointer" >'.$categoriaClg->descripcion_cabecera.'</span>';
+		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaClg->id.'" id="proyecto'.$categoriaClg->id.'" class="badge" style="cursor: pointer" >'.htmlentities($categoriaClg->descripcion_cabecera,ENT_QUOTES).'</span>';
 		}
 	    ?>
 	</div>
@@ -81,7 +81,7 @@ An easy and beautiful way to navigate throw the sections An easy and beautiful w
 		$categoriasAmd=Asunto::find()->where('padre_id=:padre_id',[':padre_id'=>1])->all();
 		foreach($categoriasAmd as $categoriaAmd)
 		{
-		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaAmd->id.'" id="proyecto'.$categoriaAmd->id.'" class="badge" style="cursor: pointer" >'.$categoriaAmd->descripcion_cabecera.'</span>';
+		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaAmd->id.'" id="proyecto'.$categoriaAmd->id.'" class="badge" style="cursor: pointer" >'.htmlentities($categoriaAmd->descripcion_cabecera,ENT_QUOTES).'</span>';
 		}
 	    ?>
 	</div>
@@ -95,7 +95,7 @@ An easy and beautiful way to navigate throw the sections An easy and beautiful w
 		$categoriasBmd=Asunto::find()->where('padre_id=:padre_id',[':padre_id'=>2])->all();
 		foreach($categoriasBmd as $categoriaBmd)
 		{
-		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaBmd->id.'" id="proyecto'.$categoriaBmd->id.'" class="badge" style="cursor: pointer" >'.$categoriaBmd->descripcion_cabecera.'</span>';
+		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaBmd->id.'" id="proyecto'.$categoriaBmd->id.'" class="badge" style="cursor: pointer" >'.htmlentities($categoriaBmd->descripcion_cabecera,ENT_QUOTES).'</span>';
 		}
 	    ?>
 	</div>
@@ -109,7 +109,7 @@ An easy and beautiful way to navigate throw the sections An easy and beautiful w
 		$categoriasCmd=Asunto::find()->where('padre_id=:padre_id',[':padre_id'=>3])->all();
 		foreach($categoriasCmd as $categoriaCmd)
 		{
-		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaCmd->id.'" id="proyecto'.$categoriaCmd->id.'" class="badge" style="cursor: pointer" >'.$categoriaCmd->descripcion_cabecera.'</span>';
+		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaCmd->id.'" id="proyecto'.$categoriaCmd->id.'" class="badge" style="cursor: pointer" >'.htmlentities($categoriaCmd->descripcion_cabecera,ENT_QUOTES).'</span>';
 		}
 	    ?>
 	</div>
@@ -127,7 +127,7 @@ An easy and beautiful way to navigate throw the sections An easy and beautiful w
 		$categoriasAsm=Asunto::find()->where('padre_id=:padre_id',[':padre_id'=>1])->all();
 		foreach($categoriasAsm as $categoriaAsm)
 		{
-		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaAsm->id.'" id="proyecto'.$categoriaAsm->id.'" class="badge" style="cursor: pointer" >'.$categoriaAsm->descripcion_cabecera.'</span>';
+		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaAsm->id.'" id="proyecto'.$categoriaAsm->id.'" class="badge" style="cursor: pointer" >'.htmlentities($categoriaAsm->descripcion_cabecera,ENT_QUOTES).'</span>';
 		}
 	    ?>
 	</div>
@@ -141,7 +141,7 @@ An easy and beautiful way to navigate throw the sections An easy and beautiful w
 		$categoriasBsm=Asunto::find()->where('padre_id=:padre_id',[':padre_id'=>2])->all();
 		foreach($categoriasBsm as $categoriaBsm)
 		{
-		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaBsm->id.'" id="proyecto'.$categoriaBsm->id.'" class="badge" style="cursor: pointer" >'.$categoriaBsm->descripcion_cabecera.'</span>';
+		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaBsm->id.'" id="proyecto'.$categoriaBsm->id.'" class="badge" style="cursor: pointer" >'.htmlentities($categoriaBsm->descripcion_cabecera,ENT_QUOTES).'</span>';
 		}
 	    ?>
 	</div>
@@ -155,7 +155,7 @@ An easy and beautiful way to navigate throw the sections An easy and beautiful w
 		$categoriasCsm=Asunto::find()->where('padre_id=:padre_id',[':padre_id'=>3])->all();
 		foreach($categoriasCsm as $categoriaCsm)
 		{
-		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaCsm->id.'" id="proyecto'.$categoriaCsm->id.'" class="badge" style="cursor: pointer" >'.$categoriaCsm->descripcion_cabecera.'</span>';
+		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaCsm->id.'" id="proyecto'.$categoriaCsm->id.'" class="badge" style="cursor: pointer" >'.htmlentities($categoriaCsm->descripcion_cabecera,ENT_QUOTES).'</span>';
 		}
 	    ?>
 	</div>
@@ -175,7 +175,7 @@ An easy and beautiful way to navigate throw the sections An easy and beautiful w
 		$categoriasAxs=Asunto::find()->where('padre_id=:padre_id',[':padre_id'=>1])->all();
 		foreach($categoriasAxs as $categoriaAxs)
 		{
-		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaAxs->id.'"  id="proyecto'.$categoriaAxs->id.'" class="badge" style="cursor: pointer" >'.$categoriaAxs->descripcion_cabecera.'</span>';
+		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaAxs->id.'"  id="proyecto'.$categoriaAxs->id.'" class="badge" style="cursor: pointer" >'.htmlentities($categoriaAxs->descripcion_cabecera,ENT_QUOTES).'</span>';
 		}
 	    ?>
 	</div>
@@ -189,7 +189,7 @@ An easy and beautiful way to navigate throw the sections An easy and beautiful w
 		$categoriasBxs=Asunto::find()->where('padre_id=:padre_id',[':padre_id'=>2])->all();
 		foreach($categoriasBxs as $categoriaBxs)
 		{
-		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaAxs->id.'" id="proyecto'.$categoriaBxs->id.'" class="badge" style="cursor: pointer" >'.$categoriaBxs->descripcion_cabecera.'</span>';
+		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaAxs->id.'" id="proyecto'.$categoriaBxs->id.'" class="badge" style="cursor: pointer" >'.htmlentities($categoriaBxs->descripcion_cabecera,ENT_QUOTES).'</span>';
 		}
 	    ?>
 	</div>
@@ -203,7 +203,7 @@ An easy and beautiful way to navigate throw the sections An easy and beautiful w
 		$categoriasCxs=Asunto::find()->where('padre_id=:padre_id',[':padre_id'=>3])->all();
 		foreach($categoriasCxs as $categoriaCxs)
 		{
-		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaAxs->id.'" id="proyecto'.$categoriaCxs->id.'" class="badge" style="cursor: pointer" >'.$categoriaCxs->descripcion_cabecera.'</span>';
+		    echo '<span data-toggle="modal" data-target="#myModalAsunto'.$categoriaAxs->id.'" id="proyecto'.$categoriaCxs->id.'" class="badge" style="cursor: pointer" >'.htmlentities($categoriaCxs->descripcion_cabecera,ENT_QUOTES).'</span>';
 		}
 	    ?>
 	</div>

@@ -530,7 +530,7 @@ class ProyectoController extends Controller {
         if ($countAsuntos > 0) {
             echo "<option value></option>";
             foreach ($asuntos as $asunto) {
-                echo "<option value='" . $asunto->id . "'>" . $asunto->descripcion_corta . "</option>";
+                echo "<option value='" . $asunto->id . "'>" . htmlentities($asunto->descripcion_corta, ENT_QUOTES) . "</option>";
             }
         } else {
             echo "<option value></option>";

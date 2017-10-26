@@ -74,7 +74,7 @@ use yii\web\JsExpression;
         <div style="border: 2px solid #1f2a69;padding: 10px" class="text-justify">
             <b>Región:</b> <?= $region->department ?><br>
             <b>Institución educativa:</b> <?= $institucion->denominacion ?><br>
-            <b>Título del proyecto:</b> <?= $proyecto->titulo ?><br>
+            <b>Título del proyecto:</b> <?= htmlentities($proyecto->titulo, ENT_QUOTES) ?><br>
         </div>
 
         <div class="nav-tabs-custom">
@@ -97,13 +97,13 @@ use yii\web\JsExpression;
                         <div class="col-md-12" style="height: 660px; ">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <h4 style="margin-bottom: 0px;padding-bottom: 0px;color: black"><label>Título:</label> </h4>
-                                <p class="text-justify" style="padding-bottom: 5px"><?= $proyecto->titulo ?></p>
+                                <p class="text-justify" style="padding-bottom: 5px"><?= htmlentities($proyecto->titulo, ENT_QUOTES) ?></p>
                             </div>
                             <div class="clearfix"></div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group label-floating field-proyecto-asunto required">
                                     <label class="control-label" for="proyecto-asunto" >Asunto público</label>
-                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $equipo->asunto->descripcion_cabecera ?></p>
+                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= htmlentities($equipo->asunto->descripcion_cabecera,ENT_QUOTES) ?></p>
                                 </div>
                             </div>
 
@@ -111,14 +111,14 @@ use yii\web\JsExpression;
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group label-floating field-proyecto-resumen required">
                                     <label class="control-label" for="proyecto-resumen" >Sumilla / Justificación</label>
-                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $proyecto->resumen ?></p>
+                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= htmlentities($proyecto->resumen, ENT_QUOTES) ?></p>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group label-floating field-proyecto-beneficiario required">
                                     <label class="control-label" for="proyecto-beneficiario">Objetivo General</label>
-                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $proyecto->beneficiario ?></p>
+                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= htmlentities($proyecto->beneficiario, ENT_QUOTES) ?></p>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -130,12 +130,12 @@ use yii\web\JsExpression;
                                 <div id="mostrar_oe_actividades">
                                     <div class='col-xs-12 col-sm-12 col-md-12'>
                                         <?php if ($proyecto->objetivo_especifico_1) { ?>
-                                            <li><b><?= $proyecto->objetivo_especifico_1 ?></b></li>
-                                            <input type='hidden' value='<?= $proyecto->objetivo_especifico_1 ?>' name='Proyecto[objetivo_especifico_1]'>
+                                        <li><b><?= htmlentities($proyecto->objetivo_especifico_1, ENT_QUOTES) ?></b></li>
+                                        <input type='hidden' value='<?= htmlentities($proyecto->objetivo_especifico_1 , ENT_QUOTES)?>' name='Proyecto[objetivo_especifico_1]'>
                                             <ul>
                                                 <?php foreach ($actividades as $actividad) { ?>
                                                     <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_1_id) { ?>
-                                                        <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_1][]'></li>
+                                                <li><?= htmlentities($actividad->descripcion,ENT_QUOTES) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion,ENT_QUOTES) ?>' name='Proyecto[actividades_1][]'></li>
                                                         <input type="hidden" name="Proyecto[actividades_ids_1][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" <?= $disabled ?>/>
                                                     <?php } ?>
                                                 <?php } ?>
@@ -146,12 +146,12 @@ use yii\web\JsExpression;
 
                                     <div class='col-xs-12 col-sm-12 col-md-12'>
                                         <?php if ($proyecto->objetivo_especifico_2) { ?>
-                                            <li><b><?= $proyecto->objetivo_especifico_2 ?></b></li>
-                                            <input type='hidden' value='<?= $proyecto->objetivo_especifico_2 ?>' name='Proyecto[objetivo_especifico_2]'>
+                                            <li><b><?= htmlentities($proyecto->objetivo_especifico_2, ENT_QUOTES) ?></b></li>
+                                            <input type='hidden' value='<?= htmlentities($proyecto->objetivo_especifico_2 , ENT_QUOTES)?>' name='Proyecto[objetivo_especifico_2]'>
                                             <ul>
                                                 <?php foreach ($actividades as $actividad) { ?>
                                                     <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_2_id) { ?>
-                                                        <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_2][]'></li>
+                                                        <li><?= htmlentities($actividad->descripcion,ENT_QUOTES) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion,ENT_QUOTES) ?>' name='Proyecto[actividades_2][]'></li>
                                                         <input type="hidden" name="Proyecto[actividades_ids_2][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" <?= $disabled ?>/>
                                                     <?php } ?>
                                                 <?php } ?>
@@ -162,12 +162,12 @@ use yii\web\JsExpression;
 
                                     <div class='col-xs-12 col-sm-12 col-md-12'>
                                         <?php if ($proyecto->objetivo_especifico_3) { ?>
-                                            <li><b><?= $proyecto->objetivo_especifico_3 ?></b></li>
-                                            <input type='hidden' value='<?= $proyecto->objetivo_especifico_3 ?>' name='Proyecto[objetivo_especifico_3]'>
+                                        <li><b><?= htmlentities($proyecto->objetivo_especifico_3 , ENT_QUOTES)?></b></li>
+                                        <input type='hidden' value='<?= htmlentities($proyecto->objetivo_especifico_3, ENT_QUOTES) ?>' name='Proyecto[objetivo_especifico_3]'>
                                             <ul>
                                                 <?php foreach ($actividades as $actividad) { ?>
                                                     <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_3_id) { ?>
-                                                        <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_3][]'></li>
+                                                        <li><?= htmlentities($actividad->descripcion,ENT_QUOTES) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion,ENT_QUOTES) ?>' name='Proyecto[actividades_3][]'></li>
                                                         <input type="hidden" name="Proyecto[actividades_ids_3][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" <?= $disabled ?>/>
                                                     <?php } ?>
                                                 <?php } ?>

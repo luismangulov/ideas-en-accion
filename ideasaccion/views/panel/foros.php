@@ -86,7 +86,7 @@ if (isset($_GET['page']) >= 2)
     <div class="clearfix"></div>
     <?php foreach($forospublicos as $foropublico): ?>
         <hr>
-        <div class="col-md-4 text-left"><?= Html::a($foropublico->titulo,['foro/viewadmin','id'=>$foropublico->id],[]);?> </div>
+        <div class="col-md-4 text-left"><?= Html::a(htmlentities($foropublico->titulo, ENT_QUOTES),['foro/viewadmin','id'=>$foropublico->id],[]);?> </div>
         <div class="col-md-2 text-right"><?= $foropublico->total ?></div>
         <div class="col-md-2 text-right"><?= $foropublico->valorado ?></div>
         <div class="col-md-2 text-right"><?= $foropublico->pendiente ?></div>

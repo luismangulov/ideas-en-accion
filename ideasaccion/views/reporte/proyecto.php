@@ -38,22 +38,20 @@ if (isset($_GET['page']) >= 2)
             <th><b>Título del proyecto</b></th>
             <th><b>Proyecto finalizado</b></th>
             <th><b>Registro del video</b></th>
-            <th><b>Registro de reflexión</b></th>
-            <th><b>Archivo de proyecto</b></th>
+            
         </thead>
         <tbody>
         <?php foreach($proyectos['proyectos'] as $proyecto):
             $floor_number=$floor++; //?????
             ?>
             <tr>
-                <td><?= $proyecto['denominacion'] ?></td>
+                <td><?= htmlentities($proyecto['denominacion'],ENT_QUOTES) ?></td>
                 <td><span class="popover1" data-type='html' style="cursor: pointer"  title  ='<?= str_replace(['\'\'','\''],'"',htmlentities($proyecto['titulo'],ENT_QUOTES)) ?>' data-placement="top"><?= htmlentities(substr(str_replace(['\'\'','\''],'"',$proyecto['titulo']),0,20),ENT_QUOTES) ?> </span></td>
                 
                
                 <td><?= ($proyecto['proyecto_finalizado']==1)?'<span class="fa fa-fw fa-check-square"></span>':'<span class="fa fa-fw fa-square"></span>' ?></td>
                 <td><?= ($proyecto['video_check']==1)?'<span class="fa fa-fw fa-check-square"></span>':'<span class="fa fa-fw fa-square"></span>' ?></td>
-                <td><?= ($proyecto['reflexion_check']==1)?'<span class="fa fa-fw fa-check-square"></span>':'<span class="fa fa-fw fa-square"></span>' ?></td>
-                <td><?= ($proyecto['archivo_proyecto_check']==1)?'<span class="fa fa-fw fa-check-square"></span>':'<span class="fa fa-fw fa-square"></span>' ?></td>
+                
             </tr>
         <?php endforeach; ?>
         </tbody>

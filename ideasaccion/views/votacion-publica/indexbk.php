@@ -925,7 +925,7 @@ use yii\helpers\Html;
 					<div class="box-head-voto">
 						<div class="row">
 							<div class="col-md-7 bhb_left ">
-                                                            <?= $resultado->titulo ?><br>
+                                                            <?= htmlentities($resultado->titulo , ENT_QUOTES)?><br>
 							    <b style="font-size: 9px"><?= ($a==1)?'Finalista':'' ?></b>
                                                         </div>
 							<div class="col-md-5 bhb_right">
@@ -937,7 +937,7 @@ use yii\helpers\Html;
 
 					<div class="box-body-voto" <?= ($a==1)?'style="background:white"':'' ?>>
 						<b>Resumen:</b><br>
-						<p class="text-justify"><?= $resultado->resumen ?></p>
+                                                    <p class="text-justify"><?= htmlentities($resultado->resumen, ENT_QUOTES) ?></p>
 						<div class="line_yellow"></div>
 						<b>IIEE:</b><br>
 						<?= $resultado->denominacion ?>

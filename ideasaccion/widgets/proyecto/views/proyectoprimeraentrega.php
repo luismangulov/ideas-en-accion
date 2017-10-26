@@ -106,7 +106,7 @@ $acti3 = 0;
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group label-floating field-proyecto-asunto required">
                                     <label class="control-label" for="proyecto-asunto" >Asunto público</label>
-                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $equipo->asunto->descripcion_cabecera ?></p>
+                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= htmlentities($equipo->asunto->descripcion_cabecera,ENT_QUOTES) ?></p>
                                 </div>
                             </div>
 

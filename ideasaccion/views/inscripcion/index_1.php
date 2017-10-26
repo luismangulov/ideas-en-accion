@@ -56,11 +56,11 @@ if ($equipo->id) {
         <div class="col-md-9">
             <div class="form-group label-floating field-equipo-descripcion_equipo required" >
                 <label class="control-label" for="equipo-descripcion_equipo">Nombre del equipo</label>
-                <input value="<?= $equipo->descripcion_equipo ?>" type="text" id="equipo-descripcion_equipo" class="form-control texto" name="Equipo[descripcion_equipo]">
+                <input value="<?= htmlentities($equipo->descripcion_equipo,ENT_QUOTES) ?>" type="text" id="equipo-descripcion_equipo" class="form-control texto" name="Equipo[descripcion_equipo]">
             </div>
             <div class="form-group label-floating field-equipo-descripcion required">
                 <label class="control-label" for="equipo-descripcion">Danos una breve descripción de tu equipo</label>
-                <textarea  id="equipo-descripcion" class="form-control" name="Equipo[descripcion]" cols="30" rows="3"><?= $equipo->descripcion ?></textarea>
+                <textarea  id="equipo-descripcion" class="form-control" name="Equipo[descripcion]" cols="30" rows="3"><?= htmlentities($equipo->descripcion,ENT_QUOTES) ?></textarea>
             </div>
         </div>
         <div class="col-md-3">
@@ -94,9 +94,9 @@ if ($equipo->id) {
                             $categoria_id = $equipo->asunto->categoria_id;
                         }
                         if ($categoria_id == $resultado->id) {
-                            echo "<option value='$resultado->id' selected='selected'>" . $resultado->descripcion_categoria . "</option>";
+                            echo "<option value='$resultado->id' selected='selected'>" . htmlentities($resultado->descripcion_categoria,ENT_QUOTES) . "</option>";
                         } else {
-                            echo "<option value='$resultado->id'>" . $resultado->descripcion_categoria . "</option>";
+                            echo "<option value='$resultado->id'>" . htmlentities($resultado->descripcion_categoria,ENT_QUOTES) . "</option>";
                         }
                     }
                     ?>
@@ -118,9 +118,9 @@ if ($equipo->id) {
                     if (!empty($resultados))
                         foreach ($resultados as $resultado) {
                             if ($equipo->asunto->id == $resultado->id) {
-                                echo "<option value='$resultado->id' selected='selected'>" . $resultado->descripcion_corta . "</option>";
+                                echo "<option value='$resultado->id' selected='selected'>" . htmlentities($resultado->descripcion_corta,ENT_QUOTES) . "</option>";
                             } else {
-                                echo "<option value='$resultado->id'>" . $resultado->descripcion_corta . "</option>";
+                                echo "<option value='$resultado->id'>" . htmlentities($resultado->descripcion_corta,ENT_QUOTES) . "</option>";
                             }
                         }
 
@@ -673,7 +673,7 @@ $this->registerJs(
 
                 for (i = 0; i < data.length; i++) {
                     //alert(data[i].id);
-                    $("#equipo-asunto_id").append("<option value='" + data[i].id + "'>" + data[i].descripcion_corta + "</option>");
+                    $("#equipo-asunto_id").append("<option value='" + data[i].id + "'>" + xescape(data[i].descripcion_corta) + "</option>");
                 }
                 //alert(data.length);
                 /*$("#text_asunto").html(data);

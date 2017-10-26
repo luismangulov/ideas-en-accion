@@ -213,7 +213,7 @@ $btninscribir = $integrante
                         $resultados = Asunto_categoria::find()->where('id=:region_id', ['region_id' => $equipo->asunto->categoria_id])->one();
                         if ($equipo->asunto_id != '') {
                             ?>
-                            <?= $resultados->descripcion_categoria ?>
+                            <?= htmlentities($resultados->descripcion_categoria,ENT_QUOTES) ?>
                         <?php } ?>
                     </div>
                 </div>
@@ -226,7 +226,7 @@ $btninscribir = $integrante
                     <label for="">Asunto público sobre el que trabajará mi equipo:</label>
                     <div class="rpta">
                         <?php if ($equipo->asunto_id != '') { ?>
-                            <?= $equipo->asunto->descripcion_cabecera ?>
+                            <?= htmlentities($equipo->asunto->descripcion_cabecera,ENT_QUOTES) ?>
                         <?php } ?>
                     </div>
                 </div>

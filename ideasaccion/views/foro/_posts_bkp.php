@@ -93,7 +93,7 @@ if (isset($_GET['page']) >= 2)
                         <?php if ($post['user_id'] >= 2 and $post['user_id'] <= 8)
                         { ?>
                         <div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #81F1FC">
-        <?= HtmlPurifier::process($post['contenido']) ?>
+        <?= htmlentities(HtmlPurifier::process($post['contenido']), ENT_QUOTES) ?>
                             <div class="post-meta">
                                 <div class="col-sm-12 col-md-12"></div>
                                 <div class="clearfix"></div>
@@ -111,7 +111,7 @@ if (isset($_GET['page']) >= 2)
                         else
                         { ?>
                         <div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">
-        <?= HtmlPurifier::process($post['contenido']) ?>
+        <?= htmlentities(HtmlPurifier::process($post['contenido']), ENT_QUOTES) ?>
                             <div class="post-meta">
                                 <div class="col-sm-12 col-md-12"></div>
                                 <div class="col-sm-12 col-md-12">
@@ -205,7 +205,7 @@ if (isset($_GET['page']) >= 2)
                             texto='<div class="row post-item">'+
                                 '<div class="col-sm-12 col-md-12">'+
                                     '<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #4EB3C7">'+
-                                        ''+$("#foro_comentario-contenido_hijo").val()+''+
+                                        ''+xescape($("#foro_comentario-contenido_hijo").val())+''+
                                         '<div class="post-meta">'+
                                             '<div class="col-sm-12 col-md-12"></div>'+
                                             '<div class="col-sm-12 col-md-12">'+

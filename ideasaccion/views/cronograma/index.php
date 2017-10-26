@@ -11,7 +11,7 @@ use yii\web\JsExpression;
 /* @var $title string */
 $opciones_objetivos = '';
 foreach ($objetivos as $objetivo) {
-    $opciones_objetivos = $opciones_objetivos . '<option value=' . $objetivo->id . '>' . $objetivo->descripcion . '</option>';
+    $opciones_objetivos = $opciones_objetivos . '<option value=' . $objetivo->id . '>' . htmlentities($objetivo->descripcion,ENT_QUOTES) . '</option>';
 }
 ?>
 
@@ -104,7 +104,7 @@ $cargatablacronograma = Yii::$app->getUrlManager()->createUrl('cronograma/cargat
                     tebody = tebody + "<tr id='cronograma_" + i + "' class='demo'>" +
                             "<td style='padding: 2px'>" +
                             "<div class='form-group field-proyecto-cronograma_tarea_" + i + " required form-control-wrapper' style='margin-top: 0px'>" +
-                            "<input type='text'  id='proyecto-cronograma_tarea_" + i + "' class='form-control label-floating' name='Proyecto[cronogramas_tareas][]' placeholder='Tarea' value='" + star.tarea + "' <?= $disabled ?> />" +
+                            "<input type='text'  id='proyecto-cronograma_tarea_" + i + "' class='form-control label-floating' name='Proyecto[cronogramas_tareas][]' placeholder='Tarea' value='" + xescape(star.tarea) + "' <?= $disabled ?> />" +
                             "</div>" +
                             "</td>" +
                             "<td style='padding: 2px'>" +

@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Foro */
 
-$this->title = $model->titulo;
+$this->title = htmlentities($model->titulo, ENT_QUOTES);
 $usuario=$model->usuario;
 $posts = $model->getPosts($model->id);
 ?>
