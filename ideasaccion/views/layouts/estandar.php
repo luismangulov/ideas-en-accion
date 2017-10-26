@@ -197,6 +197,14 @@ if (!\Yii::$app->user->isGuest) {
                                                                 ?>
                                                                 <b class="uppercase">Último acceso: <?= $datex->format('d/m/Y H:i:s') ?></b>
                                                             </div>
+                                                            
+                                                            <div class="line_separator"></div>
+                                                            
+                                                            <div class="cell_info_content">
+                                                            <a href="http://www.perueduca.pe/inicio?p_p_id=58&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&_58_struts_action=%2Flogin%2Fforgot_password"><b>Cambiar contraseña </b></a>
+
+                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
