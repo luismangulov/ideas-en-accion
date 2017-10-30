@@ -137,7 +137,7 @@ label{
                                     <div id="oe_1" class='col-xs-12 col-sm-12 col-md-12'>
                                         <?php if($proyecto->objetivo_especifico_1){ ?>
                                             <ul>
-                                                <li id='oespe'><b>Objetivo Específico N° 1: <?= $proyecto->objetivo_especifico_1 ?></b> </li>
+                                                <li id='oespe'><b>Objetivo Específico N° 1: <?= htmlentities($proyecto->objetivo_especifico_1,ENT_QUOTES) ?></b> </li>
                                                 <ul>
                                                     <?php foreach($actividades as $actividad){ ?>
                                                         <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_1_id){ ?>
@@ -151,7 +151,7 @@ label{
                                     <div id="oe_2" class='col-xs-12 col-sm-12 col-md-12'>
                                         <?php if($proyecto->objetivo_especifico_2){  ?>
                                             <ul>
-                                                <li id='oespe'><b>Objetivo Específico N°2: <?= $proyecto->objetivo_especifico_2 ?></b> </li>
+                                                <li id='oespe'><b>Objetivo Específico N°2: <?= htmlentities($proyecto->objetivo_especifico_2,ENT_QUOTES) ?></b> </li>
                                                 <ul>
                                                     <?php foreach($actividades as $actividad){ ?>
                                                         <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_2_id){?>
@@ -166,7 +166,7 @@ label{
                                     <div id="oe_3" class='col-xs-12 col-sm-12 col-md-12'>
                                         <?php if($proyecto->objetivo_especifico_3) { ?>
                                             <ul>
-                                                <li id='oespe'><b>Objetivo Específico N°3: <?= $proyecto->objetivo_especifico_3 ?></b> </li>
+                                                <li id='oespe'><b>Objetivo Específico N°3: <?= htmlentities($proyecto->objetivo_especifico_3,ENT_QUOTES) ?></b> </li>
                                                 <ul>
                                                     <?php foreach($actividades as $actividad){ ?>
                                                         <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_3_id){?>

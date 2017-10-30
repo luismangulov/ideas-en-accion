@@ -118,17 +118,44 @@ if (!\Yii::$app->user->isGuest) {
                                             <div class="mis_datos">
                                                 <div class="table_div">
                                                     <div class="row_div">
-                                                        <div class="cell_div cell_image">
-                                                            <div class="image_grupo" style="background-image: url(<?= \Yii::$app->request->BaseUrl ?>/foto_personal/<?= $usuario->avatar ?>);"></div>
+                                                        <div class="cell_div cell_image" style=" vertical-align: top;">
+                                                            <div class="image_grupo" style="background-image: url(../foto_personal/<?= $usuario->avatar ?>);"></div>
                                                         </div>
                                                         <div class="cell_div cell_info">
                                                             <div class="cell_info_content">
-                                                                <b class="uppercase">Administrador</b>
+                                                                <b class="uppercase"><?= Html::a("" . $usuario->estudiante->nombres . " " . $usuario->estudiante->apellido_paterno . " " . $usuario->estudiante->apellido_materno . "", ['usuario/configuracion']); ?> </b>
                                                             </div>
                                                             <div class="line_separator"></div>
                                                             <div class="cell_info_content">
+                                                                <b>I.E: <?= $estudiante->institucion->denominacion ?></b>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="table_div">
+                                                    <div class="row_div">
+                                                        <div class="cell_div cell_info">
+                                                            <div class="line_separator"></div>
+                                                            <div class="cell_info_content">
+                                                                <b class="uppercase">Rol: <?= $_SESSION["rol"] ?></b>
+                                                            </div>
+                                                            <div class="line_separator"></div>
+                                                            <div class="cell_info_content"><?php
+                                                                $datex = new DateTime($_SESSION["ultimologin"]);
+                                                                ?>
+                                                                <b class="uppercase">Último acceso: <?= $datex->format('d/m/Y H:i:s') ?></b>
+                                                            </div>
+
+                                                            <div class="line_separator"></div>
+
+                                                            <div class="cell_info_content">
+                                                                <a href="<?= Yii::$app->params["urlOlvidecontrasena"] ?>" target="_blank"><b>Cambiar contraseña</b></a>
+
                                                             </div>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>

@@ -288,7 +288,7 @@ label{
     
     
     function presupuesto(valor) {
-        alert(3);
+        
 	$('#presupuesto').hide();
 	$.ajax({
 	    url: '<?= $cargatablapresupuesto ?>',

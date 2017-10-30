@@ -378,7 +378,7 @@ class Response extends \yii\base\Response
             /*****
             setcookie($cookie->name, $value, $cookie->expire, $cookie->path, $cookie->domain, $cookie->secure, $cookie->httpOnly);
             *****/
-            setcookie($cookie->name, $value, $cookie->expire, $cookie->path, 'ideasenaccion.perueduca.pe', true, $cookie->httpOnly);
+            setcookie($cookie->name, $value, $cookie->expire, $cookie->path, Yii::$app->params["host"], true, $cookie->httpOnly);
         }
     }
 

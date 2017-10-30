@@ -134,19 +134,24 @@ if (!\Yii::$app->user->isGuest) {
                                                             <div class="cell_info_content">
                                                                 <b class="uppercase">Rol: <?= $_SESSION["rol"] ?></b>
                                                             </div>
-                                                            <div class="line_separator"></div>
-                                                            <div class="cell_info_content"><?php
-                                                                $datex = new DateTime($_SESSION["ultimologin"]);
-                                                                ?>
-                                                                <b class="uppercase">Último acceso: <?= $datex->format('d/m/Y H:i:s') ?></b>
-                                                            </div>
-                                                            <div class="line_separator"></div>
-                                                            
-                                                            <div class="cell_info_content">
-                                                            <a href="http://www.perueduca.pe/inicio?p_p_id=58&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&_58_struts_action=%2Flogin%2Fforgot_password"><b>Cambiar contraseña </b></a>
 
-                                                            </div>
+
                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table_div">
+                                                <div class="row_div">
+                                                    <div class="line_separator"></div>
+                                                    <div class="cell_info_content"><?php
+                                                        $datex = new DateTime($_SESSION["ultimologin"]);
+                                                        ?>
+                                                        <b class="uppercase">Último acceso: <?= $datex->format('d/m/Y H:i:s') ?></b>
+                                                    </div>
+                                                    <div class="line_separator"></div>
+
+                                                    <div class="cell_info_content">
+                                                        <a href="<?= Yii::$app->params["urlOlvidecontrasena"] ?>" target="_blank"><b>Cambiar contraseña </b></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -189,7 +194,7 @@ if (!\Yii::$app->user->isGuest) {
                                             </div>
                                         </div>', ['panel/foros'], ['id' => 'lnk_forosgeneral']); ?>
                                                 </li>
-                                                <?php if (( $etapa3)&& !$votacionpublica) { ?>
+                                                <?php if (( $etapa3) && !$votacionpublica) { ?>
                                                     <li>
                                                         <?= Html::a('<div class="table_div">
                                                 <div class="row_div">
@@ -200,7 +205,7 @@ if (!\Yii::$app->user->isGuest) {
                                                        Evaluación de proyectos <span class="hide">></span>
                                                     </div>
                                                 </div>
-                                            </div>', ['panel/votacioninterna'],['id' => 'lnk_votacioninterna']); ?>
+                                            </div>', ['panel/votacioninterna'], ['id' => 'lnk_votacioninterna']); ?>
                                                     </li>
                                                 <?php } ?>
                                             <?php } ?>

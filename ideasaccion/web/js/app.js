@@ -35,6 +35,7 @@ $(document).ready(function(){
 	});
 
 	$(document).on('click', '.box_content_option .btn_votation_item', function (e) {
+         
 	    e.preventDefault();
 	    var obj = $(this);
 	    var div = obj.parent();
@@ -49,7 +50,7 @@ $(document).ready(function(){
 			    _div.addClass("active");
 			    _div.attr("data-option", div.data("id"));
 			    
-			    $(".box_votacion_content", _div).html(div.data("title"));
+			    $(".box_votacion_content", _div).html(xescape(div.data("title")));
 			    
 			    $("#input_votation_"+ _div.data("id")).val(div.data("id"));
 			    

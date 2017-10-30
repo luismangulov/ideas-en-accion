@@ -224,7 +224,7 @@ $posts = $model->getForo1Entrega($model->id,$seccion);
             }
             else
             {
-                alert(12);
+                
                 $.ajax({
                     url: '<?= $insertarcomentarios ?>',
                     type: 'POST',

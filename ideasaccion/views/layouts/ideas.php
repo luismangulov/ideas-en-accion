@@ -182,6 +182,14 @@ if (!\Yii::$app->user->isGuest) {
                                                             <div class="cell_info_content">
                                                                 <b>I.E: <?= $estudiante->institucion->denominacion ?></b>
                                                             </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="table_div">
+                                                    <div class="row_div">
+                                                        <div class="cell_div cell_info">
                                                             <div class="line_separator"></div>
                                                             <div class="cell_info_content">
                                                                 <b class="uppercase">Rol: <?= $_SESSION["rol"] ?></b>
@@ -192,15 +200,15 @@ if (!\Yii::$app->user->isGuest) {
                                                                 ?>
                                                                 <b class="uppercase">Último acceso: <?= $datex->format('d/m/Y H:i:s') ?></b>
                                                             </div>
-                                                            
+
                                                             <div class="line_separator"></div>
-                                                            
+
                                                             <div class="cell_info_content">
-                                                            <a href="http://www.perueduca.pe/inicio?p_p_id=58&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&_58_struts_action=%2Flogin%2Fforgot_password"><b>Cambiar contraseña </b></a>
+                                                                <a href="<?= Yii::$app->params["urlOlvidecontrasena"] ?>" target="_blank"><b>Cambiar contraseña</b></a>
 
                                                             </div>
-                                                            
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -306,7 +314,7 @@ if (!\Yii::$app->user->isGuest) {
                                                 </li>
                                             <?php } ?>
                                             <!--Fin Foro-->
-                                            
+
                                             <?php if ($integrante && $equipo && $proyecto && ($integrante->rol == 1 || $integrante->rol == 2)) { ?>
                                                 <?php if ($integrante && $equipo && $proyecto && ($equipo->etapa == 1 || $equipo->etapa == 2 || $equipo->etapa == 3)) { ?>
                                                     <li><?= Html::a('<div class="table_div">
