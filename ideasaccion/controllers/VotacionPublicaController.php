@@ -75,69 +75,80 @@ class VotacionPublicaController extends Controller
                     ->all();
         return $this->render('index',['resultados'=>$resultados]);
     }
-    /*
+    
     public function actionRegistrar()
     {
         if(isset($_POST["dni"]) && isset($_POST["region"]) && isset($_POST["v1"]) && isset($_POST["v2"])  && isset($_POST["v2"]) )
         {
             $dni=$_POST["dni"];
+            $fecha_nacimiento=$_POST["fecha_nacimiento"];
+            $captcha=$_POST["captcha"];
             $region=$_POST["region"];
             $Countdni=strlen(trim($_POST["dni"]));
             $v1=$_POST["v1"];
             $v2=$_POST["v2"];
             $v3=$_POST["v3"];
             $bandera=0;
-            $existe=VotacionFinal::find()->select("dni")->where('dni=:dni',[':dni'=>$dni])->one();
-            if(!$existe && $Countdni==8)
-            {
-                if($v1==$v2 || $v1==$v3 || $v2==$v3)
-                {
-                    $bandera=2;
-                }
-                else
-                {
-                    $model1=new VotacionFinal;
-                    $model1->dni=$dni;
-                    $model1->region=$region;
-                    $model1->proyecto_id=$v1;
-                    $model1->estado=1;
-                    $model1->fecha_registro=date("Y-m-d H:i:s");
-                    $model1->save();
+
+            session_start();
+
+            if (isset($_SESSION["captcha_code"])) {
+                if ($_SESSION["captcha_code"] != $captcha) {
+                    $bandera=-1;
                     
-                    $model2=new VotacionFinal;
-                    $model2->dni=$dni;
-                    $model2->region=$region;
-                    $model2->proyecto_id=$v2;
-                    $model2->estado=1;
-                    $model2->fecha_registro=date("Y-m-d H:i:s");
-                    $model2->save();
-                    
-                    $model3=new VotacionFinal;
-                    $model3->dni=$dni;
-                    $model3->region=$region;
-                    $model3->proyecto_id=$v3;
-                    $model3->estado=1;
-                    $model3->fecha_registro=date("Y-m-d H:i:s");
-                    $model3->save();
-                    $bandera=1;
                 }
-                
-                
             }
-            else
-            {
-                $bandera=0;
+            if($bandera == 0){
+            
+                $existe=VotacionFinal::find()->select("dni")->where('dni=:dni',[':dni'=>$dni])->one();
+                if(!$existe && $Countdni==8)
+                {
+                    if($v1==$v2 || $v1==$v3 || $v2==$v3)
+                    {
+                        $bandera=2;
+                    }
+                    else
+                    {
+                        $model1=new VotacionFinal;
+                        $model1->dni=$dni;
+                        $model1->fecha_nacimiento=$fecha_nacimiento;
+                        $model1->region=$region;
+                        $model1->proyecto_id=$v1;
+                        $model1->estado=1;
+                        $model1->fecha_registro=date("Y-m-d H:i:s");
+                        $model1->save();
+                        
+                        $model2=new VotacionFinal;
+                        $model2->dni=$dni;
+                        $model2->fecha_nacimiento=$fecha_nacimiento;
+                        $model2->region=$region;
+                        $model2->proyecto_id=$v2;
+                        $model2->estado=1;
+                        $model2->fecha_registro=date("Y-m-d H:i:s");
+                        $model2->save();
+                        
+                        $model3=new VotacionFinal;
+                        $model3->dni=$dni;
+                        $model3->fecha_nacimiento=$fecha_nacimiento;
+                        $model3->region=$region;
+                        $model3->proyecto_id=$v3;
+                        $model3->estado=1;
+                        $model3->fecha_registro=date("Y-m-d H:i:s");
+                        $model3->save();
+                        $bandera=1;
+                    }
+                    
+                    
+                }
             }
             echo $bandera;
             
         }
     }
-    */
-    /*
     public function actionValidarDni($dni)
     {
-        //if(isset($_POST["dni"]) && $_POST["dni"]!="")
-        //{
+        if(isset($_POST["dni"]) && $_POST["dni"]!="")
+        {
             //$dni=$_POST["dni"];
             $existe=VotacionFinal::find()->select("dni")->where('dni=:dni',[':dni'=>$dni])->one();
             $bandera=0;
@@ -146,7 +157,7 @@ class VotacionPublicaController extends Controller
                 $bandera=1;
             }
             echo $bandera;
-        //}
-    }*/
+        }
+    }
     
 }
