@@ -4,20 +4,79 @@ use app\models\Equipo;
 use app\models\Estudiante;
 use app\models\Ubigeo;
 use app\models\VotacionFinal;
-use app\models\VistaIntegrantes;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
 ?>
+
 <div class="row">
-		<div class="col-md-12 title_map">
-			Resultados finales con votos validados en Región <span class="department_name">Loreto</span>
+			<div class="col-md-8 col-md-offset-2 col_right_options">
+			<div class="row">
+				<div class="col-md-12">
+				<div class="title_col">
+					<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_heart_small.jpg" alt="">
+					MIS SELECCIONADOS A NIVEL NACIONAL:
+				</div>
+				</div>
+<div class="col-md-4">
+				<div class="box_votation_small" data-id="1" data-option="" style="border:solid 2px #FFD400">
+					<a href="#" class="icon_delete_box">
+						<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_close_small.png">
+					</a>
+
+					<div class="box_votacion_number">
+						
+					</div>
+
+					<div class="box_votacion_content"></div>
+
+					<div class="box_votacion_arrow"></div>
+				</div>
+</div>
+<div class="col-md-4">
+				<div class="box_votation_small" data-id="2" data-option="" style="border:solid 2px #be2cd9">
+					<a href="#" class="icon_delete_box">
+						<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_close_small.png">
+					</a>
+
+					<div class="box_votacion_number">
+						
+					</div>
+
+					<div class="box_votacion_content"></div>
+
+					<div class="box_votacion_arrow"></div>
+				</div>
+</div>
+<div class="col-md-4">
+				<div class="box_votation_small" data-id="3" data-option="" style="border:solid 2px #009DBA">
+					<a href="#" class="icon_delete_box">
+						<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_close_small.png">
+					</a>
+
+					<div class="box_votacion_number">
+						
+					</div>
+
+					<div class="box_votacion_content"></div>
+
+					<div class="box_votacion_arrow"></div>
+				</div>
+				</div>
+<div class="col-md-12">
+				<button type="button" class="btn btn-default btn-send-votation">VOTAR</button>
+				<br><br><br><br>
+				
+				</div>
+			</div>
 		</div>
-		<div class="col-md-1"></div>
-		<div class="col-md-4" id="map_peru">
-		    
+		</div>
+
+<div class="row">
+		
+		<div class="col-md-4 col-md-offset-2 col-sm-6" id="map_peru">
 			<!-- MAPA PERU -->
-			<?xml version="1.0" encoding="utf-8"?>
+			
 			<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 			<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 423.7 607.6" style="enable-background:new 0 0 423.7 607.6;" xml:space="preserve">
@@ -699,7 +758,7 @@ use yii\helpers\Html;
 					c-0.1,1.6-0.3,2.5-1,4c-0.2,0.5-0.2,1.1-0.6,1.4c-0.3,0.2-0.5,0.2-0.9,0.3c-0.8,0.3-1.1,0.8-1.7,1.3c-1.6,1.2-1.8,2.6-2.3,4.5
 					C24.1,208.2,23.7,209.2,23.1,210.5z"/>
 			</g>
-<g id="name_depto_tumbes" class="name_deptos_map">
+			<g id="name_depto_tumbes" class="name_deptos_map">
 				<text transform="matrix(1 0 0 1 43.0374 105.891)" class="st11 color_black">tumbes</text>
 				<path class="color_black" d="M39.8,99.2c-0.1-0.7-0.3-1.3-0.7-1.9s-1-1.1-1.7-1.4c-0.4-0.2-0.8-0.3-1.2-0.3h-0.1
 					c-0.3,0-0.5,0-0.8,0c-0.1,0.1-0.2,0-0.3,0.1c-1.2,0.2-2.2,0.9-2.8,2c-0.4,0.7-0.5,1.4-0.5,2.2c0,0.5,0.2,0.9,0.4,1.3
@@ -914,226 +973,33 @@ use yii\helpers\Html;
 					c0.4-0.8,0.8-1.6,1.1-2.4C89.4,206.1,89.5,205.6,89.4,205z M85.5,207.4c-1.1,0-2.1-0.9-2.1-2.1c0-1.1,0.9-2.1,2.1-2.1
 					c1.1,0,2.1,0.9,2.1,2.1C87.6,206.4,86.6,207.4,85.5,207.4z"/>
 			</g>
-			
 			</svg>
 			<!-- FIN MAPA PERU -->
-			<!--
-			<div class="box text-justify" style="border: 2px solid #2C3461;position: absolute; left: 0px;top: 88%;width: 220px;padding: 5px;font-size: 12px;margin-bottom: 10px">
-			    <b>Nota:</b><br> Habiéndose identificado preliminarmente votos realizados con DNI inexistentes, comunicamos a toda la comunidad educativa que para el conteo final de votos se validarán solo aquellos ingresados con DNI registrados en RENIEC.<br>
-			    La relación de los proyectos vitrina serán publicados luego de dicho proceso
-			</div>
-			-->
 		</div>
 
-		<div class="col-md-7 options_voto_map">
-			<div class="col-md-8 resultados">
-                                <?php foreach($resultados as $resultado){ ?>
-				<div id="v_<?= $resultado->proyecto_id ?>" data-id="<?= $resultado->proyecto_id ?>" class="<?= ($resultado->puesto==1)?'box_option_voto_ganador':'box_option_voto' ?>">
-					<div class="box-head-voto">
-						<div class="row">
-							<div class="col-md-7 bhb_left">
-                                                            <?= htmlentities($resultado->titulo, ENT_QUOTES) ?>
-                                                        </div>
-							<div class="col-md-5 bhb_right">
-								<?= $resultado->voto_nuevo; ?> votos <span class="<?= ($resultado->puesto==1)?'vote_icon_map_ganador':'vote_icon_map' ?>"></span>
-							</div>
-						</div>
-					</div>
-
-					<div class="box-body-voto" <?= ($resultado->puesto==1)?'style="background:white"':'' ?>>
-						<b>Resumen:</b><br>
-                                                    <p class="text-justify"><?= htmlentities($resultado->resumen, ENT_QUOTES) ?></p>
-						<div class="line_yellow"></div>
-						<b>IIEE:</b><br>
-						<?= $resultado->denominacion ?>
-						<div class="line_yellow"></div>
-						<b>Equipo:</b><br>
-                                                <?php
-						$integrantes=VistaIntegrantes::find()
-							    ->select('nombres,apellido_paterno,apellido_materno')
-                                                            ->where('grado!=6 and equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
-                                                            ->all();
-							    /*
-                                                $integrantes=Estudiante::find()
-							    ->select('estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno')
-                                                            ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
-                                                            ->where('estudiante.grado!=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
-                                                            ->all();*/
-                                                ?>
-                                                <?php foreach($integrantes as $integrante){ ?>
-                                                - <?= $integrante->nombres." ".$integrante->apellido_paterno." ".$integrante->apellido_materno ?> <br>
-                                                <?php } ?>
-						<b>Docente asesor</b><br>
-                                                <?php
-                                                $docente=VistaIntegrantes::find()
-							    ->select('nombres,apellido_paterno,apellido_materno')
-                                                            ->where('grado=6 and equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
-                                                            ->one();
-                                                ?>
-                                                - <?= $docente->nombres." ".$docente->apellido_paterno." ".$docente->apellido_materno ?> <br>
-						<div class="line_yellow"></div>
-                                                <?php if($resultado->tipo==1){ ?>
-                                                    <iframe width="300" height="169" src="https://www.youtube.com/embed/<?= substr($resultado->ruta,-11) ?>" frameborder="0" allowfullscreen></iframe>
-						<?php }else{ ?>
-                                                    <video width="320" height="169" controls>
-                                                        <source src="<?= Yii::getAlias('@video').$resultado->ruta ?>" >  
-                                                    </video>
-                                                <?php }?>
-                                                <div class="line_yellow"></div>
-						<div class="end_body_voto">
-						    <!--
-							Pasa la voz a tu mancha
-							<a href="#" class="share_fb"
-							data-project="<?= $resultado->titulo ?>"
-							data-image="http://face.ideasenaccion.pe/images/logo_for_fb.jpg"
-							data-link="http://votacion.ideasenaccion.pe/votacion-publica">
-								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
-							</a>
-						    -->
-						    
-						</div>
-					</div>
-				</div>
-                                <?php } ?>
-<!--
-				<div data-id="2" class="box_option_voto">
-					<div class="box-head-voto">
-						<div class="row">
-							<div class="col-md-7 bhb_left">
-								RECOLECCIÓN DE RESIDUOS SÓLIDOS EN FUENTE PARA CUIDAR EL PRESENTE, TENER UN MEJOR FUTURO Y BUENA CALIDAD DE VIDA
-							</div>
-							<div class="col-md-5 bhb_right">
-								189 votos <a href="#" class="vote_icon_map"></a>
-							</div>
-						</div>
-					</div>
-
-					<div class="box-body-voto">
-						<b>Resumen:</b><br>
-						Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto
-						<div class="line_yellow"></div>
-						<b>IIEE:</b><br>
-						Nombre de la IIEE
-						<div class="line_yellow"></div>
-						<b>Equipo:</b><br>
-						- Integrante 01<br>
-						- Integrante 01<br>
-						- Integrante 01<br>
-						Docente asesor
-						<div class="line_yellow"></div>
-						<iframe width="300" height="169" src="https://www.youtube.com/embed/LdBioQapZ68" frameborder="0" allowfullscreen></iframe>
-						<div class="line_yellow"></div>
-						<div class="end_body_voto">
-							Pasa la voz a tu mancha
-							<a href="#" class="share_fb">
-								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
-							</a>
-							<a href="https://twitter.com/share?url=http%3A%2F%2Fvotacion.ideasenaccion.pe&text=¡Ya elegí mis proyectos favoritos en Ideas en Acción! Vota tu también aquí." target="_blank">
-								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_tw_normal.png" alt="">
-							</a>
-						</div>
-					</div>
-				</div>
-
-
-				<div data-id="3" class="box_option_voto">
-					<div class="box-head-voto">
-						<div class="row">
-							<div class="col-md-7 bhb_left">
-								SENSIBILIZANDO A LA COMUNIDAD ADOLESCENTE DE LA I.E. SAN LORENZO DE CONCHAMARCA PARA ASUMIR UNA SEXUALIDAD RESPONSABLE Y ASEGURAR EL ÉXITO
-							</div>
-							<div class="col-md-5 bhb_right">
-								189 votos <a href="#" class="vote_icon_map"></a>
-							</div>
-						</div>
-					</div>
-
-					<div class="box-body-voto">
-						<b>Resumen:</b><br>
-						Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto
-						<div class="line_yellow"></div>
-						<b>IIEE:</b><br>
-						Nombre de la IIEE
-						<div class="line_yellow"></div>
-						<b>Equipo:</b><br>
-						- Integrante 01<br>
-						- Integrante 01<br>
-						- Integrante 01<br>
-						Docente asesor
-						<div class="line_yellow"></div>
-						<iframe width="300" height="169" src="https://www.youtube.com/embed/LdBioQapZ68" frameborder="0" allowfullscreen></iframe>
-						<div class="line_yellow"></div>
-						<div class="end_body_voto">
-							Pasa la voz a tu mancha
-							<a href="#" class="share_fb">
-								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
-							</a>
-							<a href="https://twitter.com/share?url=http%3A%2F%2Fvotacion.ideasenaccion.pe&text=¡Ya elegí mis proyectos favoritos en Ideas en Acción! Vota tu también aquí." target="_blank">
-								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_tw_normal.png" alt="">
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div data-id="4" class="box_option_voto">
-					<div class="box-head-voto">
-						<div class="row">
-							<div class="col-md-7 bhb_left">
-								RECOLECCIÓN DE RESIDUOS SÓLIDOS EN FUENTE PARA CUIDAR EL PRESENTE, TENER UN MEJOR FUTURO Y BUENA CALIDAD DE VIDA
-							</div>
-							<div class="col-md-5 bhb_right">
-								189 votos <a href="#" class="vote_icon_map"></a>
-							</div>
-						</div>
-					</div>
-
-					<div class="box-body-voto">
-						<b>Resumen:</b><br>
-						Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto
-						<div class="line_yellow"></div>
-						<b>IIEE:</b><br>
-						Nombre de la IIEE
-						<div class="line_yellow"></div>
-						<b>Equipo:</b><br>
-						- Integrante 01<br>
-						- Integrante 01<br>
-						- Integrante 01<br>
-						Docente asesor
-						<div class="line_yellow"></div>
-						<iframe width="300" height="169" src="https://www.youtube.com/embed/LdBioQapZ68" frameborder="0" allowfullscreen></iframe>
-						<div class="line_yellow"></div>
-						<div class="end_body_voto">
-							Pasa la voz a tu mancha
-							<a href="#" class="share_fb">
-								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
-							</a>
-							<a href="https://twitter.com/share?url=http%3A%2F%2Fvotacion.ideasenaccion.pe&text=¡Ya elegí mis proyectos favoritos en Ideas en Acción! Vota tu también aquí." target="_blank">
-								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_tw_normal.png" alt="">
-							</a>
-						</div>
-					</div>
-				</div>
-			-->
-                        </div>
-			
-			<div class="col-md-4 col_right_options text-justify">
-				<div class="box_votation_small" data-id="1" data-option="" style="border:solid 2px #1f2a69;font-size: 10px">
-					
-			    <b style="font-size: 12px">Nota:</b><br> Los resultados finales han considerado un proceso de validación de los DNI debidamente registrados en RENIEC
-				</div>
+		<div class="col-md-4 options_voto_map col-sm-6">
+			<div class="title_map">
+			Los resultados de la región <span class="department_name">Loreto</span> son:
+			</div>
+			<div class="resultados">
+			<!-- SE CARGAN LOS PROYECTOS GANADAROES DE LA REGION DESDE EL CONTROLADOR-->
 			</div>
 		</div>
 	</div>
+	
 
 <div class="popup" id="form_votar">
 	<div class="popup_content">
-		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/vote_popup_close.png" alt=""></a>
+		<a href="#" class="close_popup" ><img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/vote_popup_close.png" alt=""></a>
 		<?php $form = ActiveForm::begin(['options'=>['id'=>'form_vote_send']]); ?>
 			<input type="hidden" id="input_votation_1" class="input_votation_option" value="">
 			<input type="hidden" id="input_votation_2" class="input_votation_option" value="">
 			<input type="hidden" id="input_votation_3" class="input_votation_option" value="">
 			<div class="form-group label-floating field-voto-dni required">
 			    <input type="text" id="voto-dni" placeholder="Ingresa tu DNI" onpaste="return false;" onCopy="return false" class="form-control numerico" name="Voto[dni]"  onfocusout="CambioDNI(this)" maxlength="8">
+			</div>
+			<div class="form-group label-floating field-voto-fechanacimiento required">
+			    <input type="text" id="voto-fechanacimiento" placeholder="Ingresa tu fecha de nacimiento" onpaste="return false;" onCopy="return false" class="form-control numerico" name="Voto[fechanacimiento]"  onfocusout="ValidarFecha(this)" maxlength="10">
 			</div>
 			<div class="form-group label-floating field-voto-region required">
 			    <select id="voto-region" class="form-control" name="Voto[region]" >
@@ -1143,6 +1009,14 @@ use yii\helpers\Html;
 				<?php } ?>
 			    </select>
 			</div>
+
+			<div class="form-group label-floating field-voto-captcha required">
+			    <input type="text" id="voto-captcha" placeholder="Ingresa el código captcha" onpaste="return false;" onCopy="return false" class="form-control numerico" name="Voto[captcha]" maxlength="4">
+			</div>
+			<div class="form-group label-floating field-loginform-username required" >
+        	    <img width="100%" id="voto-img-captcha" src="<?= \Yii::$app->request->BaseUrl ?>/captcha.php" alt="">
+        	</div>              
+        
 			<div class="form-group">
 			    <button type="button" class="btn btn-default" onclick="Votar()">VOTAR</button>
 		    </div>
@@ -1218,6 +1092,20 @@ use yii\helpers\Html;
 			</div>
 			<div class="form-group">
 				<button type="button" class="btn btn-default btn_close_popup">ACEPTAR</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="popup" id="fechaformato_errado">
+	<div class="popup_content">
+		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
+		<form action="#" method="get">
+			<div class="form-group">
+				La fecha de nacimiento debe tener el formato DD/MM/AAAA.
+			</div>
+			<div class="form-group">
+				<button type="button" id="aceptar_fechaformato_errado" class="btn btn-default">ACEPTAR</button>
 			</div>
 		</form>
 	</div>
@@ -1305,11 +1193,27 @@ use yii\helpers\Html;
 		</form>
 	</div>
 </div>
+
+<div class="popup" id="captcha_incorrecto">
+	<div class="popup_content">
+		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
+		<form action="#" method="get">
+			<div class="form-group">
+				Ingrese el código de captcha correcto
+			</div>
+			<div class="form-group">
+				<button type="button" id="aceptar_captcha_incorrecto" class="btn btn-default btn_close_popup">ACEPTAR</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+
 <?php
-//$validardni= Yii::$app->getUrlManager()->createUrl('votacion-publica/validar-dni');
+$validardni= Yii::$app->getUrlManager()->createUrl('votacion-publica/validar-dni');
 $mostrarvotacionpublica= Yii::$app->getUrlManager()->createUrl('voto/mostrarvotacionpublica');
 $mostrarvotacionpublicalima= Yii::$app->getUrlManager()->createUrl('voto/mostrarvotacionpublicalima');
-//$registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
+$registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 ?>
 <script>
 	window.fbAsyncInit = function() {
@@ -1346,6 +1250,21 @@ $mostrarvotacionpublicalima= Yii::$app->getUrlManager()->createUrl('voto/mostrar
 	};
 
 	$(document).ready(function () {
+
+		var $jqDate = jQuery('#voto-fechanacimiento');
+
+		$jqDate.bind('keyup','keydown', function(e){
+
+		    if(e.which !== 8) { 
+		        var numChars = $jqDate.val().length;
+		        if(numChars === 2 || numChars === 5){
+		            var thisVal = $jqDate.val();
+		            thisVal += '/';
+		            $jqDate.val(thisVal);
+		        }
+		  }
+		});
+				
 		$(document).on('click', ".popup .btn_close_popup", function(e){
 			e.preventDefault();
 			$(this).parent().parent().parent().parent().hide();
@@ -1389,6 +1308,7 @@ $mostrarvotacionpublicalima= Yii::$app->getUrlManager()->createUrl('voto/mostrar
 			});
 
 			if(numOptions == 3){
+				$("#voto-img-captcha").attr("src","<?= \Yii::$app->request->BaseUrl ?>/captcha.php?p=" + new Date().getMilliseconds());
 				$("#form_votar").show();
 			}else{
 				$("#form_incomplete").show();
@@ -1466,23 +1386,104 @@ $mostrarvotacionpublicalima= Yii::$app->getUrlManager()->createUrl('voto/mostrar
                                 });
                         }
 		});
-		
-
-		$(document).on('click', ".options_voto_map .box_option_voto .box-head-voto", function(e){
-			
-			var o = $(this);
-			var d = o.parent();
-
-			$(".box-body-voto", d).stop(true).slideToggle();
-
-		});
-		
 		$(document).on('click', ".options_voto_map .box_option_voto_ganador .box-head-voto", function(e){
 			
 			var o = $(this);
 			var d = o.parent();
 
 			$(".box-body-voto", d).stop(true).slideToggle();
+		});
+		
+		$(document).on('click', ".options_voto_map .box_option_voto .box-head-voto", function(e){
+			
+			var o = $(this);
+			var d = o.parent();
+
+			$(".box-body-voto", d).stop(true).slideToggle();
+/*
+			if(!d.hasClass("active")){
+				var _idOption = d.data("id");
+				var apply = false;
+
+				$(".col_right_options .box_votation_small").each(function(e){
+					var divVotation = $(this);
+					if(divVotation.attr("data-option") == "" && !apply){
+						//d.addClass("active");
+						apply = true;
+						//divVotation.addClass("active");
+						//divVotation.attr("data-option", _idOption);
+
+						//$(".box_votacion_content", divVotation).html( $(".bhb_left", d).html() );
+
+						//$("#input_votation_"+ divVotation.attr("data-id")).val(_idOption);
+					}
+				});
+
+				if(!apply){
+					$("#alert_error").show();
+				}
+			}*/
+		});
+		
+		$(document).on('click', ".options_voto_map .box_option_voto .box-head-voto .vote_icon_map", function(e){
+		    
+			var o = $(this).parents('.box-head-voto');
+			var d = o.parent();
+
+			$(".box-body-voto", d).stop(true).slideToggle();
+
+			var _idOption = d.data("id");
+			console.log('----> 1:' + myArray.length);
+			if(myArray.length === 3){
+					$("#alert_error").show();
+			}
+			else{
+
+				console.log('----> 2:' + myArray.indexOf(_idOption));
+				if(myArray.indexOf(_idOption) === -1){
+				    
+				    var apply = false;
+
+				    $(".col_right_options .box_votation_small").each(function(e){
+					    var divVotation = $(this);
+					    if(divVotation.attr("data-option") == "" && !apply){
+						    //d.addClass("active");
+						    if(myArray.length<=3)
+						    {
+								apply = true;
+						    }
+						    divVotation.addClass("active");
+						    divVotation.attr("data-option", _idOption);
+						    myArray.push(_idOption);
+						    console.log($(".bhb_left", d).html());
+						    $(".box_votacion_content", divVotation).html( $(".bhb_left", d).html() );
+						    $(".box_votacion_arrow", divVotation).html(ucFirstAllWords($(".st0.active").attr('data-id').capitalizeFirstLetter().replaceAll('_', ' ')));
+						    $("#contd").html(myArray.length);
+						    $("#contd3").html(myArray.length);
+						    $("#input_votation_"+ divVotation.attr("data-id")).val(_idOption);
+						    
+						    if(myArray.length<3)
+						    {
+								$("#form_mensaje_region").show();
+						    }
+						    else
+						    {
+								$("#form_mensaje_region_3").show();
+						    }
+						    //console.log(myArray);
+					    }
+				    });
+
+				    if(!apply){
+						$("#alert_error").show();
+				    }
+				}
+				else {
+					$('#proyectos_duplicados').show();
+				}
+
+
+			}
 		});
 
 		$(document).on('click', ".col_right_options .box_votation_small .icon_delete_box", function(e){
@@ -1496,6 +1497,10 @@ $mostrarvotacionpublicalima= Yii::$app->getUrlManager()->createUrl('voto/mostrar
 			myArray = jQuery.grep(myArray, function(value) {
 			  return value != removeItem;
 			});
+
+			div.attr("data-option","");
+
+			//myArray.splice($.inArray(removeItem, myArray),1);
 			
 			//notificacion=jQuery.inArray( div.attr("data-option"), myArray );
 			//console.log(notificacion);
@@ -1523,6 +1528,104 @@ $mostrarvotacionpublicalima= Yii::$app->getUrlManager()->createUrl('voto/mostrar
 		});
 	});
 	
+    function Votar() {
+        var error='';
+        if($('#voto-dni').val()=='' && $('#voto-region').val()=='')
+        {
+            error='Ingrese DNI <br>';
+            error=error+'Ingrese Región <br>';
+            
+            $('#faltan_datos').show();
+            $('#form_votar').hide();
+            return false;
+        }
+        
+        if($('#voto-dni').val()=='')
+        {
+            error='Ingrese DNI <br>';
+            error=error+'Ingrese Región <br>';
+            
+            $('#faltan_datos_dni').show();
+            $('#form_votar').hide();
+            return false;
+        }
+        
+        if($('#voto-region').val()=='')
+        {
+            error='Ingrese DNI <br>';
+            error=error+'Ingrese Región <br>';
+            
+            $('#faltan_datos_region').show();
+            $('#form_votar').hide();
+            return false;
+        }
+        
+        if(error!='')
+        {
+            return false;
+        }
+        else
+        {
+            $('.field-voto-dni').addClass('has-success');
+            $('.field-voto-dni').removeClass('has-error');
+            $('.field-voto-region').addClass('has-success');
+            $('.field-voto-region').removeClass('has-error');
+	    
+	    $.post( "<?= $registrar ?>", { 'captcha':$('#voto-captcha').val(), 'dni':$('#voto-dni').val(),'fecha_nacimiento':$('#voto-fechanacimiento').val(),'region':$('#voto-region').val(),'v1': $('#input_votation_1').val(),'v2':$('#input_votation_2').val(),'v3':$('#input_votation_3').val() })
+	    .done(function( data ) {
+	    	console.log('respuesta: '+data);
+		    if(data==1)
+                    {
+                        $('#form_vote_send').parent().parent().hide();
+                        $('#form_send').show();
+                        
+                    }
+            else if (data==0) {
+                        $('#dni_duplicado').show();
+                        $('#form_votar').hide();
+                        $('#voto-dni').val('');
+                    }
+		    else if (data==2) {
+					$('#proyectos_duplicados').show();
+					$('#form_votar').hide();
+					$('#voto-dni').val('');
+					$('#voto-fechanacimiento').val('');
+					$('#voto-region').val('');
+		    		}
+		    else if (data==-1) { // captcha incorrecto
+		    		$("#voto-img-captcha").attr("src","<?= \Yii::$app->request->BaseUrl ?>/captcha.php?p=" + new Date().getMilliseconds());
+					$('#captcha_incorrecto').show();
+					$('#form_votar').hide();
+					$('#voto-captcha').val('');
+		    		}
+		    
+	    });
+	    /*
+            $.ajax({
+                url: '<?= $registrar ?>',
+                type: 'GET',
+                async: true,
+                data: {'Voto[dni]':$('#voto-dni').val(),'Voto[region]':$('#voto-region').val(),Asuntos: myArray},
+                success: function(data){
+                
+                    if(data==1)
+                    {
+                        $('#form_vote_send').parent().parent().hide();
+
+                        $('#form_send').show();
+                        
+                    }
+                    else if (data==0) {
+                        $('#dni_duplicado').show();
+                        $('#form_votar').hide();
+                        $('#voto-dni').val('');
+                    }
+                }
+            });*/
+	    
+            return true;
+        }   
+    }
     
     $('.numerico').keypress(function (tecla) {
         var reg = /^[0-9\s]+$/;
@@ -1532,6 +1635,60 @@ $mostrarvotacionpublicalima= Yii::$app->getUrlManager()->createUrl('voto/mostrar
         return true;
     });
     
+    function ValidarFecha(elemento) {
+    	if($(elemento).val()!='')
+        {
+        	var re = /^([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2})$/;
+			var format = re.test($(elemento).val());
+            if(!format)
+            {
+                
+                $('#fechaformato_errado').show();
+                $('#form_votar').hide();
+                $('#voto-fechanacimiento').val('');
+
+                return false;
+            }
+            
+            return true;
+            
+        }
+        return false;
+    }
+
+    function CambioDNI(elemento) {
+        if($(elemento).val()!='')
+        {
+            if($(elemento).val().length<8)
+            {
+                
+                $('#dni_incompleto').show();
+                $('#form_votar').hide();
+                $('#voto-dni').val('');
+                return false;
+            }
+            
+            $.ajax({
+                url: '<?= $validardni ?>',
+                type: 'GET',
+                async: true,
+                data: {dni:$(elemento).val()},
+                success: function(data){
+                    if(data==1)
+                    {
+                        $('#dni_duplicado').show();
+                        $('#form_votar').hide();
+                        $('#voto-dni').val('');
+                        
+                        
+                    }
+                }
+            });
+            return true;
+            
+        }
+        return false;
+    }
     
     $("#aceptar_dni_incompleto").on('click', function (e) {
         e.preventDefault();
@@ -1539,6 +1696,12 @@ $mostrarvotacionpublicalima= Yii::$app->getUrlManager()->createUrl('voto/mostrar
         $('#dni_incompleto').hide();
     });
     
+    $("#aceptar_fechaformato_errado").on('click', function (e) {
+        e.preventDefault();
+        $('#form_votar').show();
+        $('#fechaformato_errado').hide();
+    });
+
     $("#aceptar_faltan_datos_region").on('click', function (e) {
         e.preventDefault();
         $('#form_votar').show();
@@ -1573,22 +1736,27 @@ $mostrarvotacionpublicalima= Yii::$app->getUrlManager()->createUrl('voto/mostrar
     });
     $("#aceptar_proyecto_duplicado").on('click', function (e) {
         e.preventDefault();
-        $('#form_votar').show();
+        //$('#form_votar').show();
         $('#proyectos_duplicados').hide();
     });
-    
+    $("#aceptar_captcha_incorrecto").on('click', function (e) {
+        e.preventDefault();
+        $('#form_votar').show();
+        $('#captcha_incorrecto').hide();
+    });
+
     function capitalize (text) {
-	return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+		return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
     }
     function ucFirstAllWords( str )
     {
-	var pieces = str.split(" ");
-	for ( var i = 0; i < pieces.length; i++ )
-	{
-	    var j = pieces[i].charAt(0).toUpperCase();
-	    pieces[i] = j + pieces[i].substr(1);
-	}
-	return pieces.join(" ");
+		var pieces = str.split(" ");
+		for ( var i = 0; i < pieces.length; i++ )
+		{
+		    var j = pieces[i].charAt(0).toUpperCase();
+		    pieces[i] = j + pieces[i].substr(1);
+		}
+		return pieces.join(" ");
     }
     function Informacion(proyecto)
     {
