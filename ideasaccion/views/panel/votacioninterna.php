@@ -11,7 +11,7 @@ use yii\widgets\Pjax;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <div class="box_head title_content_box">
-    <img src="../img/icon_team_big.jpg" alt="">Evaluación de Proyectos
+    <img src="../img/icon_team_big.jpg" alt="">Votación interna administrador
 </div>
 <div class="box_content contenido_seccion_crear_equipo" >
     <?php Pjax::begin(); ?>
@@ -51,7 +51,7 @@ use yii\widgets\Pjax;
                     'format'=>'raw',
                     'value'=>function($data)
                     {
-                        return Html::a(htmlentities($data->titulo, ENT_QUOTES),['foro/proyecto-monitor-votacion','id'=>$data->id],['target'=>'blank']);
+                        return Html::a($data->titulo,['foro/proyecto-monitor-votacion','id'=>$data->id],['target'=>'blank']);
                     },
                 ],
                 
@@ -89,6 +89,9 @@ function grabado_automatico(element,proyecto_id,voto) {
     console.log(element.val());
     var resultado=((voto/<?= $countInterna->maximo ?>)*(0.7)+(element.val()/40)*(0.3))*100;
     console.log(resultado);
+    resultado = resultado.toFixed(2);
+    console.log(resultado);
+
     if (element.val()<0 || element.val()>40) {
         $.notify({
             message: 'Debe estar en el intervalo de 1 a 40' 
@@ -134,17 +137,5 @@ function grabado_automatico(element,proyecto_id,voto) {
     
     return true;
 }
-
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-// Handler for .ready() called.
-
-        $("#lnk_votacioninterna").addClass("active");
-
-    });
-
-
 
 </script>
