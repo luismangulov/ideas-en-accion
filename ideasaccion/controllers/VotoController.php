@@ -13,9 +13,6 @@ use app\models\VotacionPublica;
 use app\models\VotacionFinal;
 use app\models\Ubigeo;
 use app\models\Estudiante;
-use app\models\VistaResultado;
-use app\models\VistaIntegrantes;
-
 /**
  * VotoController implements the CRUD actions for Voto model.
  */
@@ -162,28 +159,27 @@ class VotoController extends Controller
         $Countdni=strlen(trim($_GET['Voto']['dni']));
         $Countasuntos=count($_GET['Asuntos']);
         
-        $validandodni=Voto::find()->where('participante_id=:participante_id',[':participante_id'=>$dni])->all();
-        if(!$validandodni && is_numeric($dni) && $Countdni==8 && $Countasuntos==3)
-        {
-            foreach($asuntos as $asunto => $key)
-            {
-                $voto=new Voto;
-                $voto->participante_id=$dni;
-                $voto->dni=$region;
-                $voto->region_id=$region;
-                $voto->asunto_id=$key;
-                $voto->fecha_registro=date("Y-m-d H:i:s");
-                $voto->estado=1;
-                $voto->save();
-                
+            $validandodni=Voto::find()->where('participante_id=:participante_id',[':participante_id'=>$dni])->all();    
+            if(!$validandodni && is_numeric($dni) && $Countdni==8 && $Countasuntos==3) {
+                foreach($asuntos as $asunto => $key)
+                {
+                    $voto=new Voto;
+                    $voto->participante_id=$dni;
+                    $voto->dni=$region;
+                    $voto->region_id=$region;
+                    $voto->asunto_id=$key;
+                    $voto->fecha_registro=date("Y-m-d H:i:s");
+                    $voto->estado=1;
+                    $voto->save();
+                    
+                }
+                $bandera=1;
             }
-            $bandera=1;
-        }
-        else{
-            $bandera=0;
+            else{
+                $bandera=0;
+            }
         }
         echo $bandera;
-        
     }
     
     
@@ -225,7 +221,7 @@ class VotoController extends Controller
         {
                                                 
             $div=$div."     <tr>
-                                <td width=\"60%\" class=\"ia_left\"><span class=\"ia_icon_heart_small\">".$resultado->asuntod."<p style='font-size:13px'>".htmlentities($resultado->descripcion_corta,ENT_QUOTES)."</p></span></td>
+                                <td width=\"60%\" class=\"ia_left\"><span class=\"ia_icon_heart_small\">".$resultado->asuntod."<p style='font-size:13px'>".$resultado->descripcion_corta."</p></span></td>
                                 <td class=\"ia_right\" align=\"middle\">
                                     <div class=\"show_percent\">
                                         <div class=\"percent_bar\" style=\"width:".number_format((($resultado->contador*100)/$total), 1, '.', '')."%;\"></div>
@@ -404,14 +400,8 @@ class VotoController extends Controller
         
         $htmlvotacionespublicas='';
         $i=0;
-        $votacionespublicas=VistaResultado::find()
-                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta','vista_resultado.voto','vista_resultado.puesto','vista_resultado.voto_nuevo'])
-                    ->where('region_id=:region_id',[':region_id'=>$region])
-                    ->orderBy('voto_nuevo desc')
-                    ->all();
-        /*
         $votacionespublicas=VotacionPublica::find()
-                        ->select('votacion_publica.proyecto_id,proyecto.titulo,proyecto.resumen,institucion.denominacion,equipo.id as equipo_id,video.tipo,video.ruta')
+                        ->select(['votacion_publica.proyecto_id','proyecto.titulo','proyecto.resumen','institucion.denominacion','equipo.id as equipo_id','video.tipo','video.ruta','(select count(proyecto_id) from votacion_final where proyecto_id=proyecto.id) as votos'])
                         ->innerJoin('proyecto','proyecto.id=votacion_publica.proyecto_id')
                         ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
                         ->innerJoin('video','video.proyecto_id=proyecto.id and video.etapa=2')
@@ -419,8 +409,8 @@ class VotoController extends Controller
                         ->innerJoin('estudiante','estudiante.id=usuario.estudiante_id')
                         ->innerJoin('institucion','institucion.id=estudiante.institucion_id')
                         ->where('votacion_publica.region_id=:region_id',[':region_id'=>$region])
+                        ->orderBy('votos desc')
                         ->all();
-        */                
                         //var_dump($region);
         if($region==15)
         {
@@ -440,85 +430,77 @@ class VotoController extends Controller
         {
             foreach($votacionespublicas as $resultado)
             {
-                
                 $class="vote_icon_map";
                 $classvoto="box_option_voto";
                 $finalista="";
                 $style="";
-                if($resultado->puesto==1)
+                /*
+                if($i==0)
                 {
                     $class="vote_icon_map_ganador";
                     $classvoto="box_option_voto_ganador";
                     $finalista="<br><b style='font-size: 9px'>Finalista</b>";
                     $style="background:white";
                 }
-                
+                */
                 $htmlvotacionespublicas=$htmlvotacionespublicas.'
                                         <div id="v_'.$resultado->proyecto_id.'" data-id="'.$resultado->proyecto_id.'" class="'.$classvoto.'">
                                             <div class="box-head-voto">
                                                     <div class="row">
-                                                            <div class="col-md-7 bhb_left">
-                                                                '.htmlentities($resultado->titulo, ENT_QUOTES).'
-                                                            </div>
+                                                            <div class="col-md-7 bhb_left">'.$resultado->titulo.'
+                                                                '.$finalista.'</div>
                                                             <div class="col-md-5 bhb_right">
-                                                                    '.$resultado->voto_nuevo.' votos <span class="'.$class.'"></span>
+                                                                    '.VotacionFinal::find()->select('proyecto_id')->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$resultado["proyecto_id"]])->count().' votos <span class="'.$class.'"></span>
                                                             </div>
                                                     </div>
                                             </div>
     
                                             <div class="box-body-voto" style="'.$style.'">
                                                 <b>Resumen:</b><br>
-                                                <p class="text-justify">'.htmlentities($resultado->resumen, ENT_QUOTES).'</p>
+                                                <p class="text-justify">'.$resultado->resumen.'</p>
                                                 <div class="line_yellow"></div>
                                                 <b>IIEE:</b><br>
-                                                '.htmlentities($resultado->denominacion, ENT_QUOTES).'
+                                                '.$resultado->denominacion.'
                                                 <div class="line_yellow"></div>
                                                 <b>Equipo:</b><br>';
-                                                /*
+                                                
                                                 $integrantes=Estudiante::find()
                                                             ->select('nombres,apellido_paterno,apellido_materno')
                                                             ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
                                                             ->where('estudiante.grado!=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
-                                                            ->all();*/
-                                                $integrantes=VistaIntegrantes::find()
-							    ->select('nombres,apellido_paterno,apellido_materno')
-                                                            ->where('grado!=6 and equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
                                                             ->all();
+                                             
                                                 foreach($integrantes as $integrante){
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'- '.$integrante->nombres.' '.$integrante->apellido_paterno.' '.$integrante->apellido_materno.'<br>';
                                                 }
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<b>Docente asesor</b><br>';
-                                                $docente=VistaIntegrantes::find()
-							    ->select('nombres,apellido_paterno,apellido_materno')
-                                                            ->where('grado=6 and equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
-                                                            ->one();
-                                                            /*
+                                               
                                                 $docente=Estudiante::find()
                                                             ->select('nombres,apellido_paterno,apellido_materno')
                                                             ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
                                                             ->where('estudiante.grado=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
                                                             ->one();
-                                                */
+                                                
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'-'.$docente->nombres.' '.$docente->apellido_paterno.' '.$docente->apellido_materno.'<br>';
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<div class="line_yellow"></div>';
                                                 if($resultado->tipo==1){
-                                                    $htmlvotacionespublicas=$htmlvotacionespublicas.'<iframe width="300" height="169" src="https://www.youtube.com/embed/'.substr($resultado->ruta,-11).'" frameborder="0" allowfullscreen></iframe>';
+                                                    $htmlvotacionespublicas=$htmlvotacionespublicas.'<iframe width="100%" src="https://www.youtube.com/embed/'.$resultado->ruta.'" frameborder="0" allowfullscreen></iframe>';
                                                 }else{
-                                                    $htmlvotacionespublicas=$htmlvotacionespublicas.'<video width="320" height="169" controls>';
+                                                    $htmlvotacionespublicas=$htmlvotacionespublicas.'<video width="100%"  controls>';
                                                        $htmlvotacionespublicas=$htmlvotacionespublicas.'<source src="'.Yii::getAlias('@video').$resultado->ruta.'" >';  
                                                     $htmlvotacionespublicas=$htmlvotacionespublicas.'</video>';
                                                 }
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<div class="line_yellow"></div>
                                                 <div class="end_body_voto">
-                                                <!--
+                                                
                                                         Pasa la voz a tu mancha
                                                         <a href="#" class="share_fb"
-							data-project="'.htmlentities($resultado->titulo, ENT_QUOTES).'"
+							data-project="'.$resultado->titulo.'"
 							data-image="http://face.ideasenaccion.pe/images/logo_for_fb.jpg"
 							data-link="http://votacion.ideasenaccion.pe/votacion-publica">
 								<img src="'.\Yii::$app->request->BaseUrl.'/votacion/images/icon_fb_normal.png" alt="">
 							</a>
-                                                        -->
+                                                
                                                 </div>
                                             </div>
                                         </div>';
@@ -548,14 +530,8 @@ class VotoController extends Controller
         
         $htmlvotacionespublicas='';
         $i=0;
-        $votacionespublicas=VistaResultado::find()
-                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta','vista_resultado.voto','vista_resultado.puesto','vista_resultado.voto_nuevo'])
-                    ->where('region_id=:region_id',[':region_id'=>$region])
-                    ->orderBy('voto_nuevo desc')
-                    ->all();
-        /*
         $votacionespublicas=VotacionPublica::find()
-                        ->select('votacion_publica.proyecto_id,proyecto.titulo,proyecto.resumen,institucion.denominacion,equipo.id as equipo_id,video.tipo,video.ruta')
+                        ->select(['votacion_publica.proyecto_id','proyecto.titulo','proyecto.resumen','institucion.denominacion','equipo.id as equipo_id','video.tipo','video.ruta','(select count(proyecto_id) from votacion_final where proyecto_id=proyecto.id) as votos'])
                         ->innerJoin('proyecto','proyecto.id=votacion_publica.proyecto_id')
                         ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
                         ->innerJoin('video','video.proyecto_id=proyecto.id and video.etapa=2')
@@ -563,8 +539,9 @@ class VotoController extends Controller
                         ->innerJoin('estudiante','estudiante.id=usuario.estudiante_id')
                         ->innerJoin('institucion','institucion.id=estudiante.institucion_id')
                         ->where('votacion_publica.region_id=:region_id',[':region_id'=>$region])
+                        ->orderBy('votos desc')
                         ->all();
-        */   
+                        //var_dump($region);
         
             foreach($votacionespublicas as $resultado)
             {
@@ -572,81 +549,74 @@ class VotoController extends Controller
                 $classvoto="box_option_voto";
                 $finalista="";
                 $style="";
-                if($resultado->puesto==1)
+                /*
+                if($i==0)
                 {
                     $class="vote_icon_map_ganador";
                     $classvoto="box_option_voto_ganador";
                     $finalista="<br><b style='font-size: 9px'>Finalista</b>";
                     $style="background:white";
                 }
+                */
+                
                 $htmlvotacionespublicas=$htmlvotacionespublicas.'
                                         <div id="v_'.$resultado->proyecto_id.'" data-id="'.$resultado->proyecto_id.'" class="'.$classvoto.'">
                                             <div class="box-head-voto">
                                                     <div class="row">
-                                                            <div class="col-md-7 bhb_left">
-                                                                '.htmlentities($resultado->titulo, ENT_QUOTES).'
-                                                            </div>
+                                                            <div class="col-md-7 bhb_left">'.strtoupper($resultado->titulo).'
+                                                                '.$finalista.'</div>
                                                             <div class="col-md-5 bhb_right">
-                                                                    '.$resultado->voto_nuevo.' votos <span class="'.$class.'"></span>
+                                                                    '.VotacionFinal::find()->select('proyecto_id')->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$resultado["proyecto_id"]])->count().' votos <span class="'.$class.'"></span>
                                                             </div>
                                                     </div>
                                             </div>
     
                                             <div class="box-body-voto" style="'.$style.'">
                                                 <b>Resumen:</b><br>
-                                                <p class="text-justify">'.htmlentities($resultado->resumen, ENT_QUOTES).'</p>
+                                                <p class="text-justify">'.$resultado->resumen.'</p>
                                                 <div class="line_yellow"></div>
                                                 <b>IIEE:</b><br>
-                                                '.htmlentities($resultado->denominacion, ENT_QUOTES).'
+                                                '.$resultado->denominacion.'
                                                 <div class="line_yellow"></div>
                                                 <b>Equipo:</b><br>';
-                                                $integrantes=VistaIntegrantes::find()
-							    ->select('nombres,apellido_paterno,apellido_materno')
-                                                            ->where('grado!=6 and equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
-                                                            ->all();
-                                                            /*
+                                                
                                                 $integrantes=Estudiante::find()
                                                             ->select('nombres,apellido_paterno,apellido_materno')
                                                             ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
                                                             ->where('estudiante.grado!=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
-                                                            ->all();*/
+                                                            ->all();
                                              
                                                 foreach($integrantes as $integrante){
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'- '.$integrante->nombres.' '.$integrante->apellido_paterno.' '.$integrante->apellido_materno.'<br>';
                                                 }
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<b>Docente asesor</b><br>';
                                                
-                                                $docente=VistaIntegrantes::find()
-							    ->select('nombres,apellido_paterno,apellido_materno')
-                                                            ->where('grado=6 and equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
-                                                            ->one();
-                                                            /*
                                                 $docente=Estudiante::find()
                                                             ->select('nombres,apellido_paterno,apellido_materno')
                                                             ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
                                                             ->where('estudiante.grado=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
                                                             ->one();
-                                                */
+                                                
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'-'.$docente->nombres.' '.$docente->apellido_paterno.' '.$docente->apellido_materno.'<br>';
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<div class="line_yellow"></div>';
                                                 if($resultado->tipo==1){
-                                                    $htmlvotacionespublicas=$htmlvotacionespublicas.'<iframe width="300" height="169" src="https://www.youtube.com/embed/'.substr($resultado->ruta,-11).'" frameborder="0" allowfullscreen></iframe>';
+                                                    $htmlvotacionespublicas=$htmlvotacionespublicas.'<iframe width="100%" src="https://www.youtube.com/embed/'.$resultado->ruta.'" frameborder="0" allowfullscreen></iframe>';
                                                 }else{
-                                                    $htmlvotacionespublicas=$htmlvotacionespublicas.'<video width="320" height="169" controls>';
+                                                    $htmlvotacionespublicas=$htmlvotacionespublicas.'<video width="100%" controls>';
                                                        $htmlvotacionespublicas=$htmlvotacionespublicas.'<source src="'.Yii::getAlias('@video').$resultado->ruta.'" >';  
                                                     $htmlvotacionespublicas=$htmlvotacionespublicas.'</video>';
                                                 }
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<div class="line_yellow"></div>
                                                 <div class="end_body_voto">
-                                                <!--
+                                                
                                                         Pasa la voz a tu mancha
                                                         <a href="#" class="share_fb"
-							data-project="'.htmlentities($resultado->titulo, ENT_QUOTES).'"
+							data-project="'.$resultado->titulo.'"
 							data-image="http://face.ideasenaccion.pe/images/logo_for_fb.jpg"
 							data-link="http://votacion.ideasenaccion.pe/votacion-publica">
 								<img src="'.\Yii::$app->request->BaseUrl.'/votacion/images/icon_fb_normal.png" alt="">
 							</a>
-                                                        -->
+                                                
                                                 </div>
                                             </div>
                                         </div>';
