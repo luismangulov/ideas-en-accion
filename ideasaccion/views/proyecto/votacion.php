@@ -166,7 +166,7 @@ $urlproyectox = Yii::$app->getUrlManager()->createUrl('foro/proyecto-votacion');
                                     Vote
                                 </a>
                             <?php } ?>
-                            <h1 class="box_option_title">> TITULO</h1>
+                            <h1 class="box_option_title">> TÍTULO</h1>
                             <p class="box_option_content">
                                 <?= htmlentities($votacion["titulo"], ENT_QUOTES) ?>
                             </p>
@@ -186,7 +186,7 @@ $urlproyectox = Yii::$app->getUrlManager()->createUrl('foro/proyecto-votacion');
                                     <div class="popup_content_scroll">
                                         <div class="box_search_border_blue">
                                             <h1 class="h1_box_search">
-                                                > TITULO
+                                                > TÍTULO
                                             </h1>
                                             <p class="box_search_content">
                                                 <?= htmlentities($votacion["titulo"], ENT_QUOTES) ?>

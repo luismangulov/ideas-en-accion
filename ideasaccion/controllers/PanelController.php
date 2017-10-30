@@ -284,14 +284,17 @@ class PanelController extends Controller {
         $searchModel = new VotacionInternaSearch();
         $dataProvider = $searchModel->votacion(Yii::$app->request->queryParams);
         $countInterna = VotacionInterna::find()->select(['count(proyecto_id) as maximo'])
-                        ->where('estado=1')
+                        ->where('estado=2')
                         ->groupBy('proyecto_id')->orderBy('maximo desc')->one();
 
-
-        return $this->render('votacioninterna', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                    'countInterna' => $countInterna]);
+        if (empty($countInterna)) {
+            exit;
+        } else {
+            return $this->render('votacioninterna', [
+                        'searchModel' => $searchModel,
+                        'dataProvider' => $dataProvider,
+                        'countInterna' => $countInterna]);
+        }
     }
 
     public function actionForos() {
@@ -684,10 +687,10 @@ class PanelController extends Controller {
                     //var_dump($coordinador);
                     if ($coordinador && $coordinador->rol == 1) {
                         $equipo = Equipo::find()->where('id=:id', [':id' => $coordinador->equipo_id])->one();
-                        echo "Ya es lider del equipo " . htmlentities($equipo->descripcion_equipo,ENT_QUOTES) . " " . $estudiante->dni . "<br>";
+                        echo "Ya es lider del equipo " . htmlentities($equipo->descripcion_equipo, ENT_QUOTES) . " " . $estudiante->dni . "<br>";
                     } elseif ($coordinador && $coordinador->rol == 2) {
                         $equipo = Equipo::find()->where('id=:id', [':id' => $coordinador->equipo_id])->one();
-                        echo "Es integrante del equipo " . htmlentities($equipo->descripcion_equipo,ENT_QUOTES) . " " . $estudiante->dni . "<br>";
+                        echo "Es integrante del equipo " . htmlentities($equipo->descripcion_equipo, ENT_QUOTES) . " " . $estudiante->dni . "<br>";
                     } else {
                         $equipo = new Equipo;
                         $equipo->descripcion_equipo = $inscripcion->equipo;
@@ -803,7 +806,7 @@ class PanelController extends Controller {
                         }
                     } elseif ($coordinador && $coordinador->rol == 2) {
                         $equipo = Equipo::find()->where('id=:id', [':id' => $coordinador->equipo_id])->one();
-                        echo "Es integrante del equipo " . htmlentities($equipo->descripcion_equipo,ENT_QUOTES);
+                        echo "Es integrante del equipo " . htmlentities($equipo->descripcion_equipo, ENT_QUOTES);
                     } else {
                         echo "Lo sentimos sigue intentando";
                     }

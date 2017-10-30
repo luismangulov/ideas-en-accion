@@ -89,7 +89,7 @@ label{
                 <div class="col-md-12 text-center">
                     <button style="background:#f6de34;color: #1f2a69;border-color:#f6de34;font-weight:bold" class="btn  btn-lateral" href="#tab_1" data-toggle="tab" aria-expanded="false">Proyecto</button>
                     <button style="background:#f6de34;color: #1f2a69;border-color:#f6de34;font-weight:bold" class="btn  btn-lateral" href="#tab_2" data-toggle="tab" aria-expanded="false">Video</button>
-                    <button style="background:#f6de34;color: #1f2a69;border-color:#f6de34;font-weight:bold" class="btn  btn-lateral" href="#tab_3" data-toggle="tab" aria-expanded="false">Reflexión</button>
+                    
                 </div>
                 
             </ul>

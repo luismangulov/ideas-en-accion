@@ -554,7 +554,8 @@ class ForoComentarioController extends Controller {
                 $data = $data . '</div>';
                 $data = $data . '<div class="clearfix"></div>';
                 $hijos = ForoComentario::find()
-                                ->where('foro_comentario_hijo_id=:foro_comentario_hijo_id', [':foro_comentario_hijo_id' => $post['id']])->all();
+                                ->where('foro_comentario_hijo_id=:foro_comentario_hijo_id order by id desc', [':foro_comentario_hijo_id' => $post['id']])->all();
+                
                 foreach ($hijos as $hijo) {
                     $data = $data . '<div class="row post-item">';
 
@@ -737,6 +738,20 @@ class ForoComentarioController extends Controller {
     }
 
     public function actionInsertarComentarioMonitor() {
+
+        if (empty($_SERVER['HTTP_REFERER'])) {
+            echo "";
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+
+            //print_r($parts);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+                echo "";
+                exit;
+            }
+        }
+
         if (isset($_POST["id"]) && isset($_POST["seccion"]) && isset($_POST["contenido"])) {
             $id = $_POST["id"];
             $seccion = $_POST["seccion"];
@@ -757,6 +772,19 @@ class ForoComentarioController extends Controller {
 
     public function actionInsertarComentarioHijo() {
 
+
+        if (empty($_SERVER['HTTP_REFERER'])) {
+            echo "";
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+
+            //print_r($parts);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+                echo "";
+                exit;
+            }
+        }
 
         $usuario = Usuario::findOne(\Yii::$app->user->id);
         $estudiante = Estudiante::find()->where('id=:id', [':id' => $usuario->estudiante_id])->one();
@@ -832,6 +860,20 @@ class ForoComentarioController extends Controller {
     }
 
     public function actionInsertarComentarioHijoMonitor() {
+
+        if (empty($_SERVER['HTTP_REFERER'])) {
+            echo "";
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+
+            //print_r($parts);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+                echo "";
+                exit;
+            }
+        }
+
         $usuario = Usuario::findOne(\Yii::$app->user->id);
         //var_dump($_REQUEST);
         if (isset($_POST["id"]) && isset($_POST["contenido"]) && isset($_POST["padre"])) {
@@ -843,9 +885,17 @@ class ForoComentarioController extends Controller {
             $padre = $_POST["padre"];
             $foro = Foro::findOne($id);
 
+            if (empty($_POST["seccion"])) {
+                $seccion = null;
+            } else {
+                $seccion = $_POST["seccion"];
+            }
+
             $newComentario = new ForoComentario();
             $newComentario->foro_id = $foro->id;
             $newComentario->foro_comentario_hijo_id = $padre;
+            $newComentario->seccion = $seccion;
+
             $newComentario->contenido = $contenido;
             $newComentario->save();
 

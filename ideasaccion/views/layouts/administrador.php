@@ -14,6 +14,7 @@ use app\models\Equipo;
 use app\models\Proyecto;
 use app\models\Etapa;
 use app\models\VotacionPublica;
+use app\models\VotacionInterna;
 use app\models\Invitacion;
 
 AppEstandarAsset::register($this);
@@ -24,6 +25,11 @@ if (!\Yii::$app->user->isGuest) {
     $etapa3 = Etapa::find()->where('etapa=3 and estado=1')->one();
     $usuario = Usuario::find()->where('id=:id', [':id' => \Yii::$app->user->id])->one();
 //$invitacion=Invitacion::find()->where('equipo_id=:equipo_id and estado=1',[':equipo_id'=>$equipo->id])->one();
+    $countInterna = VotacionInterna::find()->select(['count(proyecto_id) as maximo'])
+                    ->where('estado=2')
+                    ->groupBy('proyecto_id')->orderBy('maximo desc')->one();
+
+
     $integrante = Integrante::find()->where('estudiante_id=:estudiante_id', [':estudiante_id' => $usuario->estudiante_id])->one();
     if ($integrante) {
         $equipo = Equipo::find()->where('id=:id and estado=1', [':id' => $integrante->equipo_id])->one();
@@ -144,8 +150,8 @@ if (!\Yii::$app->user->isGuest) {
                                                 <div class="row_div">
                                                     <div class="line_separator"></div>
                                                     <div class="cell_info_content"><?php
-                                                        $datex = new DateTime($_SESSION["ultimologin"]);
-                                                        ?>
+                                                                    $datex = new DateTime($_SESSION["ultimologin"]);
+                                                                    ?>
                                                         <b class="uppercase">Último acceso: <?= $datex->format('d/m/Y H:i:s') ?></b>
                                                     </div>
                                                     <div class="line_separator"></div>
@@ -194,9 +200,10 @@ if (!\Yii::$app->user->isGuest) {
                                             </div>
                                         </div>', ['panel/foros'], ['id' => 'lnk_forosgeneral']); ?>
                                                 </li>
-                                                <?php if (( $etapa3) && !$votacionpublica) { ?>
+                                                <?php if (( $etapa3) && !$votacionpublica && !empty($countInterna)) {
+                                                    ?>
                                                     <li>
-                                                        <?= Html::a('<div class="table_div">
+                                                    <?= Html::a('<div class="table_div">
                                                 <div class="row_div">
                                                     <div class="cell_div div_ia_icon">
                                                         <span class="ia_icon ia_icon_idea"></span>
@@ -207,26 +214,26 @@ if (!\Yii::$app->user->isGuest) {
                                                 </div>
                                             </div>', ['panel/votacioninterna'], ['id' => 'lnk_votacioninterna']); ?>
                                                     </li>
+                                                    <?php } ?>
                                                 <?php } ?>
-                                            <?php } ?>
                                             <!--fin control de acciones-->
                                             <!--Foro-->
 
                                             <!--Fin Foro-->
                                             <!--Foro proyectos-->
                                             <!--<li>
-                                            <?= Html::a("Comentario de proyectos", ['panel/forosproyectos'], []); ?>
+    <?= Html::a("Comentario de proyectos", ['panel/forosproyectos'], []); ?>
                                             </li>-->
                                             <!--Fin Foro proyectos-->
 
                                             <!--Reportes-->
-                                            <?php /* <li>
-                                              <?= Html::a("Reportes de votación de asuntos públicos",['#'],['class'=>'sub_menu']);?>
-                                              <ul>
-                                              <li><?= Html::a("Reportes de votación de asuntos públicos",['reporte/index'],[]);?></li>
-                                              <li><?= Html::a("Reportes de votación por región ",['reporte/region'],[]);?></li>
-                                              </ul>
-                                              </li> */ ?>
+    <?php /* <li>
+      <?= Html::a("Reportes de votación de asuntos públicos",['#'],['class'=>'sub_menu']);?>
+      <ul>
+      <li><?= Html::a("Reportes de votación de asuntos públicos",['reporte/index'],[]);?></li>
+      <li><?= Html::a("Reportes de votación por región ",['reporte/region'],[]);?></li>
+      </ul>
+      </li> */ ?>
                                             <li>
                                                 <a href="#" class="sub_menu" id="lnk_reporteinscripcion">
                                                     <div class="table_div">
@@ -267,7 +274,7 @@ if (!\Yii::$app->user->isGuest) {
                                                     <li><?= Html::a("Reporte total", ['reporte/proyecto3'], ['id' => 'lnk_reportetotal']); ?></li>
                                                 </ul>
                                             </li>
-                                            <?php if (( $etapa2 || $etapa3)) { ?>
+    <?php if (( $etapa2 || $etapa3)) { ?>
                                                 <li>
 
                                                     <a href="#" class="sub_menu" id="lnk_reportesegunda">
@@ -288,7 +295,7 @@ if (!\Yii::$app->user->isGuest) {
                                                     </ul>
                                                 </li>
 
-                                            <?php } ?>
+    <?php } ?>
 
                                             <?php /*
                                               <li>
@@ -309,12 +316,12 @@ if (!\Yii::$app->user->isGuest) {
                                             <!--Fin Reportes-->
 
                                             <!--Contraseña-->
-                                            <?php /*
-                                              <li>
-                                              <?php //= Html::a("Cambio de contraseña",['usuario/cambiar'],[]);?>
-                                              </li>
-                                              <li><?php //= Html::a("Ingreso de equipo ya inscritos",['equipo/finalizar-equipo2'],[]);?></li>
-                                             */ ?>
+    <?php /*
+      <li>
+      <?php //= Html::a("Cambio de contraseña",['usuario/cambiar'],[]);?>
+      </li>
+      <li><?php //= Html::a("Ingreso de equipo ya inscritos",['equipo/finalizar-equipo2'],[]);?></li>
+     */ ?>
                                             <!--Fin Contraseña-->
                                         </ul>
 
@@ -327,7 +334,7 @@ if (!\Yii::$app->user->isGuest) {
                                 </div>
                                 <div class="col-md-9">
                                     <div class="grid_box_line_blue">
-                                        <?= $content ?>
+    <?= $content ?>
                                     </div>
                                 </div>
                             </div>
@@ -337,7 +344,7 @@ if (!\Yii::$app->user->isGuest) {
             </div>
 
 
-            <?php $this->endBody() ?>
+    <?php $this->endBody() ?>
             <!-- Open source code -->
             <script>
 

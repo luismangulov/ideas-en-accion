@@ -39,7 +39,7 @@ $this->title = "Ideas en acción";
             <div class="txt_upload" style="bottom: 0px;">
                 <div class=" form-group " style="padding-bottom: 0px;">
                     <input  type="file" id="registrar-foto" class="form-control  file" name="Registrar[foto]" onchange="Imagen(this)"/>
-                    <?= Html::img('../foto_personal/' . $registrar->avatar . '', ['id' => 'img_destino', 'class' => 'text-center', 'alt' => 'Responsive image', 'style' => "height: 150px;width: 120px;align:center;cursor: pointer"]) ?>
+                    <?= Html::img('../foto_personal/' . $registrar->avatar . '', ['id' => 'img_destino', 'class' => 'text-center', 'style' => "height: 150px;width: 120px;align:center;cursor: pointer"]) ?>
                     <span>Actualizar foto </span>
                 </div>
             </div>

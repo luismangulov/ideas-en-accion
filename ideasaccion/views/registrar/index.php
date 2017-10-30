@@ -37,7 +37,7 @@ $this->title = "Ideas en acción";
         <div class="txt_upload" style="bottom: 0px;">
             <div class=" form-group " style="padding-bottom: 0px;">
                 <input  type="file" id="registrar-foto" class="form-control  file" name="Registrar[foto]" onchange="Imagen(this)"/>
-                <img id="img_destino" class="text-center" src="<?= \Yii::$app->request->BaseUrl ?>/foto_personal/no_disponible.jpg" alt="Responsive image" style="height: 150px;width: 120px;align:center;cursor: pointer">                
+                <img id="img_destino" class="text-center" src="<?= \Yii::$app->request->BaseUrl ?>/foto_personal/no_disponible.jpg"  style="height: 150px;width: 120px;align:center;cursor: pointer">                
                 <span>Adjuntar foto </span>
             </div>
         </div> 

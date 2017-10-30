@@ -72,7 +72,7 @@ if (!\Yii::$app->user->isGuest) {
             <div class="wrapper">
                 <header class="main-header">
                     <!-- Logo -->
-                    <a href="index2.html" class="logo"><?= Html::img('../images/logo_ministerio_educacion.png', ['class' => 'img-responsive logo', 'alt' => 'Responsive image']) ?></a>
+                    <a href="index2.html" class="logo"><?= Html::img('../images/logo_ministerio_educacion.png', ['class' => 'img-responsive logo']) ?></a>
                     <!-- Header Navbar: style can be found in header.less -->
                     <nav class="navbar navbar-static-top" role="navigation">
                         <!-- Sidebar toggle button-->

@@ -198,7 +198,7 @@ $btninscribir = $integrante
                 <div class="form-group">
                     <label for=""> </label>
                     <div class="imagen_equipo" style="height: 160px !important;">
-                        <?= Html::img('../foto_equipo/' . $equipo->foto, ['id' => 'img_destino', 'class' => 'img-responsive logo', 'alt' => 'Responsive image', 'style' => "height: 158px;width: 158px"]) ?>
+                        <?= Html::img('../foto_equipo/' . $equipo->foto, ['id' => 'img_destino', 'class' => 'img-responsive logo', 'style' => "height: 158px;width: 158px"]) ?>
                     </div>
                 </div>
             </div>

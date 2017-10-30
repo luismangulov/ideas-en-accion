@@ -46,7 +46,7 @@ if (isset($_GET['page']) >= 2)
             ?>
             <tr>
                 <td><?= htmlentities($proyecto['denominacion'],ENT_QUOTES) ?></td>
-                <td><span class="popover1" data-type='html' style="cursor: pointer"  title  ='<?= str_replace(['\'\'','\''],'"',htmlentities($proyecto['titulo'],ENT_QUOTES)) ?>' data-placement="top"><?= htmlentities(substr(str_replace(['\'\'','\''],'"',$proyecto['titulo']),0,20),ENT_QUOTES) ?> </span></td>
+                <td><span class="popover1" data-type='html' style="cursor: pointer"  title  ='<?=  htmlentities(HtmlPurifier::process($proyecto['titulo'],ENT_QUOTES)) ?>' data-placement="top"><?= htmlentities(substr(str_replace(['\'\'','\''],'"',$proyecto['titulo']),0,20),ENT_QUOTES) ?> </span></td>
                 
                
                 <td><?= ($proyecto['proyecto_finalizado']==1)?'<span class="fa fa-fw fa-check-square"></span>':'<span class="fa fa-fw fa-square"></span>' ?></td>

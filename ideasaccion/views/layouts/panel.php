@@ -44,7 +44,8 @@ if (!\Yii::$app->user->isGuest) {
                     $foro_sinleer = $rowx[0]["cantidad_sinleer"];
                 }
                 if ($foro_sinleer > 0) {
-                    $foro_sinleer_string = "<br> <span style='color:red'>(" . $foro_sinleer . " nuevos comentarios)</span> ";
+                    
+                    $foro_sinleer_string = " <span style='color:red'>(" . $foro_sinleer . " mensajes sin leer)</span> ";
                 }
             }
         }

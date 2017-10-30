@@ -47,7 +47,7 @@ if (isset($_GET['page']) >= 2)
             ?>
             <tr>
                 <td><?= $proyecto['denominacion'] ?></td>
-                <td><span class="popover1" data-type='html' style="cursor: pointer"  data-title="Título de proyecto" data-content='<?=  htmlentities(str_replace(['\'\'','\''],'"',$proyecto['titulo']), ENT_QUOTES) ?>' data-placement="top"><?= htmlentities(substr(str_replace(['\'\'','\''],'"',$proyecto['titulo']),0,14), ENT_QUOTES) ?> </span></td>
+                <td><span class="popover1" data-type='html' style="cursor: pointer"  data-title="Título de proyecto" data-content='<?=  htmlentities(HtmlPurifier::process($proyecto['titulo'],ENT_QUOTES))  ?>' data-placement="top"><?= htmlentities(substr(str_replace(['\'\'','\''],'"',$proyecto['titulo']),0,14), ENT_QUOTES) ?> </span></td>
                 
                
                 <td><?= ($proyecto['proyecto_finalizado']==1)?'<span class="fa fa-fw fa-check-square"></span>':'' ?></td>

@@ -181,6 +181,9 @@ class ProyectoController extends Controller {
             } else if ($equipo->etapa == 1 && $etapa2) {
 
                 return $this->render('actualizar');
+            } else if ($equipo->etapa == 2 && $etapa2) {
+
+                return $this->redirect(array('entrega/segunda'));
             }
 
             return $this->render('actualizar');
@@ -705,6 +708,20 @@ class ProyectoController extends Controller {
     }
 
     public function actionFinalizarvotacioninterna() {
+
+        if (empty($_SERVER['HTTP_REFERER'])) {
+
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+
+            //print_r($parts);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+
+                exit;
+            }
+        }
+
         $updatevotacioninterna = 'update votacion_interna set estado=2 where user_id=' . \Yii::$app->user->id . ' and estado=1';
 
         \Yii::$app->db->createCommand($updatevotacioninterna)->execute();
@@ -713,6 +730,19 @@ class ProyectoController extends Controller {
     }
 
     public function actionValoraporcentualadministrador($proyecto_id, $valor, $resultatotal) {
+
+        if (empty($_SERVER['HTTP_REFERER'])) {
+
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+
+            //print_r($parts);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+
+                exit;
+            }
+        }
         $updatevalorporcentual = 'update proyecto set valor_porcentual_administrador=' . $valor . ',resultado=' . $resultatotal . '
                                         where id=' . $proyecto_id . '';
 
@@ -722,6 +752,18 @@ class ProyectoController extends Controller {
     }
 
     public function actionCerrarvotacioninterna() {
+          if (empty($_SERVER['HTTP_REFERER'])) {
+
+            exit;
+        } else {
+            $parts = parse_url($_SERVER['HTTP_REFERER']);
+
+            //print_r($parts);
+            if ($parts["host"] != Yii::$app->params["host"]) {
+
+                exit;
+            }
+        }
         //$resultados=Resultados::find()->all();
         $connection = \Yii::$app->db;
         $ubigeos = Ubigeo::find()->select('department_id,department')->groupBy('department_id')->orderBy('department desc')->all();
