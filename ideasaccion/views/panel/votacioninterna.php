@@ -87,7 +87,7 @@ function grabado_automatico(element,proyecto_id,voto) {
     console.log(voto);
     console.log(<?= $countInterna->maximo ?>);
     console.log(element.val());
-    var resultado=((voto/<?= $countInterna->maximo ?>)*(0.7)+(element.val()/40)*(0.3))*100;
+    var resultado=((voto/<?= $countInterna->maximo ?>)*(0.6)+(element.val()/40)*(0.4))*100;
     console.log(resultado);
     resultado = resultado.toFixed(2);
     console.log(resultado);
