@@ -40,9 +40,15 @@ use yii\widgets\Pjax;
     <?php Pjax::end(); ?>
     
     <div class="col-md-12">
-        <?php Pjax::begin(); ?>
+        <?php
+         $variableX2 = $countInterna->maximo;
+        Pjax::begin(); 
+         
+    
+        ?>
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
+        
             //'filterModel' => $searchModel,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
@@ -68,8 +74,8 @@ use yii\widgets\Pjax;
                     'label'=>'Resultado',
                     //'attribute' => 'codigo_modular',
                     'format'=>'raw',
-                    'value'=>function($data) {
-                        return "<div id='proyecto_".$data->id."'> ".(double)$data->resultado."</div>";
+                    'value'=>function($data) use ($variableX2){
+                        return "<div id='proyecto_".$data->id."'> ".((($data->voto /$variableX2) *(0.6)+($data->valor/40)*(0.4))*100)."</div>";
                     },
                 ]
                 
