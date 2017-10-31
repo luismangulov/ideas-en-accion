@@ -88,7 +88,7 @@ class VotacionInternaSearch extends VotacionInterna
                 ->innerJoin('estudiante','estudiante.id = integrante.estudiante_id')
                 ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
                 ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
-                ->leftJoin('votacion_interna','votacion_interna.proyecto_id=proyecto.id AND votacion_interna.estado=2')
+                ->innerJoin('votacion_interna','votacion_interna.proyecto_id=proyecto.id AND votacion_interna.estado=2')
                 ->where('equipo.etapa=2 AND integrante.rol=1')
                 ->groupBy('proyecto.id,proyecto.titulo,ubigeo.department_id')
                 ->orderBy('voto desc');

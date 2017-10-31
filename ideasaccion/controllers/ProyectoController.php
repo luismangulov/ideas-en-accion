@@ -617,6 +617,23 @@ class ProyectoController extends Controller {
             exit;
         }
 
+        $votacioninterna2 = VotacionInterna::find()
+                ->where(' user_id=:user_id and estado=2', [':user_id' => \Yii::$app->user->id])
+                ->count();
+
+        $votacionpublica2 = VotacionPublica::find()
+                ->count();
+
+        if ($votacionpublica2 > 0) {
+            echo 3;
+            exit;
+        }
+
+        if ($votacioninterna2 > 0) {
+            echo 3;
+            exit;
+        }
+
 
         $votacioninterna = VotacionInterna::find()
                 ->where('proyecto_id=:proyecto_id and user_id=:user_id and estado=1', [':proyecto_id' => $proyecto->id, ':user_id' => \Yii::$app->user->id])
@@ -672,10 +689,32 @@ class ProyectoController extends Controller {
 
         $proyecto = Proyecto::findOne($id);
 
+
+        $votacioninterna2 = VotacionInterna::find()
+                ->where(' user_id=:user_id and estado=2', [':user_id' => \Yii::$app->user->id])
+                ->count();
+
+        $votacionpublica2 = VotacionPublica::find()
+                ->count();
+
+        if ($votacionpublica2 > 0) {
+            echo 3;
+            exit;
+        }
+
+        if ($votacioninterna2 > 0) {
+            echo 3;
+            exit;
+        }
+
+
         if ($proyecto->region_id != $proyectosession->region_id) {
             echo 3;
             exit;
         }
+
+
+
 
 
         $votacioninterna = VotacionInterna::find()
@@ -752,7 +791,7 @@ class ProyectoController extends Controller {
     }
 
     public function actionCerrarvotacioninterna() {
-          if (empty($_SERVER['HTTP_REFERER'])) {
+        if (empty($_SERVER['HTTP_REFERER'])) {
 
             exit;
         } else {

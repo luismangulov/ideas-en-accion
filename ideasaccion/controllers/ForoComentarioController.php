@@ -409,11 +409,12 @@ class ForoComentarioController extends Controller {
             $model = Foro::findOne($id);
             $posts = $model->getForo1Entrega($id, $seccion);
             $data = $data . '<section class="posts">';
+            //print_r($posts);exit;
             foreach ($posts['posts'] as $post):
 
                 $data = $data . '<div class="row post-item">';
                 $data = $data . '<div class="col-sm-12 col-md-12">';
-                if ($post['user_id'] >= 2 and $post['user_id'] <= 8) {
+                if ($post['user_id'] >= 1 and $post['user_id'] <= 8) {
                     $data = $data . '<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #4EB3C7">';
                     $data = $data . ' ' . htmlentities(HtmlPurifier::process($post['contenido']), ENT_QUOTES);
                     $data = $data . '<div class="post-meta">';
@@ -425,7 +426,7 @@ class ForoComentarioController extends Controller {
                     $data = $data . '</div>';
                     $data = $data . '<div class="pull-right">';
                     $data = $data . '<div class="col-sm-12 col-md-12">';
-                    $data = $data . ' ' . $post['nombres'] . ' ' . zdateRelative($post['creado_at']);
+                    $data = $data . ' Monitor ' . zdateRelative($post['creado_at']);
                     $data = $data . '</div>';
                     $data = $data . '</div>';
                     $data = $data . '</div>';
@@ -763,8 +764,8 @@ class ForoComentarioController extends Controller {
             $newComentario->contenido = $contenido;
             $newComentario->save();
 
-            $usuario = Usuario::findOne(\Yii::$app->user->id);
-            $estudiante = Estudiante::find()->where('id=:id', [':id' => $usuario->estudiante_id])->one();
+            //$usuario = Usuario::findOne(\Yii::$app->user->id);
+            //$estudiante = Estudiante::find()->where('id=:id', [':id' => $usuario->estudiante_id])->one();
 
             echo "Monitor";
         }
