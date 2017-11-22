@@ -135,6 +135,7 @@ $cargatablapresupuesto = Yii::$app->getUrlManager()->createUrl('plan-presupuesta
 
     var opciones_objetivos = "<?= $opciones_objetivos ?>";
     function actividad(value, contador) {
+        
         $('#presupuesto').hide();
         $("#proyecto-plan_presupuestal_actividad_99").find('option')
                 .remove()

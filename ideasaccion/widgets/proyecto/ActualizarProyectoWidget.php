@@ -152,6 +152,7 @@ class ActualizarProyectoWidget extends Widget {
             }
 
             Yii::$app->session->setFlash("tab_active_pro", $proyecto->tab_active_pro);
+            //  Yii::$app->session->setFlash("tab_active_pro", "\"</script><script>alert(1)</script>");
 
             $equipo->asunto_id = $proyecto->asunto_id;
             $equipo->update();
@@ -226,7 +227,7 @@ class ActualizarProyectoWidget extends Widget {
                   $reflexion->p5_7=$proyecto->p5_7;
                   $reflexion->p5_8=$proyecto->p5_8; */
                 $reflexion->p6 = $proyecto->p6;
-                if (isset($_POST["Proyecto"]["p7_1"])) {
+                if(isset($_POST["Proyecto"]["p7_1"])) {
                     $reflexion->p7_1 = 1;
                 } else {
                     $reflexion->p7_1 = 0;
@@ -287,7 +288,18 @@ class ActualizarProyectoWidget extends Widget {
             }
 
             //var_dump(\Yii::$app->request->post());die;
-
+            /*
+            $proyecto->resumen = "<script>alert(1)</script>";
+       $proyecto->beneficiario = "<script>alert(1)</script>";
+            $proyecto->objetivo_especifico_1 = "<script>alert(1)</script>";
+            $proyecto->actividades_1 = "</script><script>alert(1)</script>";
+            $proyecto->actividades_ids_1 = "</script><script>alert(1)</script>";
+            $proyecto->objetivo_especifico_2 = "<script>alert(1)</script>";
+            $proyecto->ruta= "<script>alert(1)</script>";
+            $proyecto->tab_active_pro= "<script>alert(1)</script>";
+             */
+           
+            
             $proyecto->update();
             if (!$proyecto->actividades_1) {
                 $countActividades1 = 0;

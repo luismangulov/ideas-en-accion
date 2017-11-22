@@ -435,6 +435,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
 
 
     $('#registrar').click(function () {
+        
         var error = '';
         var p1 = $('input[name=\'Registrar[p1][]\']:checked').length;
         var p2 = $('input[type=radio]:checked').length;
@@ -511,45 +512,8 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
             $('.field-registrar-fecha_nac').removeClass('has-error');
         }
 
-        if ($('#registrar-email').val() == '') {
-            error = error + 'Debes ingresar tú dirección de correo <br>';
-            $('.field-registrar-email').addClass('has-error');
-            conerror = conerror + 1;
-        }
-        else
-        {
-            $('.field-registrar-email').addClass('has-success');
-            $('.field-registrar-email').removeClass('has-error');
-        }
+    
 
-        if ($('#registrar-email').val() != '' && !validateEmail($('#registrar-email').val()))
-        {
-            error = error + 'Debes ingresar una dirección de correo válida <br>';
-            $('.field-registrar-email').addClass('has-error');
-            conerror = conerror + 1;
-        }
-
-        if ($('#registrar-password').val() == '') {
-            error = error + 'Debes ingresar tú contraseña <br>';
-            $('.field-registrar-password').addClass('has-error');
-            conerror = conerror + 1;
-        }
-        else
-        {
-            $('.field-registrar-password').addClass('has-success');
-            $('.field-registrar-password').removeClass('has-error');
-        }
-
-        if ($('#registrar-repassword').val() == '') {
-            error = error + 'Debes repetir tú contraseña <br>';
-            $('.field-registrar-repassword').addClass('has-error');
-            conerror = conerror + 1;
-        }
-        else
-        {
-            $('.field-registrar-repassword').addClass('has-success');
-            $('.field-registrar-repassword').removeClass('has-error');
-        }
 
         if ($('#registrar-departamento').val() == '') {
             error = error + 'Debes ingresar tú región <br>';
@@ -607,7 +571,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
         }
 
 
-
+/*
         if ($('#registrar-password').val() != '' && $('#registrar-password').val().length < 8)
         {
             error = error + 'Tu contraseña debe contener un mínimo 8 caracteres <br>';
@@ -645,7 +609,7 @@ $instituciones = Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
         if (email.responseText == '1') {
             error = error + 'La dirección de correo ya ha sido registrada. <br>';
         }
-
+*/
         if (conerror >= 5) {
             $.notify({
                 message: 'Debes completar todos los campos marcados como obligatorios (*)'

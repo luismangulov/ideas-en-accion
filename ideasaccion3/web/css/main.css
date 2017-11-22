@@ -1,0 +1,330 @@
+@font-face {
+    font-family: 'Exo2-LightCondensed';
+    src: url('fonts/Exo2-LightCondensed.eot?#iefix') format('embedded-opentype'),  url('fonts/Exo2-LightCondensed.otf')  format('opentype'),
+	     url('fonts/Exo2-LightCondensed.woff') format('woff'), url('fonts/Exo2-LightCondensed.ttf')  format('truetype'), url('fonts/Exo2-LightCondensed.svg#Exo2-LightCondensed') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Exo2-SemiBoldCondensed';
+    src: url('fonts/Exo2-SemiBoldCondensed.eot?#iefix') format('embedded-opentype'),  url('fonts/Exo2-SemiBoldCondensed.otf')  format('opentype'),
+	     url('fonts/Exo2-SemiBoldCondensed.woff') format('woff'), url('fonts/Exo2-SemiBoldCondensed.ttf')  format('truetype'), url('fonts/Exo2-SemiBoldCondensed.svg#Exo2-SemiBoldCondensed') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Calibri-Light';
+    src: url('fonts/Calibri-Light.eot?#iefix') format('embedded-opentype'),  url('fonts/Calibri-Light.woff') format('woff'), url('fonts/Calibri-Light.ttf')  format('truetype'), url('fonts/Calibri-Light.svg#Calibri-Light') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    background: #2D3235;
+}
+
+a{
+    text-decoration: none;
+}
+
+header{
+    text-align: center;
+    background: white;
+}
+
+header img{
+
+}
+
+.content{
+    width: 1000px;
+    margin: 0 auto;
+}
+
+section.home{
+
+}
+
+.banner{
+    background: #FFFFFF url(../images/bg_banner_cuadros.jpg) top left;
+}
+
+.banner .breadcrumb{
+    background: #122152;
+    color: white;
+    font-family: 'Exo2-LightCondensed';
+    line-height: 34px;
+    padding: 0 5%;
+    font-size: 16px;
+}
+
+.banner .breadcrumb .arrow{
+    display: inline-block;
+    padding: 0 5px;
+}
+
+.banner .breadcrumb .arrow.active{
+    color: white;
+}
+
+.banner .breadcrumb a,
+.banner .breadcrumb .arrow{
+    color: #8990A9;
+}
+
+.banner .banner_content{
+    position: relative;
+    height: 279px;
+    background: url(../images/bg_banner_content.jpg.png) no-repeat center center;
+}
+
+.banner .banner_content .content{
+    width: 600px;
+    position: relative;
+    height: inherit;
+}
+
+.banner .banner_content .content .logo{
+    position: absolute;
+    top: 10px;
+    left: 0;
+}
+
+.banner .banner_content .content .personajes{
+    position: absolute;
+    bottom: 16px;
+    left: 0;
+}
+
+.banner_ideas .block_logo{
+    position: relative;
+    height: 169px;
+    background: #122152 url(../images/bg_block_logo.png) no-repeat 50% 10px;
+}
+
+.banner_ideas .block_logo .logo_ideas{
+    position: absolute;
+    top: -17px;
+    left: 50%;
+    margin-left: -112.5px;
+}
+
+section.interna .banner .breadcrumb{
+    position: absolute;
+    z-index: 2;
+    padding: 0;
+    margin-left: 5%;
+    border-bottom: 1px solid #8990A9;
+}
+
+section.interna .banner_ideas .block_logo{
+    height: 172px;
+    background-image: url(../images/bg_banner_internas.png);
+    background-position: top center;
+}
+
+section.interna .banner_ideas .block_logo .logo_ideas{
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: -112.5px;
+}
+
+section.interna .banner_ideas .block_menu .top{
+    top: 0;
+}
+
+.banner_ideas .block_menu{
+    position: relative;
+    background: white;
+    height: 120px;
+}
+
+section.interna .banner_ideas .block_menu{
+    height: 90px;
+}
+
+section.interna .content_page{
+    padding-bottom: 20px;
+}
+
+.banner_ideas .block_menu ul,
+.banner_ideas .block_menu ul li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: 'Exo2-SemiBoldCondensed';
+}
+
+.banner_ideas .block_menu ul{
+    position: absolute;
+    height: 84px;
+    width: 705px;
+    background: url(../images/bg_menu.png) no-repeat center center;
+    top: -20px;
+    left: 50%;
+    margin-left: -352.5px;
+    text-align: center;
+    z-index: 1;
+}
+
+.banner_ideas .block_menu ul li{
+    display: inline-block;
+    margin-top: 20px;
+    line-height: 59px;
+    font-size: 21px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.banner_ideas .block_menu ul li.lnk_apuntate{
+    font-size: 26px;
+}
+
+.banner_ideas .block_menu ul li a{
+    color: #8E8E8B;
+}
+
+.banner_ideas .block_menu ul li a.active{
+    color: #AC00DB;
+}
+
+.banner_ideas .block_menu .top{
+    background: url(../images/bg_menu_top.png) no-repeat top center;
+    height: 21px;
+    width: 100%;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+}
+
+.banner_ideas .borde_celeste{
+    height: 8px;
+    background: #6BFFFF;
+}
+
+.content_page{
+    background: white;
+    font-size: 15px;
+    font-family: 'Calibri-Light';
+    color: #4D4D4D;
+}
+
+section.ruta-concurso .content_page{
+    text-align: center;
+}
+
+.hr{
+    position: relative;
+    height: 38px;
+    background: url(../images/line-more.png) repeat-x center left;
+    display: block;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.hr img{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.hrl{
+    position: relative;
+    height: 38px;
+    background: url(../images/line-more.png) repeat-x center left;
+    display: block;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.hrl img{
+    position: absolute;
+    top: 0;
+	left: 0;
+}
+.content_page .content{
+    width: 700px;
+    overflow: hidden;
+}
+
+.content_page h1{
+    background: url(../images/icon_h1.png) no-repeat left center;
+    padding-left: 25px;
+    margin: 0;
+    font-family: 'Exo2-SemiBoldCondensed';
+    font-size: 21px;
+}
+
+.content_page h2{
+    margin: 0;
+    font-family: 'Exo2-SemiBoldCondensed';
+    font-size: 19px;
+    color: #148BB0;
+    padding: 10px 25px 0px 25px;
+}
+
+.content_page p{
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.content_page .content_skyblue{
+    background: #8FFFFF;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.content_page .col_6{
+    display: inline-block;
+    width: 50%;
+    float: left;
+}
+
+.content_page .video{
+    padding: 15px 0;
+    overflow: hidden;
+}
+
+.content_page .video .girl{
+    width: 91px;
+    height: 172px;
+    background: url(../images/girl.png);
+    float: left;
+    margin-top: 45px;
+}
+
+.content_page .video .movie{
+    float: left;
+    width: 450px;
+    height: 250px;
+    margin-left: 5px;
+}
+
+.content_page .video .movie iframe{
+    width: 100%;
+    height: 100%;
+}
+
+.content_page .video .boy{
+    width: 125px;
+    height: 177px;
+    background: url(../images/boy.png);
+    float: right;
+    margin-top: 42px;
+}
+
+footer{
+    text-align: center;
+}
+
+.nav nav-tabs .active {
+    font-weight: bold;
+}

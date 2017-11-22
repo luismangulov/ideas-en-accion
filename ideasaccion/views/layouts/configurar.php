@@ -85,7 +85,7 @@ if (!\Yii::$app->user->isGuest) {
             <link href="<?= \Yii::$app->request->BaseUrl ?>/img/favicon.ico" rel="Shortcut Icon">
             <script src="<?= \Yii::$app->request->BaseUrl ?>/js/util.js" type="text/javascript"></script>
 
-                                        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>-->
+                                            <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>-->
             <script src="<?= \Yii::$app->request->BaseUrl ?>/js/libs/2.2.0/jquery.min.js" type="text/javascript"></script>
             <script src="<?= \Yii::$app->request->BaseUrl ?>/js/libs/angularjs/1.5.5/angular.min.js"></script>
 
@@ -360,19 +360,19 @@ if (!\Yii::$app->user->isGuest) {
                                                 //ds
                                                 ?>
 
-                                                <?php /* if(!$votacionpublica && $integrante && $equipo && $proyecto && $etapa3 && ($equipo->etapa==2 || $equipo->etapa==3) && $estudiante->grado!=6){?>
-                                                  <li><?= Html::a('<div class="table_div">
-                                                  <div class="row_div">
-                                                  <div class="cell_div div_ia_icon">
-                                                  <span class="ia_icon ia_icon_delivery"></span>
-                                                  </div>
-                                                  <div class="cell_div">
-                                                  Votación interna <span class="hide">></span>
-                                                  </div>
-                                                  </div>
-                                                  </div>',['proyecto/votacion'],['style'=>'background:#f6de34;color:#1f2a69 !important']);?>
-                                                  </li>
-                                                  <?php } */ ?>
+                                                <?php if (!$votacionpublica && $integrante && $equipo && $proyecto && $etapa3 && ($equipo->etapa == 2 || $equipo->etapa == 3) && $estudiante->grado != 6) { ?>
+                                                    <li><?= Html::a('<div class="table_div">
+                                                <div class="row_div">
+                                                    <div class="cell_div div_ia_icon">
+                                                        <span class="ia_icon ia_icon_delivery"></span>
+                                                    </div>
+                                                    <div class="cell_div">
+                                                        Votación interna <span class="hide">></span>
+                                                    </div>
+                                                </div>
+                                            </div>', ['proyecto/votacion'], ['style' => 'background:#f6de34;color:#1f2a69 !important']); ?>
+                                                    </li>
+                                                <?php } ?>
 
                                             <?php } ?>
                                         </ul>

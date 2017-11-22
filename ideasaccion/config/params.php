@@ -3,6 +3,7 @@
 return [
     'adminEmail' => 'admin@example.com',
     'host' => 'localhost',
+    'dominio' => 'http://localhost:8080',
     'urlWS' => 'https://api.perueduca.pe/wsPeruEducaN/services/User_Service?wsdl',
     'usuarioWS' => 'educared',
     'claveWS' => 'RUryTXwUM96cQQN',

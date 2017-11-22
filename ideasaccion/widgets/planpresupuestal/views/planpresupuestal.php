@@ -97,10 +97,12 @@ $cargatablapresupuesto = Yii::$app->getUrlManager()->createUrl('plan-presupuesta
 
     var opciones_objetivos = "<?= $opciones_objetivos ?>";
     function actividad(value, contador) {
+        
         $("#presupuesto_cuerpo").html("");
         $('#presupuesto').hide();
         $.get('<?= Yii::$app->urlManager->createUrl('plan-presupuestal/actividades?id=') ?>' + value, function(data) {
-            $('#proyecto-plan_presupuestal_actividad_' + contador).html(data);
+            
+            $('#proyecto-plan_presupuestal_actividad_' + contador).html((data));
         });
     }
 
@@ -608,6 +610,7 @@ $cargatablapresupuesto = Yii::$app->getUrlManager()->createUrl('plan-presupuesta
 
 
     function presupuesto(valor) {
+        
 $('#presupuesto').hide();
         $.ajax({
             url: '<?= $cargatablapresupuesto ?>',
@@ -622,12 +625,12 @@ $('#presupuesto').hide();
                 if (data) {
                     data.splice(0, 1);
                     $.each(data, function(i, star) {
-                        total = total + star.subtotal;
+                        total = total + parseFloat(xescape(star.subtotal));
                         var select1 = "";
                         var select2 = "";
                         var select3 = "";
                         var disable = "";
-                        $("#proyecto-plan_presupuestal_como_conseguirlo_" + i + " selected").val(star.como_conseguirlo);
+                        $("#proyecto-plan_presupuestal_como_conseguirlo_" + i + " selected").val(xescape(star.como_conseguirlo));
                         if (star.como_conseguirlo == '1') {
                             select1 = "selected";
                             disable = "disabled";
@@ -669,25 +672,25 @@ $('#presupuesto').hide();
                                 "</td>" +
                                 "<td style='padding: 2px'>" +
                                 "<div class='form-group field-proyecto-plan_presupuestal_precio_unitario_" + i + "' required' style='margin-top: 0px'>" +
-                                "<input style= 'text-align:right;'  onkeypress='Numerico(event)' id='proyecto-plan_presupuestal_precio_unitario1_" + i + "' onfocusout='Subtotal1($(this),1)' class='form-control numerico' name='Proyecto[planes_presupuestales_precios_unitarios1][]' placeholder='Precio unitario' value='S/." + star.precio_unitario.toFixed(2) + "' <?= $disabled ?> " + disable + ">" +
-                                "<input type='hidden' id='proyecto-plan_presupuestal_precio_unitario_" + i + "'  class='form-control ' name='Proyecto[planes_presupuestales_precios_unitarios][]' value='" + star.precio_unitario + "' />" +
+                                "<input style= 'text-align:right;'  onkeypress='Numerico(event)' id='proyecto-plan_presupuestal_precio_unitario1_" + i + "' onfocusout='Subtotal1($(this),1)' class='form-control numerico' name='Proyecto[planes_presupuestales_precios_unitarios1][]' placeholder='Precio unitario' value='S/." + xescape(star.precio_unitario.toFixed(2)) + "' <?= $disabled ?> " + disable + ">" +
+                                "<input type='hidden' id='proyecto-plan_presupuestal_precio_unitario_" + i + "'  class='form-control ' name='Proyecto[planes_presupuestales_precios_unitarios][]' value='" + xescape(star.precio_unitario) + "' />" +
                                 "</div>" +
                                 "</td>" +
                                 "<td style='padding: 2px'>" +
                                 "<div class='form-group field-proyecto-plan_presupuestal_cantidad_" + i + "' required' style='margin-top: 0px'>" +
-                                "<input style= 'text-align:right;'  onkeypress='Numerico(event)' id='proyecto-plan_presupuestal_cantidad_" + i + "' onfocusout='Subtotal2($(this),2)' class='form-control' name='Proyecto[planes_presupuestales_cantidades][]' placeholder='Cantidad' value='" + star.cantidad + "' <?= $disabled ?> >" +
+                                "<input style= 'text-align:right;'  onkeypress='Numerico(event)' id='proyecto-plan_presupuestal_cantidad_" + i + "' onfocusout='Subtotal2($(this),2)' class='form-control' name='Proyecto[planes_presupuestales_cantidades][]' placeholder='Cantidad' value='" + xescape(star.cantidad) + "' <?= $disabled ?> >" +
                                 "</div>" +
                                 "</td>" +
                                 "<td style='padding: 2px'>" +
                                 "<div class='form-group field-proyecto-plan_presupuestal_subtotal_" + i + "' required' style='margin-top: 0px'>" +
-                                "<input style= 'text-align:right;' id='proyecto-plan_presupuestal_subtotal1_" + i + "' class='form-control ' name='Proyecto[planes_presupuestales_subtotales1][]' placeholder='Subtotal' value='S/." + star.subtotal.toFixed(2) + "' disabled>" +
-                                "<input type='hidden' id='proyecto-plan_presupuestal_subtotal_" + i + "' class='form-control totales' name='Proyecto[planes_presupuestales_subtotales][]' placeholder='Subtotal' value='" + star.subtotal + "'  >" +
+                                "<input style= 'text-align:right;' id='proyecto-plan_presupuestal_subtotal1_" + i + "' class='form-control ' name='Proyecto[planes_presupuestales_subtotales1][]' placeholder='Subtotal' value='S/." + xescape(star.subtotal.toFixed(2)) + "' disabled>" +
+                                "<input type='hidden' id='proyecto-plan_presupuestal_subtotal_" + i + "' class='form-control totales' name='Proyecto[planes_presupuestales_subtotales][]' placeholder='Subtotal' value='" + xescape(star.subtotal) + "'  >" +
                                 "</div>" +
                                 "</td>" +
 <?php if ($disabled == '') { ?>
                             "<td style='padding: 2px'>" +
                                     "<span class='remCF glyphicon glyphicon-minus-sign'>" +
-                                    "<input class='id' type='hidden' name='Proyecto[planes_presupuestal_ids][]' value='" + star.id + "' />" +
+                                    "<input class='id' type='hidden' name='Proyecto[planes_presupuestal_ids][]' value='" + xescape(star.id) + "' />" +
                                     "</span>" +
                                     "</td>" +
 <?php } ?>

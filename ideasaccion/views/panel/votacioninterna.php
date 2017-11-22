@@ -93,8 +93,13 @@ function grabado_automatico(element,proyecto_id,voto) {
     console.log(voto);
     console.log(<?= $countInterna->maximo ?>);
     console.log(element.val());
-    var resultado=((voto/<?= $countInterna->maximo ?>)*(0.6)+(element.val()/40)*(0.4))*100;
+    
     console.log(resultado);
+    element.val(parseFloat(element.val()).toFixed(0));
+    if(element.val()==''){
+        element.val("0");
+    }
+    var resultado=((voto/<?= $countInterna->maximo ?>)*(0.6)+(element.val()/40)*(0.4))*100;
     resultado = resultado.toFixed(2);
     console.log(resultado);
 

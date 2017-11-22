@@ -20,7 +20,7 @@ $config = [
         //'currencyCode' => 'EUR',
         ], 'session' => [
             'class' => 'yii\web\Session',
-            'cookieParams' => ['lifetime' => 120 * 60]
+            'cookieParams' => ['lifetime' => 15 * 60]
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',

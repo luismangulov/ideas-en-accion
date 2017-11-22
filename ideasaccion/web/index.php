@@ -2,9 +2,9 @@
 
 // comment out the following two lines when deployed to production
 /*
+
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
-
 */
 function zdateRelative($date)
 {
@@ -64,5 +64,8 @@ require(__DIR__ . '/../vendor/autoload.php');
 require(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
 
 $config = require(__DIR__ . '/../config/web.php');
-
+$csp = "Content-Security-Policy: object-src 'self'; base-uri 'none'; report-uri ".array_values($config)[7]['dominio']."; script-src 'self'     'unsafe-inline' www.google-analytics.com fonts.gstatic.com www.youtube.com data: maxcdn.bootstrapcdn.com stats.g.doubleclick.net drive.google.com; ";
+//$csp = "Content-Security-Policy: object-src 'self'; base-uri 'none'; report-uri http://localhost:8080; script-src 'self'     'unsafe-inline' www.google-analytics.com fonts.gstatic.com www.youtube.com data: maxcdn.bootstrapcdn.com stats.g.doubleclick.net drive.google.com; ";
+header($csp);
 (new yii\web\Application($config))->run();
+

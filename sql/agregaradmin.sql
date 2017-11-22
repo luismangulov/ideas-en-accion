@@ -1,0 +1,1 @@
+INSERT INTO `usuario` (`id`, `username`, `password`, `status`, `auth`, `verification_code`, `estudiante_id`, `avatar`, `name_temporal`, `fecha_registro`, `userId`, `status_registro`, `fecha_actualizacion`) VALUES('1','cingaruca@gmail.com','','1',NULL,NULL,NULL,'no_disponible.jpg','Adminitrador','2017-07-19 15:46:22','13160','2','2017-09-30 14:59:21');

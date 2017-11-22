@@ -221,6 +221,7 @@ $cargatablacronograma = Yii::$app->getUrlManager()->createUrl('cronograma/cargat
 
         /*este carga cuando el selector observa de que hay data*/
         function cronograma(valor) {
+        
             //$.material.init();
             $('#cronograma').hide();
             $.ajax({

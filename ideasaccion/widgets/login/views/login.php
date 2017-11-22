@@ -113,7 +113,7 @@ use yii\web\JsExpression;
 
 
 
-<script>
+<script type="text/javascript">
     $("#ingresar").click(function (event) {
         var error = '';
         if ($('#loginform-usernamex').val() == '')

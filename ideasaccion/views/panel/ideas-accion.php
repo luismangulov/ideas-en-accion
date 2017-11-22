@@ -245,7 +245,7 @@ $this->title = 'Ideas en acción';
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <iframe src="https://drive.google.com/file/d/0B19Z74QFUK5nd0JBT01UMXg3Wjg/preview" width="560" height="480"></iframe>
+                
             </div>
         </div>
     </div>

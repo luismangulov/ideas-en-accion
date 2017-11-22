@@ -83,7 +83,7 @@ $acti3 = 0;
 <div class="box_head title_content_box">
     <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_project_big.png" alt="">MI PROYECTO <?= ($equipo->etapa == 1 || $equipo->etapa == 2) ? '(Segunda entrega)' : '' ?>
 </div>
-<input type="hidden" name="Proyecto[tab_active_pro]" id="tab_active_pro"/>
+<input type="hidden" name="Proyecto[tab_active_pro]" id="tab_active_pro" value=""/>
 <div class="box_content contenido_seccion_crear_equipo">
     <div class="row">
         <div class="nav-tabs-custom">
@@ -95,12 +95,12 @@ $acti3 = 0;
                 <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Cronograma</a></li>
                 <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false"  style="color: #333 !important">Mi video</a></li>
                 <?php if ($equipo->etapa == 0 && $estudiante->grado != 6) { ?>
-                  <!--   <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
-                   <li class=""><a href="#tab_15" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>-->
+                    <!--   <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
+                     <li class=""><a href="#tab_15" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>-->
                 <?php } ?>
                 <?php if ($equipo->etapa == 1 && $estudiante->grado != 6) { ?>
                     <li class=""><a href="#tab_15" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
-                   <!-- <li class=""><a href="#tab_15" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>-->
+                    <!-- <li class=""><a href="#tab_15" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>-->
                 <?php } ?>                   
                 <?php if (($etapa->etapa == 2 || $etapa->etapa == 3) && $estudiante->grado != 6) { ?>
                     <!--<li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Mi evaluación</a></li>-->
@@ -112,7 +112,7 @@ $acti3 = 0;
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group label-floating field-proyecto-titulo required">
                             <label class="control-label" for="proyecto-titulo">Nombre del proyecto </label>
-                            <input type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras" value="<?= htmlentities($proyecto->titulo) ?>" disabled <?php //= $disabled                                           ?>>
+                            <input type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras" value="<?= htmlentities($proyecto->titulo, ENT_QUOTES) ?>" disabled <?php //= $disabled                                            ?>>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -127,7 +127,7 @@ $acti3 = 0;
                                 ?>
 
 
-                                <input type="text" id="proyecto-categoria" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= htmlentities($resultados->descripcion_categoria,ENT_QUOTES) ?>" disabled <?php //= $disabled                                           ?>>
+                                <input type="text" id="proyecto-categoria" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= htmlentities($resultados->descripcion_categoria, ENT_QUOTES) ?>" disabled <?php //= $disabled                                            ?>>
 
                             <?php } ?>
 
@@ -143,7 +143,7 @@ $acti3 = 0;
                                 ?>
 
 
-                            <input type="text" id="proyecto-asunto_id" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= htmlentities($equipo->asunto->descripcion_cabecera,ENT_QUOTES) ?>" disabled <?php //= $disabled                                           ?>>
+                                <input type="text" id="proyecto-asunto_id" class="form-control" name="Proyecto[categoria]" maxlength="200" title="Máximo 200 palabras" value=" <?= htmlentities($equipo->asunto->descripcion_cabecera, ENT_QUOTES) ?>" disabled <?php //= $disabled                                            ?>>
 
                             <?php } ?>
 
@@ -162,7 +162,7 @@ $acti3 = 0;
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group label-floating field-proyecto-beneficiario required">
                             <label class="control-label" for="proyecto-beneficiario">Objetivo general <span style="font-weight: normal !important;">(máximo 500 caracteres)</span></label>
-                            <textarea id="proyecto-beneficiario" class="form-control" name="Proyecto[beneficiario]" rows="3" maxlength="500"  <?= $disabled ?> ><?= htmlentities($proyecto->beneficiario) ?></textarea>
+                            <textarea id="proyecto-beneficiario" class="form-control" name="Proyecto[beneficiario]" rows="3" maxlength="500"  <?= $disabled ?> ><?= htmlentities($proyecto->beneficiario, ENT_QUOTES) ?></textarea>
                         </div>
                     </div>
 
@@ -198,7 +198,7 @@ $acti3 = 0;
                                 <p class="text-justify" style="margin: 20px;padding-top: 10px"></p>
                                 <div class="col-xs-12 col-sm-4 col-md-4"></div>
                                 <div class="col-xs-12 col-sm-4 col-md-4 text-center">
-                                    <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo ?>" target="_blank" class=" btn-lateral"><img height=22px src="<?= \Yii::$app->request->BaseUrl ?>/img/pdf.png"> Primera entrega</a>
+                                    <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= htmlentities($proyecto->proyecto_archivo, ENT_QUOTES) ?>" target="_blank" class=" btn-lateral"><img height=22px src="<?= \Yii::$app->request->BaseUrl ?>/img/pdf.png"> Primera entrega</a>
                                 </div>
                                 <div class="clearfix"></div>
                             </div><!--César has cambiado el elseif agregandole && $equipo->etapa==1 recuerda 22062016-->
@@ -218,7 +218,7 @@ $acti3 = 0;
                                 <p class="text-justify" style="margin: 20px;padding-top: 10px">Haz subido tu proyecto en el formato simplificado:</p>
                                 <div class="col-xs-12 col-sm-4 col-md-4"></div>
                                 <div class="col-xs-12 col-sm-4 col-md-4 text-center">
-                                    <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo2 ?>" target="_blank" class=" btn-lateral"><img height=22px src="<?= \Yii::$app->request->BaseUrl ?>/img/pdf.png"> Segunda entrega</a> <?= ($equipo->etapa != 2) ? '<span style="cursor: pointer;color: red" onclick="EliminarArchivo(' . $proyecto->id . ')"><b>(x)</b></span>' : ''; ?>
+                                    <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= htmlentities($proyecto->proyecto_archivo2, ENT_QUOTES) ?>" target="_blank" class=" btn-lateral"><img height=22px src="<?= \Yii::$app->request->BaseUrl ?>/img/pdf.png"> Segunda entrega</a> <?= ($equipo->etapa != 2) ? '<span style="cursor: pointer;color: red" onclick="EliminarArchivo(' . htmlentities($proyecto->id, ENT_QUOTES) . ')"><b>(x)</b></span>' : ''; ?>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -247,8 +247,8 @@ $acti3 = 0;
                                         <ul>
                                             <?php foreach ($actividades as $actividad) { ?>
                                                 <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_1_id) { ?>
-                                                    <li id='act'>Actividad: <?= htmlentities($actividad->descripcion) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion, ENT_QUOTES) ?>' name='Proyecto[actividades_1][]'></li>
-                                                    <input id="proyecto-actividades_ids_1_<?= $acti1 ?>" type="hidden" name="Proyecto[actividades_ids_1][]" placeholder="Actividad" value="<?= htmlentities($actividad->actividad_id) ?>" />
+                                                    <li id='act'>Actividad: <?= htmlentities($actividad->descripcion, ENT_QUOTES) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion, ENT_QUOTES) ?>' name='Proyecto[actividades_1][]'></li>
+                                                    <input id="proyecto-actividades_ids_1_<?= $acti1 ?>" type="hidden" name="Proyecto[actividades_ids_1][]" placeholder="Actividad" value="<?= htmlentities($actividad->actividad_id, ENT_QUOTES) ?>" />
                                                     <?php
                                                     $acti1 ++;
                                                 }
@@ -263,13 +263,13 @@ $acti3 = 0;
                             <div id="oe_2" class='col-xs-12 col-sm-12 col-md-12'>
                                 <?php if ($proyecto->objetivo_especifico_2) { ?>
                                     <ul>
-                                        <li id='oespe'><b>Objetivo Específico N° 2: <?= htmlentities($proyecto->objetivo_especifico_2) ?></b> <?= ($disabled == 'disabled') ? '' : "<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(2)'></span>" ?> </li>
+                                        <li id='oespe'><b>Objetivo Específico N° 2: <?= htmlentities($proyecto->objetivo_especifico_2, ENT_QUOTES) ?></b> <?= ($disabled == 'disabled') ? '' : "<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(2)'></span>" ?> </li>
                                         <input type='hidden' value='<?= htmlentities($proyecto->objetivo_especifico_2, ENT_QUOTES) ?>' name='Proyecto[objetivo_especifico_2]'>
                                         <ul>
                                             <?php foreach ($actividades as $actividad) { ?>
                                                 <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_2_id) { ?>
-                                                    <li id='act'>Actividad: <?= htmlentities($actividad->descripcion) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion, ENT_QUOTES) ?>' name='Proyecto[actividades_2][]'></li>
-                                                    <input id="proyecto-actividades_ids_2_<?= $acti2 ?>" type="hidden" name="Proyecto[actividades_ids_2][]" placeholder="Actividad" value="<?= htmlentities($actividad->actividad_id) ?>" />
+                                                    <li id='act'>Actividad: <?= htmlentities($actividad->descripcion, ENT_QUOTES) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion, ENT_QUOTES) ?>' name='Proyecto[actividades_2][]'></li>
+                                                    <input id="proyecto-actividades_ids_2_<?= $acti2 ?>" type="hidden" name="Proyecto[actividades_ids_2][]" placeholder="Actividad" value="<?= htmlentities($actividad->actividad_id, ENT_QUOTES) ?>" />
                                                     <?php
                                                     $acti2++;
                                                 }
@@ -284,13 +284,13 @@ $acti3 = 0;
                             <div id="oe_3" class='col-xs-12 col-sm-12 col-md-12'>
                                 <?php if ($proyecto->objetivo_especifico_3) { ?>
                                     <ul>
-                                        <li id='oespe'><b>Objetivo Específico N° 3: <?= htmlentities($proyecto->objetivo_especifico_3) ?></b> <?= ($disabled == 'disabled') ? '' : "<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(3)'></span>" ?> </li>
+                                        <li id='oespe'><b>Objetivo Específico N° 3: <?= htmlentities($proyecto->objetivo_especifico_3, ENT_QUOTES) ?></b> <?= ($disabled == 'disabled') ? '' : "<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(3)'></span>" ?> </li>
                                         <input type='hidden' value='<?= htmlentities($proyecto->objetivo_especifico_3, ENT_QUOTES) ?>' name='Proyecto[objetivo_especifico_3]'>
                                         <ul>
                                             <?php foreach ($actividades as $actividad) { ?>
                                                 <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_3_id) { ?>
-                                                    <li id='act'>Actividad: <?= htmlentities($actividad->descripcion) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion, ENT_QUOTES) ?>' name='Proyecto[actividades_3][]'></li>
-                                                    <input id="proyecto-actividades_ids_3_<?= $acti3 ?>" type="hidden" name="Proyecto[actividades_ids_3][]" placeholder="Actividad" value="<?= htmlentities($actividad->actividad_id) ?>" />
+                                                    <li id='act'>Actividad: <?= htmlentities($actividad->descripcion, ENT_QUOTES) ?><input type='hidden' value='<?= htmlentities($actividad->descripcion, ENT_QUOTES) ?>' name='Proyecto[actividades_3][]'></li>
+                                                    <input id="proyecto-actividades_ids_3_<?= $acti3 ?>" type="hidden" name="Proyecto[actividades_ids_3][]" placeholder="Actividad" value="<?= htmlentities($actividad->actividad_id, ENT_QUOTES) ?>" />
                                                     <?php
                                                     $acti3++;
                                                 }
@@ -317,11 +317,11 @@ $acti3 = 0;
                                 <?php $i = 0; ?>
                                 <?php foreach ($actividades as $actividad) { ?>
                                     <tr>
-                                        <td style="vertical-align: middle"><?= htmlentities($actividad->descripcion) ?></td>
+                                        <td style="vertical-align: middle"><?= htmlentities($actividad->descripcion, ENT_QUOTES) ?></td>
                                         <td style="padding: 2px">
                                             <div class="form-group field-proyecto-resultado_esperado_<?= $i ?> required" style="margin-top: 0px">
                                                 <input type="hidden"  class="form-control" name="Proyecto[resultados_ids][]" value="<?= $actividad->actividad_id ?>" >
-                                                <input type="text" id="proyecto-resultado_esperado_<?= $i ?>" class="form-control " name="Proyecto[resultados_esperados][]" placeholder="Resultado #<?= $i ?>" value="<?= htmlentities($actividad->resultado_esperado) ?>" <?= $disabled ?> >
+                                                <input type="text" id="proyecto-resultado_esperado_<?= $i ?>" class="form-control " name="Proyecto[resultados_esperados][]" placeholder="Resultado #<?= $i ?>" value="<?= htmlentities($actividad->resultado_esperado, ENT_QUOTES) ?>" <?= $disabled ?> >
                                             </div>
                                         </td>
                                     </tr>
@@ -336,10 +336,10 @@ $acti3 = 0;
                     <div class="clearfix"></div>
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_3">
-                    <?= \app\widgets\planpresupuestal\PlanPresupuestalWidget::widget(['proyecto_id' => $proyecto->id, 'disabled' => $disabled]); ?> 
+                    <?= \app\widgets\planpresupuestal\PlanPresupuestalWidget::widget(['proyecto_id' => htmlentities($proyecto->id), 'disabled' => $disabled]); ?> 
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_4">
-                    <?= \app\widgets\cronograma\CronogramaWidget::widget(['proyecto_id' => $proyecto->id, 'disabled' => $disabled]); ?> 
+                    <?= \app\widgets\cronograma\CronogramaWidget::widget(['proyecto_id' => htmlentities($proyecto->id), 'disabled' => $disabled]); ?> 
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_5">
                     <div class="clearfix"></div>
@@ -498,7 +498,7 @@ $acti3 = 0;
                                 if ($comen_monitores)
                                     foreach ($comen_monitores as $comen_monitor) {
                                         ?>
-                                        <option value="<?= $comen_monitor->id ?>" <?= ($comen_monitor->id == $proyecto->p4) ? 'selected' : '' ?>><?= htmlentities($comen_monitor->contenido,ENT_QUOTES) ?></option>
+                                        <option value="<?= $comen_monitor->id ?>" <?= ($comen_monitor->id == $proyecto->p4) ? 'selected' : '' ?>><?= htmlentities($comen_monitor->contenido, ENT_QUOTES) ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -534,7 +534,7 @@ $acti3 = 0;
                                 if ($comen_participantes)
                                     foreach ($comen_participantes as $comen_participante) {
                                         ?>
-                                <option value="<?= $comen_participante->id ?>" <?= ($comen_participante->id == $proyecto->p6) ? 'selected' : '' ?> ><?= htmlentities($comen_participante->contenido,ENT_QUOTES) ?></option>
+                                        <option value="<?= $comen_participante->id ?>" <?= ($comen_participante->id == $proyecto->p6) ? 'selected' : '' ?> ><?= htmlentities($comen_participante->contenido, ENT_QUOTES) ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -575,7 +575,7 @@ $acti3 = 0;
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-evaluacion required">
                                 <label class="control-label" for="proyecto-evaluacion" style="padding-left: 10px">Evaluación</label>
-                                <textarea id="proyecto-evaluacion" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1" class="form-control" name="Proyecto[evaluacion]"  <?= ($equipo->etapa == 2) ? 'disabled' : ''; ?>><?= $proyecto->evaluacion ?></textarea>
+                                <textarea id="proyecto-evaluacion" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1" class="form-control" name="Proyecto[evaluacion]"  <?= ($equipo->etapa == 2) ? 'disabled' : ''; ?>><?= htmlentities($proyecto->evaluacion, ENT_QUOTES) ?></textarea>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -706,9 +706,9 @@ $archivo_pro = Yii::$app->getUrlManager()->createUrl('proyecto/archivo');
 $archivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/archivo2');
 $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar-archivo2');
 ?>
-<!--var i=<?php //= $i                                         ?>;
-    var a=<?php //= $a                                          ?>;
-    var e=<?php //= $e                                          ?>;-->
+<!--var i=<?php //= $i                                          ?>;
+    var a=<?php //= $a                                           ?>;
+    var e=<?php //= $e                                           ?>;-->
 <script>
 
                                 $(document).ready(function ($) {
@@ -779,7 +779,7 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                                     align: 'right'
                                                 },
                                             });
-                                        }  else if (data.response == "1") {
+                                        } else if (data.response == "1") {
 
                                             $.notify({
                                                 message: 'Se ha subido tu proyecto satisfactoriamente'
@@ -791,11 +791,11 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                                     align: 'right'
                                                 },
                                             });
-                                              setTimeout(function () {
-                                                    location.reload();
-                                                }, 1500);
-                                            
-                                        } else  {
+                                            setTimeout(function () {
+                                                location.reload();
+                                            }, 1500);
+
+                                        } else {
                                             $.notify({
                                                 message: "El tamaño máximo es de 2 MB"
                                             }, {
@@ -907,53 +907,6 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                     }
 
 
-                                    /*
-                                     var error = '';
-                                     var etapa =<?= $etapa->etapa ?>;
-                                     if (etapa == 2) {
-                                     
-                                     $.ajax({
-                                     url: '<?= $evaluacion ?>',
-                                     type: 'POST',
-                                     async: true,
-                                     data: {'Evaluacion[evaluacion]': $('#proyecto-evaluacion').val(), 'Evaluacion[proyecto_id]':<?= $proyecto->id ?>, 'Evaluacion[user_id]':<?= \Yii::$app->user->id ?>},
-                                     success: function (data) {
-                                     $.notify({
-                                     message: 'Se ha guardado tu información'
-                                     }, {
-                                     type: 'success',
-                                     z_index: 1000000,
-                                     placement: {
-                                     from: 'bottom',
-                                     align: 'right'
-                                     },
-                                     });
-                                     
-                                     }
-                                     });
-                                     setTimeout(function () {
-                                     window.location.reload(1);
-                                     }, 1000);
-                                     return true;
-                                     }
-                                     else
-                                     {
-                                     $.notify({
-                                     message: 'Se ha guardado la información'
-                                     }, {
-                                     type: 'success',
-                                     z_index: 1000000,
-                                     placement: {
-                                     from: 'bottom',
-                                     align: 'right'
-                                     },
-                                     });
-                                     //$( "#w0" ).submit();
-                                     setTimeout(function () {
-                                     window.location.reload(1);
-                                     }, 1000);
-                                     return true;
-                                     }*/
 
 
 
@@ -1305,21 +1258,21 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                     if (oe == 1) {
 <?php foreach ($actividades as $actividad) { ?>
     <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_1_id) { ?>
-                                                
+
     <?php } ?>
 <?php } ?>
                                     }
                                     else if (oe == 2) {
 <?php foreach ($actividades as $actividad) { ?>
     <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_2_id) { ?>
-                                             
+
     <?php } ?>
 <?php } ?>
                                     }
                                     else if (oe == 3) {
 <?php foreach ($actividades as $actividad) { ?>
     <?php if ($actividad->objetivo_especifico_id == $proyecto->objetivo_especifico_3_id) { ?>
-                                               
+
     <?php } ?>
 <?php } ?>
                                     }
@@ -1342,7 +1295,7 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
                                     });
                                     //alert($(".tab-content .active").attr("id"));
                                     $("#tab_active_pro").val($(".tab-content .active").attr("id"));
-                                    //alert($("#tab_active_pro").val());
+
                                     $("#form_actualizar").submit();
                                     var body = "<div id='oe_" + oe + "' class='col-xs-12 col-sm-12 col-md-12'>" +
                                             "<ul><li id='oespe'><b>Objetivo Específico N° " + oe + ": " + xescape(temp_objetivo_especifico) + "</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(" + oe + ")'></span> </li>" +
@@ -1590,13 +1543,13 @@ $eliminararchivo_pro2 = Yii::$app->getUrlManager()->createUrl('proyecto/eliminar
 
                                 function validarReflexion() {
                                     var mensajex = "";
+
                                     
-                                //  alert('<?= $proyecto->p8?>');
-<?php 
-/* if ((($proyecto->p4 == "0" || ($proyecto->p4) ) && ($proyecto->p5_1 == 0 || !$proyecto->p5_1 ) && ($proyecto->p5_2 == "0" || !$proyecto->p5_2 ) && ($proyecto->p5_3 == "0" || !$proyecto->p5_3 ) && ($proyecto->p5_4 == "0" || !$proyecto->p5_4 ) && ($proyecto->p5_5 == "0" || !$proyecto->p5_5 ) && ($proyecto->p5_6 == "0" || !$proyecto->p5_6 ) && ($proyecto->p5_7 == "0" || !$proyecto->p5_7 ) && ($proyecto->p5_8 == "0" || !$proyecto->p5_8 ))) {*/
-if (( !$proyecto->p4 || !$proyecto->p6  || !$proyecto->p8  )) {
+<?php
+/* if ((($proyecto->p4 == "0" || ($proyecto->p4) ) && ($proyecto->p5_1 == 0 || !$proyecto->p5_1 ) && ($proyecto->p5_2 == "0" || !$proyecto->p5_2 ) && ($proyecto->p5_3 == "0" || !$proyecto->p5_3 ) && ($proyecto->p5_4 == "0" || !$proyecto->p5_4 ) && ($proyecto->p5_5 == "0" || !$proyecto->p5_5 ) && ($proyecto->p5_6 == "0" || !$proyecto->p5_6 ) && ($proyecto->p5_7 == "0" || !$proyecto->p5_7 ) && ($proyecto->p5_8 == "0" || !$proyecto->p5_8 ))) { */
+if ((!$proyecto->p4 || !$proyecto->p6 || !$proyecto->p8)) {
     ?>
-                                        mensajex='Complete la reflexión <br>';
+                                        mensajex = 'Complete la reflexión <br>';
 
 <?php } ?>
                                     return mensajex;
@@ -1608,8 +1561,8 @@ if (( !$proyecto->p4 || !$proyecto->p6  || !$proyecto->p8  )) {
 
 <?php if (Yii::$app->session->hasFlash('tab_active_pro')): ?>
     <script>
-                                // alert("<?= Yii::$app->session->getFlash('tab_active_pro') ?>");
-                                $("a[href='#<?= Yii::$app->session->getFlash('tab_active_pro') ?>']").click();
-                                //$("#<?= Yii::$app->session->getFlash('tab_active_pro') ?>").click();
+
+                                    $("a[href='#<?= htmlentities(Yii::$app->session->getFlash('tab_active_pro'), ENT_QUOTES) ?>']").click();
+
     </script>
 <?php endif; ?>

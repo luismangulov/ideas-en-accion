@@ -12,7 +12,7 @@ use yii\web\JsExpression;
 $opciones_objetivos = '';
 
 foreach ($objetivos as $objetivo) {
-    $opciones_objetivos = $opciones_objetivos . '<option value=' . $objetivo->id . '>' . htmlentities($objetivo->descripcion,ENT_QUOTES) . '</option>';
+    $opciones_objetivos = $opciones_objetivos . '<option value=' . $objetivo->id . '>' . htmlentities($objetivo->descripcion, ENT_QUOTES) . '</option>';
 }
 ?>
 <script src="<?= \Yii::$app->request->BaseUrl ?>/js/libs/2.1.4/jquery.min.js"></script>
@@ -335,6 +335,7 @@ $cargatablacronograma = Yii::$app->getUrlManager()->createUrl('cronograma/cargat
     });
             /*este carga cuando el selector observa de que hay data*/
                     function cronograma(valor) {
+                        
                     //$.material.init();
                     $.ajax({
                     url: '<?= $cargatablacronograma ?>',
@@ -388,7 +389,7 @@ $cargatablacronograma = Yii::$app->getUrlManager()->createUrl('cronograma/cargat
 <?php if ($disabled == '') { ?>
                                         "<td style='padding: 2px'>" +
                                                 "<span class='remCF glyphicon glyphicon-minus-sign'>" +
-                                                "<input class='id' type='hidden' name='Proyecto[cronogramas_ids][]' value='" + star.id + "' />" +
+                                                "<input class='id' type='hidden' name='Proyecto[cronogramas_ids][]' value='" + xescape(star.id) + "' />" +
                                                 "</span>" +
                                                 "</td>" +
 <?php } ?>
