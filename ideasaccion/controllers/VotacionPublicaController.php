@@ -55,7 +55,6 @@ class VotacionPublicaController extends Controller
     public function actionIndex()
     {
         $this->layout='votacionpublica';
-        /*
         $resultados=VotacionPublica::find()
                     ->select(['votacion_publica.proyecto_id','proyecto.titulo','proyecto.resumen','institucion.denominacion','equipo.id as equipo_id','video.tipo','video.ruta','(select count(proyecto_id) from votacion_final where proyecto_id=proyecto.id) as votos'])
                     ->innerJoin('proyecto','proyecto.id=votacion_publica.proyecto_id')
@@ -67,12 +66,12 @@ class VotacionPublicaController extends Controller
                     ->where('votacion_publica.region_id=:region_id',[':region_id'=>16])
                     ->orderBy('votos desc')
                     ->all();
-                    */
+        /*            
         $resultados=VistaResultado::find()
                     ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta','vista_resultado.voto','vista_resultado.puesto','vista_resultado.voto_nuevo'])
                     ->where('region_id=:region_id',[':region_id'=>16])
                     ->orderBy('voto_nuevo desc')
-                    ->all();
+                    ->all();*/
         return $this->render('index',['resultados'=>$resultados]);
     }
     
@@ -81,7 +80,7 @@ class VotacionPublicaController extends Controller
         if(isset($_POST["dni"]) && isset($_POST["region"]) && isset($_POST["v1"]) && isset($_POST["v2"])  && isset($_POST["v2"]) )
         {
             $dni=$_POST["dni"];
-            $fecha_nacimiento=$_POST["fecha_nacimiento"];
+            $ubigeo=$_POST["ubigeo"];
             $captcha=$_POST["captcha"];
             $region=$_POST["region"];
             $Countdni=strlen(trim($_POST["dni"]));
@@ -100,7 +99,7 @@ class VotacionPublicaController extends Controller
             }
             if($bandera == 0){
             
-                $existe=VotacionFinal::find()->select("dni")->where('dni=:dni',[':dni'=>$dni])->one();
+                $existe=VotacionFinal::find()->select("dni")->where('dni=:dni and ubigeo=:ubigeo',[':dni'=>$dni,':ubigeo'=>$ubigeo])->one();
                 if(!$existe && $Countdni==8)
                 {
                     if($v1==$v2 || $v1==$v3 || $v2==$v3)
@@ -111,7 +110,7 @@ class VotacionPublicaController extends Controller
                     {
                         $model1=new VotacionFinal;
                         $model1->dni=$dni;
-                        $model1->fecha_nacimiento=$fecha_nacimiento;
+                        $model1->ubigeo=$ubigeo;
                         $model1->region=$region;
                         $model1->proyecto_id=$v1;
                         $model1->estado=1;
@@ -120,7 +119,7 @@ class VotacionPublicaController extends Controller
                         
                         $model2=new VotacionFinal;
                         $model2->dni=$dni;
-                        $model2->fecha_nacimiento=$fecha_nacimiento;
+                        $model2->ubigeo=$ubigeo;
                         $model2->region=$region;
                         $model2->proyecto_id=$v2;
                         $model2->estado=1;
@@ -129,7 +128,7 @@ class VotacionPublicaController extends Controller
                         
                         $model3=new VotacionFinal;
                         $model3->dni=$dni;
-                        $model3->fecha_nacimiento=$fecha_nacimiento;
+                        $model3->ubigeo=$ubigeo;
                         $model3->region=$region;
                         $model3->proyecto_id=$v3;
                         $model3->estado=1;
@@ -145,12 +144,13 @@ class VotacionPublicaController extends Controller
             
         }
     }
-    public function actionValidarDni($dni)
+    public function actionValidarDni($dni,$ubigeo)
     {
-        if(isset($_POST["dni"]) && $_POST["dni"]!="")
+        if(isset($_POST["dni"]) && $_POST["dni"]!="" && isset($_POST["ubigeo"]) && $_POST["ubigeo"]!="")
         {
-            //$dni=$_POST["dni"];
-            $existe=VotacionFinal::find()->select("dni")->where('dni=:dni',[':dni'=>$dni])->one();
+            $dni=$_POST["dni"];
+            $ubigeo=$_POST["ubigeo"];
+            $existe=VotacionFinal::find()->select("dni")->where('dni=:dni and ubigeo=:ubigeo',[':dni'=>$dni,':ubigeo'=>$ubigeo])->one();
             $bandera=0;
             if($existe)
             {
