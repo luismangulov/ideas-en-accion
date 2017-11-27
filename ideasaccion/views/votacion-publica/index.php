@@ -998,8 +998,14 @@ use yii\helpers\Html;
 			<div class="form-group label-floating field-voto-dni required">
 			    <input type="text" id="voto-dni" placeholder="Ingresa tu DNI" onpaste="return false;" onCopy="return false" class="form-control numerico" name="Voto[dni]"  onfocusout="CambioDNI(this)" maxlength="8">
 			</div>
-			<div class="form-group label-floating field-voto-fechanacimiento required">
-			    <input type="text" id="voto-fechanacimiento" placeholder="Ingresa tu fecha de nacimiento" onpaste="return false;" onCopy="return false" class="form-control numerico" name="Voto[fechanacimiento]"  onfocusout="ValidarFecha(this)" maxlength="10">
+			<div class="form-group label-floating field-voto-ubigeo required">
+				<div style="text-align: right;margin-top: 8px;">
+			    <img class="popover1" style="cursor: pointer;float: right;position: absolute;margin-top: 10px;margin-left: 4px;" data-type='html' style="cursor: pointer"  data-title="Número de ubigeo de nacimiento de tu DNI" data-content='<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/ubigeo-en-dni.jpeg">' data-placement="bottom" src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_search_input.jpg" >
+			    </div>
+
+
+			    <input type="text" id="voto-ubigeo" placeholder="Ingresa tu ubigeo de nacimiento" onpaste="return false;" onCopy="return false" class="form-control numerico" name="Voto[ubigeo]" onfocusout="CambioDNI(this)" maxlength="6">
+			    
 			</div>
 			<div class="form-group label-floating field-voto-region required">
 			    <select id="voto-region" class="form-control" name="Voto[region]" >
@@ -1097,15 +1103,15 @@ use yii\helpers\Html;
 	</div>
 </div>
 
-<div class="popup" id="fechaformato_errado">
+<div class="popup" id="ubigeo_incompleto">
 	<div class="popup_content">
 		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
 		<form action="#" method="get">
 			<div class="form-group">
-				La fecha de nacimiento debe tener el formato DD/MM/AAAA.
+				El número de ubigeo de tu DNI debe contener 6 caracteres.
 			</div>
 			<div class="form-group">
-				<button type="button" id="aceptar_fechaformato_errado" class="btn btn-default">ACEPTAR</button>
+				<button type="button" id="aceptar_ubigeo_incompleto" class="btn btn-default">ACEPTAR</button>
 			</div>
 		</form>
 	</div>
@@ -1144,7 +1150,7 @@ use yii\helpers\Html;
 		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
 		<form action="#" method="get">
 			<div class="form-group">
-				Ingrese DNI y Región
+				Ingrese todos los datos requeridos
 			</div>
 			<div class="form-group">
 				<button type="button" id="aceptar_faltan_datos" class="btn btn-default btn_close_popup">ACEPTAR</button>
@@ -1216,6 +1222,7 @@ $mostrarvotacionpublicalima= Yii::$app->getUrlManager()->createUrl('voto/mostrar
 $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 ?>
 <script>
+	$('.popover1').webuiPopover();
 	window.fbAsyncInit = function() {
 		FB.init({
 			appId      : '1614163145472793',
@@ -1250,20 +1257,6 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 	};
 
 	$(document).ready(function () {
-
-		var $jqDate = jQuery('#voto-fechanacimiento');
-
-		$jqDate.bind('keyup','keydown', function(e){
-
-		    if(e.which !== 8) { 
-		        var numChars = $jqDate.val().length;
-		        if(numChars === 2 || numChars === 5){
-		            var thisVal = $jqDate.val();
-		            thisVal += '/';
-		            $jqDate.val(thisVal);
-		        }
-		  }
-		});
 				
 		$(document).on('click', ".popup .btn_close_popup", function(e){
 			e.preventDefault();
@@ -1302,12 +1295,19 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 
 			var numOptions = 0;
 
+
 			$(".input_votation_option").each(function(){
 				var obj = $(this);
 				if(obj.val() != "") numOptions++;
 			});
 
 			if(numOptions == 3){
+
+				$("#voto-dni").val('');
+				$("#voto-ubigeo").val('');
+				$("#voto-region").val('');
+				$("#voto-captcha").val('');
+
 				$("#voto-img-captcha").attr("src","<?= \Yii::$app->request->BaseUrl ?>/captcha.php?p=" + new Date().getMilliseconds());
 				$("#form_votar").show();
 			}else{
@@ -1530,35 +1530,28 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 	
     function Votar() {
         var error='';
-        if($('#voto-dni').val()=='' && $('#voto-region').val()=='')
+        if($('#voto-dni').val()==='' || $('#voto-ubigeo').val()==='' || $('#voto-region').val()==='')
         {
-            error='Ingrese DNI <br>';
-            error=error+'Ingrese Región <br>';
+        	error='';
+        	
+        	if($('#voto-dni').val()==='')
+        	{
+        		error='Ingrese DNI <br>';
+        	}
+            if($('#voto-ubigeo').val()==='')
+        	{
+        		error=error+'Ingrese Ubigeo <br>';
+        	}
+            if($('#voto-region').val()==='')
+        	{
+        		error=error+'Ingrese Región <br>';
+        	}
             
             $('#faltan_datos').show();
             $('#form_votar').hide();
             return false;
         }
         
-        if($('#voto-dni').val()=='')
-        {
-            error='Ingrese DNI <br>';
-            error=error+'Ingrese Región <br>';
-            
-            $('#faltan_datos_dni').show();
-            $('#form_votar').hide();
-            return false;
-        }
-        
-        if($('#voto-region').val()=='')
-        {
-            error='Ingrese DNI <br>';
-            error=error+'Ingrese Región <br>';
-            
-            $('#faltan_datos_region').show();
-            $('#form_votar').hide();
-            return false;
-        }
         
         if(error!='')
         {
@@ -1571,9 +1564,9 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
             $('.field-voto-region').addClass('has-success');
             $('.field-voto-region').removeClass('has-error');
 	    
-	    $.post( "<?= $registrar ?>", { 'captcha':$('#voto-captcha').val(), 'dni':$('#voto-dni').val(),'fecha_nacimiento':$('#voto-fechanacimiento').val(),'region':$('#voto-region').val(),'v1': $('#input_votation_1').val(),'v2':$('#input_votation_2').val(),'v3':$('#input_votation_3').val() })
+	    $.post( "<?= $registrar ?>", { 'captcha':$('#voto-captcha').val(), 'dni':$('#voto-dni').val(),'ubigeo':$('#voto-ubigeo').val(),'region':$('#voto-region').val(),'v1': $('#input_votation_1').val(),'v2':$('#input_votation_2').val(),'v3':$('#input_votation_3').val() })
 	    .done(function( data ) {
-	    	console.log('respuesta: '+data);
+	    	//console.log('respuesta: '+data);
 		    if(data==1)
                     {
                         $('#form_vote_send').parent().parent().hide();
@@ -1634,32 +1627,12 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
         }
         return true;
     });
-    
-    function ValidarFecha(elemento) {
-    	if($(elemento).val()!='')
-        {
-        	var re = /^([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2})$/;
-			var format = re.test($(elemento).val());
-            if(!format)
-            {
-                
-                $('#fechaformato_errado').show();
-                $('#form_votar').hide();
-                $('#voto-fechanacimiento').val('');
-
-                return false;
-            }
-            
-            return true;
-            
-        }
-        return false;
-    }
 
     function CambioDNI(elemento) {
-        if($(elemento).val()!='')
+    	//alert($(elemento).attr('id'));
+        if($(elemento).val()!=='')
         {
-            if($(elemento).val().length<8)
+            if($(elemento).attr('id') === 'voto-dni' && $(elemento).val().length<8)
             {
                 
                 $('#dni_incompleto').show();
@@ -1667,23 +1640,29 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
                 $('#voto-dni').val('');
                 return false;
             }
-            
+            else if($(elemento).attr('id') === 'voto-ubigeo' && $(elemento).val().length<6)
+            {
+                
+                $('#ubigeo_incompleto').show();
+                $('#form_votar').hide();
+                $('#voto-ubigeo').val('');
+                return false;
+            }
+            /*
             $.ajax({
                 url: '<?= $validardni ?>',
                 type: 'GET',
                 async: true,
-                data: {dni:$(elemento).val()},
+                data: {dni:$("#voto-dni").val(),ubigeo:$("#voto-ubigeo").val()},
                 success: function(data){
                     if(data==1)
                     {
                         $('#dni_duplicado').show();
                         $('#form_votar').hide();
                         $('#voto-dni').val('');
-                        
-                        
                     }
                 }
-            });
+            });*/
             return true;
             
         }
@@ -1696,10 +1675,10 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
         $('#dni_incompleto').hide();
     });
     
-    $("#aceptar_fechaformato_errado").on('click', function (e) {
+    $("#aceptar_ubigeo_incompleto").on('click', function (e) {
         e.preventDefault();
         $('#form_votar').show();
-        $('#fechaformato_errado').hide();
+        $('#ubigeo_incompleto').hide();
     });
 
     $("#aceptar_faltan_datos_region").on('click', function (e) {
@@ -1758,8 +1737,5 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 		}
 		return pieces.join(" ");
     }
-    function Informacion(proyecto)
-    {
-	
-    }
 </script>
+
