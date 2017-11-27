@@ -29,7 +29,8 @@ class VotacionFinal extends \yii\db\ActiveRecord
     {
         return [
             [['proyecto_id', 'estado'], 'integer'],
-            [['dni'], 'string', 'max' => 8]
+            [['dni'], 'string', 'max' => 8],
+            [['ubigeo'], 'string', 'max' => 6]
         ];
     }
 
@@ -41,6 +42,7 @@ class VotacionFinal extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'dni' => 'Dni',
+            'ubbigeo' => 'Ubigeo',
             'proyecto_id' => 'Proyecto ID',
             'estado' => 'Esstado',
         ];
